@@ -94,7 +94,7 @@ async def callback_group(callback : types.CallbackQuery):
 async def callback_group(callback: types.CallbackQuery):
     result_data = callback.data.split('_')[1]
     if result_data in first_course:
-        await Callbackdata(callback, first_course[result_data], await course())(result_data)
+        await Callbackdata(callback, f'✅ {first_course[result_data]}', await course())(result_data)
     elif result_data == "back":
         await callback.message.edit_text('Выберите группу', reply_markup= await course())
 
