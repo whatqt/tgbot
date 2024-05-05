@@ -19,6 +19,8 @@ async def admin(message: types.Message):
 /ver - посмотреть id чата\n
 /select_table <args> - посмотреть записи в бд\n
 /system <agrs> - выполняет системную команду cmd
+/while_time - запускает команду на проверку недели
+/update_task - после падения сервера возобновляет уведомления
 ''')
     else:pass
 

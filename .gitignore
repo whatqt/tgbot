@@ -7,3 +7,5 @@ keyboard_builder/__pycache__/
 parser/__pycache__/
 postgresql/__pycache__/
 send_mess_by_time/__pycache__/
+test.py
+.venv 

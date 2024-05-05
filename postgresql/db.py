@@ -1,9 +1,12 @@
 import asyncpg 
 from postgresql.connect import create_connection
 from aiogram import Bot
+import asyncio
+from datetime import datetime, timedelta
 
 
-bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
+
+bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
 
 
 async def insert_into_table(id_user, user_name, id_group):
@@ -29,10 +32,9 @@ async def insert_into_table(id_user, user_name, id_group):
         result = await cursor.fetch(selecet_from)
         for key in result:
             new_info = str(key)
-            print(new_info.split(' ')[1])
             if new_info.split(' ')[1] == f'id_user={id_user}>':
                 update_user_group = f'''
-                UPDATE users
+                UPDATE usersW
                 SET id_group = 'schedule_{id_group}'
                 WHERE id_user = {id_user}
                 ''' 
@@ -78,7 +80,7 @@ async def insert_into_time(id_user, hour, minute):
     finally:
         await cursor.close()    
 
-async def select_time_time(id_user):
+async def select_time_str(id_user):
     try:
         cursor = await create_connection()
         select_from = f'''
@@ -94,10 +96,35 @@ async def select_time_time(id_user):
         for info_time in result:
             new_info_time = str(info_time).split(' ', maxsplit=2)[2]
             if new_info_time != 'yes=None>':
-                result = new_info_time.split('(')[1].split(')')[0]
-                return result.replace(', ', ':')
+                result = new_info_time.split('(')[1].split(')')[0].replace(', ', '', 2).split(', ', 1)[1].replace(', ', ':')
+                # print(result)
+                return result
     finally:
         await cursor.close()      
+
+async def select_time_time_int(id_user):
+    try:
+        cursor = await create_connection()
+        select_from = f'''
+        SELECT id_user,
+        CASE
+            WHEN id_user = {id_user}
+                THEN time_set
+            ELSE NULL
+        END AS yes
+        FROM send_mess_time
+        '''
+        result_one = await cursor.fetch(select_from)
+        for info_time in result_one:
+            new_info_time = str(info_time).split(' ', maxsplit=2)[2]
+            if new_info_time != 'yes=None>':
+                result = new_info_time.split('(')[1].split(')')[0]
+                result_str = result.replace(', ', '-', 2).replace(', ', ' ', 1).replace(', ', ':')
+                # print(info_time)
+                return datetime.strptime(result_str, '%Y-%m-%d %H:%M')
+            
+    finally:
+        await cursor.close()   
 
 async def delete_date_time(id_user):
     try:
@@ -110,11 +137,13 @@ async def delete_date_time(id_user):
     finally:
         await cursor.close()      
 
+async def select_send_mess_time():
+    try:
+        cursor = await create_connection()
+        insert_all = '''
+        SELECT * FROM send_mess_time;        
+        '''        
+        return await cursor.fetch(insert_all)
+    finally:
+        await cursor.close()    
 
-
-#сделать автоудаление после достижения опредленного времени
-#сделать изменение в бд, если пользователь захотел переставить время (мб 1 task и 2 task будут иметь единное решение)
-#доделать класс, который упростит код
-# asyncio.run(insert_into_time(1151, '1009'))  
-# asyncio.run(insert_into_time(1752086646, '1008'))
-# asyncio.run(select_all_time(1752086646))

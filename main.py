@@ -7,7 +7,7 @@ from handlears import week
 
 
 async def main():
-    bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
+    bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc") #    bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
     dp = Dispatcher()
     dp.include_routers(
         cache_update.router, feeadback_and_report.router, 
@@ -16,7 +16,7 @@ async def main():
         help.router, admin.router,  
         check_time_for_mess.router
         )
-    await bot.delete_webhook(drop_pending_updates=True)
+    await bot.delete_webhook(drop_pending_updates=True) 
     await dp.start_polling(bot)
 
 

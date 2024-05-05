@@ -7,7 +7,7 @@ from aiogram import Bot
 
 
 router = Router()
-bot = Bot('6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw')
+bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
 
 
 @router.message(Command('feedback'))

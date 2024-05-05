@@ -7,13 +7,14 @@ import asyncio
 from keyboard_builder.reply_keyboard import *
 from handlears.current_day import *
 from handlears.score_week import *
-
+from aiogram.filters import Command
 
 
 router = Router()
+bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
 
 
-async def use_for(method, list): 
+async def use_for(message: types.Message, list, id_user, method): 
     numbers_couple = 0
     line = ''
     time = {1: '8:30-10:00', 2: '10:10-11:40', 3: '12:10-13:40', 4: '13:50-15:20', 5: '15:30-17:00'}
@@ -23,16 +24,35 @@ async def use_for(method, list):
             line += (f'{time[numbers_couple]} | {numbers_couple} пара | окно\n\n')
         else:
             line += (f'{time[numbers_couple]} | {numbers_couple} пара | {day}\n\n')  
-    await method(line)
-    list.clear()
+    match method:
+        case 'answer':
+            await message.reply(line)
+        case 'bot_send':
+            await bot.send_message(id_user, line)
+        case 'text':
+            return line
+    # list.clear()
 
-async def display_the_schedule(id_user, method, day):
+
+async def display_the_schedule(id_user, message: types.Message, day, method):
     try:
         id_group = await check_id_group(id_user)
         end_list = await check(id_group, day, 1)
-        await use_for(method, end_list.copy())
+        match method:
+            case 'text':
+                info = await use_for(message, end_list.copy(), id_user, method)
+                return info
+            case _:
+                await use_for(message, end_list.copy(), id_user, method)
+
     except AttributeError:
-        await method('❌ Выберите пожалуйста группу при помощи команды /group')
+        match method:
+            case 'answer':
+                await message.reply('❌ Выберите пожалуйста группу при помощи команды /group')
+            case 'bot_send':
+                await bot.send_message(id_user, '❌ Выберите пожалуйста группу при помощи команды /group')
+
+
 
 @router.message(F.text == 'Расписание занятий')
 async def schedule(message: types.Message):
@@ -60,59 +80,76 @@ async def back_keyboard(message: types.Message):
 
 @router.message(F.text == 'Понедельник первой недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'monday_one')
+    await display_the_schedule(message.from_user.id, message, 'monday_one', 'bot_send')
 
 @router.message(F.text == 'Вторник первой недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'tuesday_one')
+    await display_the_schedule(message.from_user.id, message, 'tuesday_one', 'answer')
 
 @router.message(F.text == 'Среда первой недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer,'wednesday_one')
+    await display_the_schedule(message.from_user.id, message,'wednesday_one', 'answer')
 
 @router.message(F.text == 'Четверг первой недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'thursday_one')
+    await display_the_schedule(message.from_user.id, message, 'thursday_one', 'answer')
 
 @router.message(F.text == 'Пятница первой недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'friday_one')
+    await display_the_schedule(message.from_user.id, message, 'friday_one', 'answer')
 
 @router.message(F.text == 'Суббота первой недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'saturday_one')
+    await display_the_schedule(message.from_user.id, message, 'saturday_one', 'answer')
 
 @router.message(F.text == 'Понедельник второй недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'monday_two')
+    await display_the_schedule(message.from_user.id, message, 'monday_two', 'answer')
 
 @router.message(F.text == 'Вторник второй недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'tuesday_two')
+    await display_the_schedule(message.from_user.id, message, 'tuesday_two', 'answer')
 
 @router.message(F.text == 'Среда второй недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'wednesday_two')
+    await display_the_schedule(message.from_user.id, message, 'wednesday_two', 'answer')
 
 @router.message(F.text == 'Четверг второй недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'thursday_two')
+    await display_the_schedule(message.from_user.id, message, 'thursday_two', 'answer')
 
 @router.message(F.text == 'Пятница второй недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'friday_two')
+    await display_the_schedule(message.from_user.id, message, 'friday_two', 'answer')
 
 @router.message(F.text == 'Суббота второй недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message.answer, 'saturday_two')
+    await display_the_schedule(message.from_user.id, message, 'saturday_two', 'answer')
 
 @router.message(F.text == 'Сегодняшние пары')
 async def otvet(message: types.Message):
     try:
-        await display_the_schedule(message.from_user.id, message.answer, await chek_week())
+        current_day = CurrentDay()
+        info_class = await display_the_schedule(
+            message.from_user.id, message, 
+            await check_week(), 'text'
+        )
+        if info_class is None:
+            await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
+            
+        else:
+            info_week = await week()
+            await message.answer(f'{info_week}\n\n{info_class}')
+
     except KeyError:
-        await message.answer('В воскресенье пар нет')
+        info_week = await week()
+        await message.answer(f'{info_week}\n\nВ воскресенье пар нет!')
         
+@router.message(Command('while_time'))
+async def time_while(message: types.Message):
+    if message.from_user.id == 1752086646:
+        await while_time()
+    
 # @router.message(F.text == 'Сегодняшние пары второй недели')
 # async def two_week(message: types.Message):
 #     current_day = CurrentDay()

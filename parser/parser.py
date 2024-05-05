@@ -39,15 +39,15 @@ async def group_check():
                     return f'Статус запроса - {resp.status} None'
 
 async def check_table(tables_one, tables_two):
-    s = 0
-    s_two = 0
+    len_tablse_one = 0
+    len_tablse_two = 0
     
     for i in tables_one:
-        s+=1
+        len_tablse_one+=1
     for j in tables_two:
-        s_two+=1
+        len_tablse_two+=1
         
-    return s+s_two
+    return len_tablse_one+len_tablse_two
 
 
 async def html_transform(table, element_list, day, new_list):

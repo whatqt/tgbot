@@ -6,7 +6,6 @@ from aiogram import Bot
 from parser.parser import *
 from func_cache.cache import generator_id, generator_schedule
 from func_cache.lessen import *
-import threading
 
 
 
@@ -38,27 +37,34 @@ async def upgrade_cache(id_group):
         record_cache(id_group, (next(mygenerator)), lst_two.copy())
         lst_two.clear()
 
-    await asyncio.sleep(0.1)
+    await asyncio.sleep(0)
     print('Кэш обновился')
 
 
 @router.message(Command('cache'))
 async def upgrade_ch_by_time(message: types.Message):
     if message.from_user.id == 1752086646:
-        result = await group_check()
-        new_result = result.split()
         while True:
+            result = await group_check()
+            new_result = result.split()            
             error = []            
             schedule_generation =  generator_schedule()
             id_generation =  generator_id()
-            a = 1   
+            a = 1
+            if new_result[3] != '200':
+                await bot.send_message(-4149670794, f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}\nПовторная попытка будет через 5 минут')
+                print('Обновление кэша не началось')
+                await asyncio.sleep(300)
+                continue        
             while a <=32:
                 try:
                     if new_result[3] != '200':
-                        await bot.send_message(-4149670794, f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}')
+                        await bot.send_message(
+                            -4149670794, 
+                            f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}\nПовторная попытки не будет')
                         print('Обновление кэша не началось')
-                        return                    
-                    
+                        break
+
                     print(f'Группа по словарю: {a}')
                     await change_id(next(id_generation))
                     await upgrade_cache(next(schedule_generation))
