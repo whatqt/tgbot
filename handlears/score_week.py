@@ -16,13 +16,9 @@ async def while_time():
         time_to_midnight = (midnight - now).total_seconds()
         # time_to_midnight = 1
         print(time_to_midnight)
-        if time_to_midnight >= 0:
-            night = True
-            print(night)
-        else:
-            await asyncio.sleep(time_to_midnight)
-            night = True
-            # print(night)
+        await asyncio.sleep(time_to_midnight)
+        night = True
+        # print(night)
             
 async def week():
     global score_week

@@ -80,7 +80,7 @@ async def back_keyboard(message: types.Message):
 
 @router.message(F.text == 'Понедельник первой недели')
 async def otvet(message: types.Message):
-    await display_the_schedule(message.from_user.id, message, 'monday_one', 'bot_send')
+    await display_the_schedule(message.from_user.id, message, 'monday_one', 'answer')
 
 @router.message(F.text == 'Вторник первой недели')
 async def otvet(message: types.Message):

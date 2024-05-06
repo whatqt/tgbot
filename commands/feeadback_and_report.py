@@ -24,7 +24,7 @@ async def feedback_user(
     
     feedback = command.args
     await bot.send_message(
-    -4149670794,
+     -4102265926,
     f'#отзыв\nПоступил отзыв от @{message.from_user.username}\nid пользователя: {message.from_user.id}\nОтзыв: {feedback}'                  
     )
     await message.reply(f'Благодарю за отзыв, @{message.from_user.username}!')
@@ -42,7 +42,7 @@ async def report_user(
         return
     
     await bot.send_message(
-    -4149670794,
+     -4102265926,
     f'#ошибка\nПоступил report от @{message.from_user.username}\nid пользователя: {message.from_user.id}\nОшибка: {command.args}'  
         )
     

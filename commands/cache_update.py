@@ -11,7 +11,7 @@ from func_cache.lessen import *
 
 
 router = Router()
-bot = Bot('6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw')
+bot = Bot('6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc')
 
 
 async def change_id(group_id):
@@ -52,7 +52,7 @@ async def upgrade_ch_by_time(message: types.Message):
             id_generation =  generator_id()
             a = 1
             if new_result[3] != '200':
-                await bot.send_message(-4149670794, f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}\nПовторная попытка будет через 5 минут')
+                await bot.send_message(-4112086004, f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}\nПовторная попытка будет через 5 минут')
                 print('Обновление кэша не началось')
                 await asyncio.sleep(300)
                 continue        
@@ -60,8 +60,8 @@ async def upgrade_ch_by_time(message: types.Message):
                 try:
                     if new_result[3] != '200':
                         await bot.send_message(
-                            -4149670794, 
-                            f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}\nПовторная попытки не будет')
+                            -4112086004, 
+                            f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}\nПовторной попытки не будет')
                         print('Обновление кэша не началось')
                         break
 
@@ -80,7 +80,7 @@ async def upgrade_ch_by_time(message: types.Message):
                     error.append(a)                    
                     a+=1
                     continue
-            await bot.send_message(-4149670794, f'#кэш\nКэш обновился\nГруппы которые не обновились: {error}')
+            await bot.send_message(-4112086004, f'#кэш\nКэш обновился\nГруппы которые не обновились: {error}')
             await asyncio.sleep(600)
 
 

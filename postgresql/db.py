@@ -19,7 +19,7 @@ async def insert_into_table(id_user, user_name, id_group):
         print(f'Имя пользователя: {user_name}\nid пользователя: {id_user}\nгруппа пользователя: {id_group}')
         print('Пользователь добавлен в базу данных 📝')
         await bot.send_message(
-        -4149670794, 
+        -1001948152320, 
         f'#база_данных\nИмя пользователя: {user_name}\nid пользователя: {id_user}\nгруппа пользователя: {id_group}'
         )
     except asyncpg.exceptions.UniqueViolationError:
@@ -34,7 +34,7 @@ async def insert_into_table(id_user, user_name, id_group):
             new_info = str(key)
             if new_info.split(' ')[1] == f'id_user={id_user}>':
                 update_user_group = f'''
-                UPDATE usersW
+                UPDATE users
                 SET id_group = 'schedule_{id_group}'
                 WHERE id_user = {id_user}
                 ''' 
@@ -42,7 +42,7 @@ async def insert_into_table(id_user, user_name, id_group):
                 print('id группы пользователя был успешно обновлён ✅')
                 print('\n')
                 await bot.send_message(
-                -4149670794, 
+                -1001948152320, 
                 f'#база_данных\nПользователь уже есть в базе данных 📋\nid пользователя {id_user} | user_name пользователя {user_name}\nid группы пользователя был успешно обновлён ✅'
                 )     
                 break
