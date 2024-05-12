@@ -11,7 +11,7 @@ from func_cache.lessen import *
 
 
 router = Router()
-bot = Bot('6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc')
+bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
 
 
 async def change_id(group_id):

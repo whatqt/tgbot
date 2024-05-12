@@ -3,16 +3,14 @@ from aiogram import types
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from postgresql.db import *
 from func_cache.check_cache import *
-import asyncio 
 from keyboard_builder.reply_keyboard import *
-from handlears.current_day import *
+from handlears.current_day import CurrentDay
 from handlears.score_week import *
 from aiogram.filters import Command
 
 
 router = Router()
-bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
-
+bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
 
 async def use_for(message: types.Message, list, id_user, method): 
     numbers_couple = 0
@@ -131,8 +129,8 @@ async def otvet(message: types.Message):
     try:
         current_day = CurrentDay()
         info_class = await display_the_schedule(
-            message.from_user.id, message, 
-            await check_week(), 'text'
+            message.from_user.id, message,  
+            await check_week(await current_day.today_day_week()), 'text'
         )
         if info_class is None:
             await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
@@ -149,6 +147,38 @@ async def otvet(message: types.Message):
 async def time_while(message: types.Message):
     if message.from_user.id == 1752086646:
         await while_time()
+
+@router.message(F.text == 'Завтрашние пары')
+async def tomorrow_class(message: types.Message):
+    try:
+        current_day = CurrentDay()
+        if await current_day.today_day_week() == 6:
+            info_class = await display_the_schedule(
+                    message.from_user.id, message, 
+                    await check_week(input_score_week=True), 'text'
+                )
+            if info_class is None:
+                await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
+                return
+            else:
+                info_week = await week(input_score_week=True)
+                await message.answer(f'{info_week}\n\n{info_class}')
+                return
+            
+        info_class = await display_the_schedule(
+            message.from_user.id, message, 
+            await check_week(await current_day.tomorrows_day_week()), 'text'
+        )
+        if info_class is None:
+            await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
+            
+        else:
+            info_week = await week()
+            await message.answer(f'{info_week}\n\n{info_class}')
+
+    except KeyError:
+        info_week = await week()
+        await message.answer(f'{info_week}\n\nВ воскресенье пар нет!')
     
 # @router.message(F.text == 'Сегодняшние пары второй недели')
 # async def two_week(message: types.Message):

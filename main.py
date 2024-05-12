@@ -7,7 +7,7 @@ from handlears import week
 
 
 async def main():
-    bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc") #    bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
+    bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
     dp = Dispatcher()
     dp.include_routers(
         cache_update.router, feeadback_and_report.router, 

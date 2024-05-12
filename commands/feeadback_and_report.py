@@ -9,7 +9,6 @@ from aiogram import Bot
 router = Router()
 bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
 
-
 @router.message(Command('feedback'))
 async def feedback_user(
     message: types.Message,
@@ -24,7 +23,7 @@ async def feedback_user(
     
     feedback = command.args
     await bot.send_message(
-     -4102265926,
+    -4102265926,
     f'#отзыв\nПоступил отзыв от @{message.from_user.username}\nid пользователя: {message.from_user.id}\nОтзыв: {feedback}'                  
     )
     await message.reply(f'Благодарю за отзыв, @{message.from_user.username}!')
@@ -42,7 +41,7 @@ async def report_user(
         return
     
     await bot.send_message(
-     -4102265926,
+    -4102265926,
     f'#ошибка\nПоступил report от @{message.from_user.username}\nid пользователя: {message.from_user.id}\nОшибка: {command.args}'  
         )
     

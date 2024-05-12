@@ -1,13 +1,11 @@
 import asyncpg 
 from postgresql.connect import create_connection
 from aiogram import Bot
-import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 
 bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
-
 
 async def insert_into_table(id_user, user_name, id_group):
     cursor = await create_connection()

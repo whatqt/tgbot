@@ -58,7 +58,7 @@ async def send_class_by_time(message: types.Message, command: CommandObject):
                 time_from_db_str = await select_time_str(message.from_user.id)
                 # real_time = datetime.now().replace(microsecond=0)
                 # time_from_db_int = await select_time_time_int(message.from_user.id)
-                print(await select_time_time_int(message.from_user.id))
+                # print(await select_time_time_int(message.from_user.id))
                 print(f'real_time {real_time}')
                 print(f'time_from_db {time_from_db_str}\n')
                 if time_from_db_str is None:
