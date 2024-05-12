@@ -11,7 +11,6 @@ from os import system
 router = Router()
 
 
-
 @router.message(Command('admin'))
 async def admin(message: types.Message):
     if message.from_user.id == 1752086646:
