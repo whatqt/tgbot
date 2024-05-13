@@ -78,7 +78,7 @@ async def send_class_by_time(message: types.Message, command: CommandObject):
                     if real_time == time_from_db_str:
                         current_day = CurrentDay()
                         await delete_date_time(message.from_user.id)
-                        await display_the_schedule(message.from_user.id, message, await check_week(), 'answer')
+                        await display_the_schedule(message.from_user.id, message, await check_week(await current_day.today_day_week()), 'answer')
                         user_list_use_command.remove(message.from_user.id)
                         print(f'Сеанс {message.from_user.id} закончен')
                         break  
@@ -150,7 +150,7 @@ async def update_task_code(message: types.Message, id_user):
                 if real_time == time_from_bd:
                     current_day = CurrentDay()
                     await delete_date_time(id_user)
-                    await display_the_schedule(id_user, None, await check_week(), 'bot_send')
+                    await display_the_schedule(id_user, None, await check_week(await current_day.today_day_week()), 'bot_send')
                     user_list_use_command.remove(id_user)
                     print(f'Сеанс {id_user} закончен')
                     break

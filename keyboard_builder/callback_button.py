@@ -2,6 +2,8 @@ from aiogram import types
 # from data_base.db import insert_into_table
 from postgresql.db import insert_into_table
 
+
+
 class CallbackButton:
     def __init__(self, text, callback_data, builder):
         self.text = text
