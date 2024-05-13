@@ -1,7 +1,6 @@
 from aiogram import Router, F
 from aiogram.filters import Command, CommandObject
 from aiogram import types
-import asyncio
 from aiogram import Bot
 
 

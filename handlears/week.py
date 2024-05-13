@@ -68,6 +68,7 @@ async def await_button(message: types.Message):
 async def back_menu(message: types.Message):
     builder = ReplyKeyboardBuilder()
     builder.add(types.KeyboardButton(text='Сегодняшние пары'))
+    builder.add(types.KeyboardButton(text='Завтрашние пары'))
     builder.add(types.KeyboardButton(text='Расписание занятий'))
     builder.adjust(2)
     await message.answer('Вы вернулись в главное меню.',reply_markup=builder.as_markup(resize_keyboard=True))
