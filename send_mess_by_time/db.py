@@ -5,7 +5,7 @@ import asyncio
 from aiogram import Bot
 
 
-bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
+bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
 
 
 async def insert_into_table(id_user, user_name, id_group):
@@ -19,7 +19,7 @@ async def insert_into_table(id_user, user_name, id_group):
         print('Пользователь добавлен в базу данных 📝')
         await bot.send_message(
         -4149670794, 
-        f'#база_данных\nИмя пользователя: {user_name}\nid пользователя: {id_user}\nгруппа пользователя: {id_group}'
+        f'#база_данных\nИмя пользователя: {user_name}\nid пользователя: @{id_user}\nгруппа пользователя: {id_group}'
         )
     except asyncpg.exceptions.UniqueViolationError:
         print('Пользователь уже есть в базе данных 📋 ') 
@@ -29,22 +29,18 @@ async def insert_into_table(id_user, user_name, id_group):
         ''' 
         # await pool.execute(selecet_from)
         result = await cursor.fetch(selecet_from)
-        for key in result:
-            new_info = str(key)
-            if new_info.split(' ')[1] == f'id_user={id_user}>':
-                update_user_group = f'''
-                UPDATE users
-                SET id_group = 'schedule_{id_group}'
-                WHERE id_user = {id_user}
-                ''' 
-                await cursor.execute(update_user_group)
-                print('id группы пользователя был успешно обновлён ✅')
-                print('\n')
-                await bot.send_message(
-                -4149670794, 
-                f'#база_данных\nПользователь уже есть в базе данных 📋\nid пользователя {id_user} | user_name пользователя {user_name}\nid группы пользователя был успешно обновлён ✅'
-                )     
-                break
+        update_user_group = f'''
+        UPDATE users
+        SET id_group = 'schedule_{id_group}'
+        WHERE id_user = {id_user}
+        ''' 
+        await cursor.execute(update_user_group)
+        print('id группы пользователя был успешно обновлён ✅')
+        print('\n')
+        await bot.send_message(
+        -4149670794, 
+        f'#база_данных\nПользователь уже есть в базе данных 📋\nid пользователя {id_user} | user_name пользователя {user_name}\nid группы пользователя был успешно обновлён ✅'
+        )     
     finally:
         await cursor.close()
 

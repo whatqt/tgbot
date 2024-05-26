@@ -1,16 +1,14 @@
 from calendar import weekday
-import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime
 from func_cache.cache import currentday_dict
 
 
 
 class CurrentDay:
-    def __init__(self, plus_day: int=0):
+    def __init__(self):
         self.year = datetime.now().year
         self.month = datetime.now().month
         self.day = datetime.now().day
-        self.plus_day = plus_day
 
     async def today_day_week(self): 
         return weekday(self.year, self.month, self.day) 

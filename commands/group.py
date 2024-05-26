@@ -99,7 +99,6 @@ async def callback_group(callback: types.CallbackQuery):
         await create_schedule(callback)
     elif result_data == "back":
         await callback.message.edit_text('Выберите группу', reply_markup= await course())
-
     await callback.answer()
 
 @router.callback_query(F.data.startswith("secondcourse"))
@@ -111,7 +110,6 @@ async def callback_group(callback: types.CallbackQuery,):
 
     else:
         await callback.message.edit_text('Выберите группу', reply_markup= await course())
-
     await callback.answer()
 
 @router.callback_query(F.data.startswith("thirdcourse"))
@@ -122,7 +120,6 @@ async def callback_group(callback: types.CallbackQuery,):
         await create_schedule(callback)
     else:
         await callback.message.edit_text('Выберите группу', reply_markup= await course())
-
     await callback.answer()
 
 @router.callback_query(F.data.startswith("fourthcourse"))
@@ -133,5 +130,4 @@ async def callback_group(callback: types.CallbackQuery,):
         await create_schedule(callback)
     else:
         await callback.message.edit_text('Выберите группу', reply_markup= await course())
-
     await callback.answer()

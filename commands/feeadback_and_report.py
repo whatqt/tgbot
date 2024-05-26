@@ -20,10 +20,9 @@ async def feedback_user(
         )
         return
     
-    feedback = command.args
     await bot.send_message(
     -4102265926,
-    f'#отзыв\nПоступил отзыв от @{message.from_user.username}\nid пользователя: {message.from_user.id}\nОтзыв: {feedback}'                  
+    f'#отзыв\nПоступил отзыв от @{message.from_user.username}\nid пользователя: {message.from_user.id}\nОтзыв: {command.args}'                  
     )
     await message.reply(f'Благодарю за отзыв, @{message.from_user.username}!')
 

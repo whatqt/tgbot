@@ -23,27 +23,18 @@ async def insert_into_table(id_user, user_name, id_group):
     except asyncpg.exceptions.UniqueViolationError:
         print('Пользователь уже есть в базе данных 📋 ') 
         print(f'id пользователя {id_user} | user_name пользователя {user_name}')
-        selecet_from = '''
-        SELECT id_user FROM users
+        update_user_group = f'''
+        UPDATE users
+        SET id_group = 'schedule_{id_group}'
+        WHERE id_user = {id_user}
         ''' 
-        # await pool.execute(selecet_from)
-        result = await cursor.fetch(selecet_from)
-        for key in result:
-            new_info = str(key)
-            if new_info.split(' ')[1] == f'id_user={id_user}>':
-                update_user_group = f'''
-                UPDATE users
-                SET id_group = 'schedule_{id_group}'
-                WHERE id_user = {id_user}
-                ''' 
-                await cursor.execute(update_user_group)
-                print('id группы пользователя был успешно обновлён ✅')
-                print('\n')
-                await bot.send_message(
-                -1001948152320, 
-                f'#база_данных\nПользователь уже есть в базе данных 📋\nid пользователя {id_user} | user_name пользователя {user_name}\nid группы пользователя был успешно обновлён ✅'
-                )     
-                break
+        await cursor.execute(update_user_group)
+        print('id группы пользователя был успешно обновлён ✅')
+        print('\n')
+        await bot.send_message(
+        -1001948152320, 
+        f'#база_данных\nПользователь уже есть в базе данных 📋\nid пользователя {id_user} | user_name пользователя {user_name}\nid группы пользователя был успешно обновлён ✅'
+        )     
     finally:
         await cursor.close()
 
@@ -134,14 +125,5 @@ async def delete_date_time(id_user):
         await cursor.execute(delete_date)
     finally:
         await cursor.close()      
-
-async def select_send_mess_time():
-    try:
-        cursor = await create_connection()
-        insert_all = '''
-        SELECT * FROM send_mess_time;        
-        '''        
-        return await cursor.fetch(insert_all)
-    finally:
-        await cursor.close()    
+ 
 

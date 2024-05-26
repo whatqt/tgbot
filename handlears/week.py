@@ -181,12 +181,6 @@ async def tomorrow_class(message: types.Message):
         info_week = await week()
         await message.answer(f'{info_week}\n\nВ воскресенье пар нет!')
     
-# @router.message(F.text == 'Сегодняшние пары второй недели')
-# async def two_week(message: types.Message):
-#     current_day = CurrentDay()
-#     try:
-#         await display_the_schedule(message.from_user.id, message.answer, await current_day_two(await current_day()))
-#     except KeyError:
-#         await message.answer('В воскресенье пар нет')
+
 
 
