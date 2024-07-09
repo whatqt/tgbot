@@ -32,7 +32,6 @@ async def while_time():
                 if score == 8: #8
                     score_week -=1
                     score-= 7 #7
-
             
 async def week(input_score_week=None):
     global score_week

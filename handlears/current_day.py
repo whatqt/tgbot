@@ -25,5 +25,3 @@ async def current_day_two(numday):
     result = currentday_dict[numday]
     return f'{result}_two'
 
-# current_day = CurrentDay()
-# print(asyncio.run(current_day.tomorrows_day_week()))

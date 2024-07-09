@@ -13,12 +13,12 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from asyncpg.exceptions import *
 from func_cache.check_cache import check
 from handlears.score_week import *
-
+import os
 
 
 
 router = Router()
-bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
+bot = Bot(token=os.getenv('TOKEN_BOT'))
 
 user_list = []
 user_list_use_command = []
@@ -71,8 +71,6 @@ async def send_class_by_time(message: types.Message, command: CommandObject):
                         await message.reply('Время для изменение времени уведомление прошло. Запустите команду еще раз.')
                         break
                     
-
-
                 elif time_from_db_str:
                     unsuccessful_attempts = 0
                     if real_time == time_from_db_str:
@@ -168,7 +166,7 @@ async def update_task(message: types.Message):
         result_db = await select_send_mess_time()
         tasks = []
         for info_db in result_db:
-            id_user = str(info_db).split('id_user=')[1].split(maxsplit=1)[0]
+            id_user = str(info_db).split('id_user=')[1].split(maxsplit=1)[0].replace('>', '')
             print(id_user)
             task = asyncio.create_task(update_task_code(message, int(id_user)))
             tasks.append(task)

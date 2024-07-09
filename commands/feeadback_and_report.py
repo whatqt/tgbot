@@ -2,11 +2,11 @@ from aiogram import Router, F
 from aiogram.filters import Command, CommandObject
 from aiogram import types
 from aiogram import Bot
-
+import os
 
 
 router = Router()
-bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
+bot = Bot(token=os.getenv('TOKEN_BOT'))
 
 @router.message(Command('feedback'))
 async def feedback_user(
@@ -21,7 +21,7 @@ async def feedback_user(
         return
     
     await bot.send_message(
-    -4102265926,
+    -4149670794,
     f'#отзыв\nПоступил отзыв от @{message.from_user.username}\nid пользователя: {message.from_user.id}\nОтзыв: {command.args}'                  
     )
     await message.reply(f'Благодарю за отзыв, @{message.from_user.username}!')
@@ -39,7 +39,7 @@ async def report_user(
         return
     
     await bot.send_message(
-    -4102265926,
+    -4149670794,
     f'#ошибка\nПоступил report от @{message.from_user.username}\nid пользователя: {message.from_user.id}\nОшибка: {command.args}'  
         )
     

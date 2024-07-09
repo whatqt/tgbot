@@ -6,12 +6,12 @@ from aiogram import Bot
 from parser.parser import *
 from func_cache.cache import generator_id, generator_schedule
 from func_cache.lessen import *
+import os
 
 
 
 router = Router()
-# bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
-bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
+bot = Bot(token=os.getenv('TOKEN_BOT'))
 
 async def change_id(group_id):
    await group(URL, group_id, tables)
@@ -63,10 +63,9 @@ async def upgrade_ch_by_time(message: types.Message):
                     if new_result[3] != '200':
                         await bot.send_message(
                             -4149670794, 
-                            f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}\nПовторной попытки не будет')
+                            f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}')
                         print('Обновление кэша не началось')
                         break
-
                     print(f'Группа по словарю: {group}')
                     await change_id(next(id_generation))
                     await upgrade_cache(next(schedule_generation))
@@ -82,7 +81,7 @@ async def upgrade_ch_by_time(message: types.Message):
                     error.append(group)                    
                     group+=1
                     continue
-            await bot.send_message(-4112086004, f'#кэш\nКэш обновился\nГруппы которые не обновились: {error}')
+            await bot.send_message(-4149670794, f'#кэш\nКэш обновился\nГруппы которые не обновились: {error}')
             await asyncio.sleep(600)
 
 

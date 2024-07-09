@@ -10,7 +10,7 @@ from aiogram.filters import Command
 
 
 router = Router()
-bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
+bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
 
 async def use_for(message: types.Message, list, id_user, method): 
     numbers_couple = 0

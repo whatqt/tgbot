@@ -47,6 +47,8 @@ currentday_dict = {
     5: 'saturday',
     6: None
 }
+
+#Так как redis нет на Windows, а WSL у меня не работает, а место под вторую операционку нет, то приходится выкручиваться таким образом
 schedule_1008 = {
     'monday_one': '', 
     'tuesday_one': '', 

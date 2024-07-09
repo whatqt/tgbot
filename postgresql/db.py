@@ -2,10 +2,12 @@ import asyncpg
 from postgresql.connect import create_connection
 from aiogram import Bot
 from datetime import datetime
+import asyncio
+import os
 
 
 
-bot = Bot(token="6707038280:AAGFfo73_3sf_Es0ptpA5uzPzrcDnOMAjRc")
+bot = Bot(token=os.getenv('TOKEN_BOT'))
 
 async def insert_into_table(id_user, user_name, id_group):
     cursor = await create_connection()
@@ -17,22 +19,21 @@ async def insert_into_table(id_user, user_name, id_group):
         print(f'Имя пользователя: {user_name}\nid пользователя: {id_user}\nгруппа пользователя: {id_group}')
         print('Пользователь добавлен в базу данных 📝')
         await bot.send_message(
-        -1001948152320, 
+        -4149670794, 
         f'#база_данных\nИмя пользователя: {user_name}\nid пользователя: {id_user}\nгруппа пользователя: {id_group}'
         )
     except asyncpg.exceptions.UniqueViolationError:
         print('Пользователь уже есть в базе данных 📋 ') 
-        print(f'id пользователя {id_user} | user_name пользователя {user_name}')
+        print(f'id пользователя {id_user}\nuser_name пользователя @{user_name}\nгруппа пользователя {id_group}')
         update_user_group = f'''
         UPDATE users
         SET id_group = 'schedule_{id_group}'
         WHERE id_user = {id_user}
         ''' 
         await cursor.execute(update_user_group)
-        print('id группы пользователя был успешно обновлён ✅')
-        print('\n')
+        print('id группы пользователя был успешно обновлён ✅\n')
         await bot.send_message(
-        -1001948152320, 
+        -4149670794, 
         f'#база_данных\nПользователь уже есть в базе данных 📋\nid пользователя {id_user} | user_name пользователя {user_name}\nid группы пользователя был успешно обновлён ✅'
         )     
     finally:
@@ -126,4 +127,15 @@ async def delete_date_time(id_user):
     finally:
         await cursor.close()      
  
+async def select_send_mess_time():
+    try:
+        cursor = await create_connection()
+        select_all_date_time = """
+        SELECT id_user FROM send_mess_time
+        """
+        info = await cursor.fetch(select_all_date_time)
+        return info
+    finally:
+        await cursor.close()
 
+asyncio.run(select_send_mess_time())
