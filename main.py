@@ -5,7 +5,6 @@ from send_mess_by_time import check_time_for_mess
 from handlears import week
 import os
 
-print(os.getenv('TOKEN_BOT'))
 
 
 async def main():
