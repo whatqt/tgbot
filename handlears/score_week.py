@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 import asyncio
 
 
-score = 7 # 1 - первая неделя 2 - вторая неделя 
-score_week = 2
+score = 1 # 1 - первая неделя 2 - вторая неделя 
+score_week = 1
 night = False
 
 async def while_time():

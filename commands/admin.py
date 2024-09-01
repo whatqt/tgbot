@@ -3,7 +3,6 @@ from aiogram.filters import Command,  CommandObject
 from aiogram import types
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from parser.parser import *
-# from data_base.db import insert_all
 from os import system
 
 

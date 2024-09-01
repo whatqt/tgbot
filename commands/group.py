@@ -19,59 +19,60 @@ async def course():
     builder.adjust(2)
     return builder.as_markup()
 
-async def  get_first_course():
+async def get_first_course():
     builder = InlineKeyboardBuilder()
-    await CallbackButton("ИСП9-31", "firstcourse_1008", builder)(),
-    await CallbackButton("ИСП9-32", "firstcourse_1014", builder)(),
-    await CallbackButton("ЭБУ9-31", "firstcourse_1010", builder)(),
-    await CallbackButton("КТМ-31", "firstcourse_1005", builder)(),
-    await CallbackButton("С-31", "firstcourse_1006", builder)(),
-    await CallbackButton("ЭБУ11-31", "firstcourse_1011", builder)(),
-    await CallbackButton("ЭиЭ-31", "firstcourse_1007", builder)(),
-    await CallbackButton("ЭС11-31", "firstcourse_1013", builder)(),
-    await CallbackButton("ИВТ-31", "firstcourse_1004", builder)(), 
-    await CallbackButton("ИСП11-31", "firstcourse_1009", builder)()
+    await CallbackButton("ИВТ-41", "firstcourse_1016", builder)(),
+    await CallbackButton("ИСП11-41", "firstcourse_1022", builder)(),
+    await CallbackButton("ИСП9-41", "firstcourse_1020", builder)(),
+    await CallbackButton("ИСП9-42", "firstcourse_1021", builder)(),
+    await CallbackButton("КТМ-41", "firstcourse_1017", builder)(),
+    await CallbackButton("С-41", "firstcourse_1018", builder)(),
+    await CallbackButton("ЭБУ11-41", "firstcourse_1026", builder)(),
+    await CallbackButton("ЭБУ9-41", "firstcourse_1025", builder)(),
+    await CallbackButton("ЭиЭ-41", "firstcourse_1019", builder)(), 
+    await CallbackButton("ЭС11-41", "firstcourse_1024", builder)()
     await CallbackButton("Выбрать другой курс", "firstcourse_back", builder)()
     builder.adjust(3)
     return builder.as_markup()
 
 async def get_second_course():
     builder = InlineKeyboardBuilder()
-    await CallbackButton("ИВТ-21", "secondcourse_992", builder)(),
-    await CallbackButton("ИСП11-21", "secondcourse_987", builder)(),
-    await CallbackButton("ИСП9-21", "secondcourse_988", builder)(),
-    await CallbackButton("КТМ-21", "secondcourse_994", builder)(),
-    await CallbackButton("С-21", "secondcourse_991", builder)(),
-    await CallbackButton("ЭБУ11-21", "secondcourse_989", builder)(),
-    await CallbackButton("ЭБУ9-21", "secondcourse_990", builder)(),
-    await CallbackButton("ЭиЭ-21", "secondcourse_993", builder)(),
+    await CallbackButton("ИСП9-31", "secondcourse_1008", builder)()
+    await CallbackButton("ИСП9-32", "secondcourse_1014", builder)()
+    await CallbackButton("ЭБУ9-31", "secondcourse_1010", builder)()
+    await CallbackButton("КТМ-31", "secondcourse_1005", builder)()
+    await CallbackButton("С-31", "secondcourse_1006", builder)()
+    await CallbackButton("ЭБУ11-31", "secondcourse_1011", builder)()
+    await CallbackButton("ЭиЭ-31", "secondcourse_1007", builder)()
+    await CallbackButton("ЭС11-31", "secondcourse_1013", builder)()
+    await CallbackButton("ИВТ-31", "secondcourse_1004", builder)()
+    await CallbackButton("ИСП11-31", "secondcourse_1009", builder)()
     await CallbackButton("Выбрать другой курс", "secondcourse_back", builder)()
-    builder.adjust(4)
+    builder.adjust(3)
     return builder.as_markup()
 
 async def get_third_course():
     builder = InlineKeyboardBuilder()
-    await CallbackButton("ИВТ-11", "thirdcourse_977", builder)(),
-    await CallbackButton("ИСП-11", "thirdcourse_984", builder)(),
-    await CallbackButton("КТМ-11", "thirdcourse_979", builder)(),
-    await CallbackButton("С-11", "thirdcourse_976", builder)(),
-    await CallbackButton("ЭБУ11-11", "thirdcourse_982", builder)(),
-    await CallbackButton("ЭБУ9-11", "thirdcourse_983", builder)(),
-    await CallbackButton("ЭиЭ-11", "thirdcourse_978", builder)(),
-    await CallbackButton("ЭФК-11", "thirdcourse_981", builder)(),
+    await CallbackButton("ИВТ-21", "thirdcourse_992", builder)()
+    await CallbackButton("ИСП11-21", "thirdcourse_987", builder)()
+    await CallbackButton("ИСП9-21", "thirdcourse_988", builder)()
+    await CallbackButton("КТМ-21", "thirdcourse_994", builder)()
+    await CallbackButton("С-21", "thirdcourse_991", builder)()
+    await CallbackButton("ЭБУ9-21", "thirdcourse_990", builder)()
+    await CallbackButton("ЭиЭ-21", "thirdcourse_993", builder)()
     await CallbackButton("Выбрать другой курс", "thirdcourse_back", builder)()
     builder.adjust(4)
     return builder.as_markup()
 
 async def get_fourth_course():
     builder = InlineKeyboardBuilder()
-    await CallbackButton("ИСП9-31", "fourthcourse_937", builder)(),
-    await CallbackButton("ИСП9-32", "fourthcourse_940", builder)(),
-    await CallbackButton("ЭБУ9-31", "fourthcourse_936", builder)(),
-    await CallbackButton("КТМ-31", "fourthcourse_919", builder)(),
-    await CallbackButton("С-31", "fourthcourse_933", builder)(),
-    await CallbackButton("Выбрать другой курс", "thirdcourse_back", builder)()
-    builder.adjust(5)
+    await CallbackButton("ИВТ-11", "fourthcourse_977", builder)()
+    await CallbackButton("КТМ-11", "fourthcourse_979", builder)()
+    await CallbackButton("С-11", "fourthcourse_976", builder)()
+    await CallbackButton("ЭиЭ-11", "fourthcourse_978", builder)()
+    await CallbackButton("ЭФК-11", "fourthcourse_981", builder)()
+    await CallbackButton("Выбрать другой курс", "fourthcourse_back", builder)()
+    builder.adjust(3)
     return builder.as_markup()
 
 @router.message(Command('group'))

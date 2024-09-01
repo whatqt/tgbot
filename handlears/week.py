@@ -12,6 +12,41 @@ from aiogram.filters import Command
 router = Router()
 bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
 
+def emoji_number_couple(nubmer: int):
+    match nubmer:
+        case 1:
+            return '1️⃣'
+        case 2:
+            return '2️⃣'
+        case 3:
+            return '3️⃣'
+        case 4:
+            return '4️⃣'
+        case 5:
+            return '5️⃣'
+        
+        case _:
+            return nubmer
+ttt = '341 ауд. Информатика лек Кнышов И.Ю. ассистент'
+
+def edited_numbers_cabinet(text: str):
+    numbers_cabinet = text.split('.', 1)
+
+
+def emoji_time_couple(time: str):
+    match time:
+        case '8:30-10:00':
+            return '🕗'
+        case '10:10-11:40':
+            return '🕙'
+        case '12:10-13:40':
+            return '🕛'
+        case '13:50-15:20':
+            return '🕐'
+        case '15:30-17:00':
+            return '🕜'
+        
+
 async def use_for(message: types.Message, list, id_user, method): 
     numbers_couple = 0
     line = ''
@@ -19,14 +54,15 @@ async def use_for(message: types.Message, list, id_user, method):
     for day in list:
         numbers_couple+=1
         if day == '':
-            line += (f'{time[numbers_couple]} | {numbers_couple} пара | окно\n\n')
+            line += (f'{emoji_time_couple(time[numbers_couple])} <b>{time[numbers_couple]}</b> | {emoji_number_couple(numbers_couple)} пара | <i><b>Окно</b></i>\n\n')
         else:
-            line += (f'{time[numbers_couple]} | {numbers_couple} пара | {day}\n\n')  
+            day = day.split('.', 1)
+            line += (f'{emoji_time_couple(time[numbers_couple])} <b>{time[numbers_couple]}</b> | {emoji_number_couple(numbers_couple)} пара | <b><u>{day[0]}</u></b>{day[1]}\n\n')  
     match method:
         case 'answer':
-            await message.reply(line)
+            await message.reply(line, parse_mode='HTML')
         case 'bot_send':
-            await bot.send_message(id_user, line)
+            await bot.send_message(id_user, line, parse_mode='HTML')
         case 'text':
             return line
     # list.clear()
@@ -49,8 +85,6 @@ async def display_the_schedule(id_user, message: types.Message, day, method):
                 await message.reply('❌ Выберите пожалуйста группу при помощи команды /group')
             case 'bot_send':
                 await bot.send_message(id_user, '❌ Выберите пожалуйста группу при помощи команды /group')
-
-
 
 @router.message(F.text == 'Расписание занятий')
 async def schedule(message: types.Message):
@@ -138,7 +172,7 @@ async def otvet(message: types.Message):
             
         else:
             info_week = await week()
-            await message.answer(f'{info_week}\n\n{info_class}')
+            await message.answer(f'{info_week}\n\n{info_class}', parse_mode="HTML")
 
     except KeyError:
         info_week = await week()
@@ -163,7 +197,7 @@ async def tomorrow_class(message: types.Message):
                 return
             else:
                 info_week = await week(input_score_week=True)
-                await message.answer(f'{info_week}\n\n{info_class}')
+                await message.answer(f'{info_week}\n\n{info_class}', parse_mode='HTML')
                 return
             
         info_class = await display_the_schedule(
@@ -175,7 +209,7 @@ async def tomorrow_class(message: types.Message):
             
         else:
             info_week = await week()
-            await message.answer(f'{info_week}\n\n{info_class}')
+            await message.answer(f'{info_week}\n\n{info_class}', parse_mode='HTML')
 
     except KeyError:
         info_week = await week()

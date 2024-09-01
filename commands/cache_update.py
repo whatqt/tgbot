@@ -51,7 +51,7 @@ async def upgrade_ch_by_time(message: types.Message):
             group = 1
             if new_result[3] != '200':
                 await bot.send_message(
-                -4149670794, 
+                -4112086004, 
                 f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}\nПовторная попытка будет через 5 минут'
                 )
 
@@ -62,7 +62,7 @@ async def upgrade_ch_by_time(message: types.Message):
                 try:
                     if new_result[3] != '200':
                         await bot.send_message(
-                            -4149670794, 
+                            -4112086004, 
                             f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}')
                         print('Обновление кэша не началось')
                         break
@@ -81,7 +81,7 @@ async def upgrade_ch_by_time(message: types.Message):
                     error.append(group)                    
                     group+=1
                     continue
-            await bot.send_message(-4149670794, f'#кэш\nКэш обновился\nГруппы которые не обновились: {error}')
+            await bot.send_message(-4112086004, f'#кэш\nКэш обновился\nГруппы которые не обновились: {error}')
             await asyncio.sleep(600)
 
 
