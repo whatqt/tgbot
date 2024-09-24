@@ -5,6 +5,8 @@ from send_mess_by_time import check_time_for_mess
 from handlears import week
 import os
 from aiogram.fsm.storage.memory import MemoryStorage
+from clicker import start_cliker
+
 
 
 
@@ -16,13 +18,14 @@ async def main():
         group.router, start.router, 
         week.router, schedule.router,
         help.router, admin.router,
-        send_info_update.router,  
-        check_time_for_mess.router,
+        send_info_update.router,  check_time_for_mess.router,
+        start_cliker.router
+
         )
     await bot.delete_webhook(drop_pending_updates=True) 
     await dp.start_polling(bot)
 
-
+# asyncio.run(asyncio.create_task(start_app()))
 print('Бот запущен')
 asyncio.run(main())
 
