@@ -137,7 +137,7 @@ async def get_id_users():
     try:
         cursor = await create_connection()
         select_id_users = "SELECT id_user FROM users"
-        info = await cursor.fetch(select_id_users)
+        info = await cursor(select_id_users)
         return info
     finally: await cursor.close()
 

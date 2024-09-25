@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram import types 
@@ -6,19 +8,20 @@ from WebAppClicker.db.connect import create_connection
 from asyncpg.exceptions import UniqueViolationError
 from .cookie_user_webapp import cookie_user
 
+
+
 router = Router()
 
 
 
-def create_keyboard() -> InlineKeyboardBuilder:
+def create_keyboard(id_user) -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
     builder.add(types.InlineKeyboardButton(
         text="Play clicker",
         web_app=types.WebAppInfo(
-            url='https://ca97-178-186-121-171.ngrok-free.app'
+            url=f'https://f5e3-178-186-121-171.ngrok-free.app/?id_user={id_user}'
         )
     ))
-
     return builder.as_markup()
 
 
@@ -30,4 +33,5 @@ async def start_clicker(message: types.Message):
     except UniqueViolationError: pass
     finally: 
         await cursor.close()
-    await message.answer('Кликер...', reply_markup=create_keyboard())
+
+    await message.answer('Кликер...', reply_markup=create_keyboard(message.from_user.id))
