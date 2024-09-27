@@ -9,3 +9,4 @@ postgresql/__pycache__/
 send_mess_by_time/__pycache__/
 test.py
 .venv 
+__pycache__

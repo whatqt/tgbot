@@ -109,17 +109,21 @@
                 progressBarFill.style.width = '0';
             }
         });
-        var ws = new WebSocket("wss://f5e3-178-186-121-171.ngrok-free.app/ws?id_user={{id_user}}");
-        window.addEventListener('beforeunload', (event) => {
-            event.preventDefault();
-            event.returnValue = '';
+        // var ws = new WebSocket("wss://6d1d-178-186-121-171.ngrok-free.app/ws?id_user={{id_user}}");
+        window.addEventListener('beforeunload', function(event) {
+            reunload();
+            event.preventDefault(); // Стандартное требование для большинства браузеров
+            event.returnValue = ''; // Показать стандартное уведомление
+        });
+
+        const reunload = function() {
             const totalClicks = clickCount;
             const data = {
                 clicks: totalClicks,
                 id_user: Number(cookie.get('id_user')) 
             };
 
-            fetch('/update_data',{
+            fetch('/update_data', {
                 method: 'POST',
                 headers: { 
                     "Accept": "application/json", 
@@ -127,9 +131,10 @@
                 },
                 body: JSON.stringify(data)
             });
-        });
-
-        
+            
+            return 'Завершение работы приложения'; // Это не будет показано в уведомлении
+        };
     </script>
+
 </body>
 </html>
