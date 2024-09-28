@@ -78,10 +78,20 @@
 
 
     <script src="https://unpkg.com/cookiejs/dist/cookie.min.js"></script>
+
     <script>
+        // var src = 'static/data/data.json';
+        // fetch(src)
+        //     .then(response => response.json())
+        //     .then(json => {
+        //         console.log(json);
+                
+        //     });
         var clickCountDoc = document.getElementById('totalClicks');
         var ClickCountStr = clickCountDoc.getAttribute('data-value');
+        var intIntermediateСlickCounter = 0
         console.log(ClickCountStr)
+        console.log(intIntermediateСlickCounter)
         var clickCount = Number(ClickCountStr);
         const maxClicks = 100;
         const clickIcon = document.getElementById('clickIcon');
@@ -91,8 +101,28 @@
 
         clickIcon.addEventListener('click', () => {
             clickCount++;
-            totalClicksElement.textContent = `Coins: ${clickCount}`;
+            intIntermediateСlickCounter++;
+            console.log(intIntermediateСlickCounter)
+            if(intIntermediateСlickCounter >= 5){
+                intIntermediateСlickCounter = 0;
+                console.log("Переменная intIntermediateСlickCounter была сброшена до нуля");
+                const totalClicks = clickCount;
+                const data = {
+                    clicks: totalClicks,
+                    id_user: Number(cookie.get('id_user')) 
+                };
+                fetch('/run_background_tasks', {
+                    method: 'POST',
+                    headers: { 
+                        "Accept": "application/json", 
+                        "Content-Type": "application/json" 
+                    },
 
+                    body: JSON.stringify(data)
+                });
+            }
+ 
+            totalClicksElement.textContent = `Coins: ${clickCount}`;
             const clickText = document.createElement('span');
             clickText.className = 'click-text';
             clickText.textContent = '+1';
@@ -106,11 +136,11 @@
             progressBarFill.style.width = `${progressPercentage}%`;
 
             if (clickCount % maxClicks === 0) {
-                progressBarFill.style.width = '0';
+                progressBarFill.style00.width = '0';
             }
         });
-        // var ws = new WebSocket("wss://6d1d-178-186-121-171.ngrok-free.app/ws?id_user={{id_user}}");
-        window.addEventListener('beforeunload', function(event) {
+        // var ws = new WebSocket("wss://c441-178-186-121-171.ngrok-free.app/ws?id_user={{id_user}}");  //заносить данные в json и уже в бд 
+        window.addEventListener('beforeunload', function(event) { // приоретет. или по другому: заносить данные в json и запускать таймер в фоновой задачи. Если данные обновляются, то задача тоже обновляется или завершается досроч
             reunload();
             event.preventDefault(); // Стандартное требование для большинства браузеров
             event.returnValue = ''; // Показать стандартное уведомление
@@ -132,7 +162,7 @@
                 body: JSON.stringify(data)
             });
             
-            return 'Завершение работы приложения'; // Это не будет показано в уведомлении
+            return 'Завершение работы приложения'; 
         };
     </script>
 
