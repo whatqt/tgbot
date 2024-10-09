@@ -14,9 +14,11 @@ from asyncpg.exceptions import *
 from func_cache.check_cache import check
 from handlears.score_week import *
 import os
+from dotenv import load_dotenv
 
 
 
+load_dotenv()
 router = Router()
 bot = Bot(token=os.getenv('TOKEN_BOT'))
 

@@ -7,10 +7,14 @@ from keyboard_builder.reply_keyboard import *
 from handlears.current_day import CurrentDay
 from handlears.score_week import *
 from aiogram.filters import Command
+from dotenv import load_dotenv
+import os
 
 
+
+load_dotenv()
 router = Router()
-bot = Bot(token="6573990032:AAGRALx8BGzMNIj1KulH8A_onrv6mKLENEw")
+bot = Bot(token=os.getenv("TOKEN_BOT"))
 
 def emoji_number_couple(nubmer: int):
     match nubmer:

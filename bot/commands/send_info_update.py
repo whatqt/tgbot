@@ -7,11 +7,15 @@ from postgresql.db import get_id_users
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+import asyncio
+from dotenv import load_dotenv
 
 
 
-
+load_dotenv()
 router = Router()
+
+
 bot = Bot(token=os.getenv('TOKEN_BOT'))
 class Form(StatesGroup): 
     mesg_update = State()
@@ -60,8 +64,11 @@ async def update_yes(callback: types.CallbackQuery, state: FSMContext):
         id_users_list = await get_id_users()
         for id_user in id_users_list:
             print(id_user['id_user'])
-            await bot.send_message(id_user['id_user'], user_data["mesg_update"])
-
+            try:
+                await bot.send_message(id_user['id_user'], user_data["mesg_update"])
+            except: 
+                print(f"КТО БЛОКНУЛ БОТА {id_user['id_user']}")
+                continue
         await state.clear()
         await callback.message.edit_text('Информация была успешно отправлена!')
 

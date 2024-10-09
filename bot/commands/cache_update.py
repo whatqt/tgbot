@@ -7,7 +7,9 @@ from parser.parser import *
 from func_cache.cache import generator_id, generator_schedule
 from func_cache.lessen import *
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 
 router = Router()

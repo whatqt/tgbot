@@ -6,10 +6,11 @@ from handlears import week
 import os
 from aiogram.fsm.storage.memory import MemoryStorage
 from clicker import start_cliker
+from dotenv import load_dotenv
 
 
 
-
+load_dotenv()
 async def main():
     bot = Bot(token=os.getenv('TOKEN_BOT'))
     dp = Dispatcher(storage=MemoryStorage())
@@ -25,7 +26,6 @@ async def main():
     await bot.delete_webhook(drop_pending_updates=True) 
     await dp.start_polling(bot)
 
-# asyncio.run(asyncio.create_task(start_app()))
 print('Бот запущен')
 asyncio.run(main())
 
