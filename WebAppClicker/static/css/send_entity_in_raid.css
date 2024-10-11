@@ -1,0 +1,41 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #003366; /* Темно-синий фон */
+    color: white; /* Цвет текста для контраста */
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.center-button {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+.text-group {
+    text-align: center;
+}
+button {
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #003366; /* Темно-синий фон для кнопок */
+    color: white; /* Цвет текста для контраста */
+    border: 1px solid white;
+}
+h3 {
+    margin: 10px 0;
+}

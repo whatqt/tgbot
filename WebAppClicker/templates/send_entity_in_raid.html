@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send entity in raid</title>
+    <link rel="stylesheet" href="static/css/send_entity_in_raid.css">
+</head>
+<body>
+    <div class="header">
+        <a href="/?id_user={{id_user}}&username={{username}}">
+            <button><--</button>
+        </a>
+        <div class="text-group">
+            <p>Golds: {{quantity_gold}}</p>
+            <p>Tokens: {{quantity_token}}</p>
+        </div>
+    </div>
+    <div class="center-button">
+        <button onclick="post_data('{{time_raid}}', '{{golds}}', '{{tokens}}')"><h1>GO</h1></button>
+    </div>
+    <div class="text-group">
+        <h2>Окончание рейда: {{time_raid}}</h2>
+        <h2>Ожидаемые ресурсы: {{golds}} golds и {{tokens}} tokens</h2>
+    </div>
+    <script src="static/js/send_time_in_backend.js"></script>
+</body>
+</html>

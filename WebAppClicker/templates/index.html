@@ -8,26 +8,28 @@
 </head>
 <body>
     <div class="header">
-        <div class="button-group">
-            <button>Button 1</button>
-            <button>Button 2</button>
+        <div class="text-group">
+            <!-- изначально были кнопками --> 
+            <p>Entity explore {{quantity_explore_entity}}</p>
+            <p>Entity logistics {{quantity_logistics_entity}}</p>
+            <!-- можно сделать так, чтобы при нажатие голды, существ, токенов
+            выводились подсказки для чего это нужно
+            -->
         </div>
         <div class="text-group">
-            <p>Text 3</p>
-            <p>Text 4</p>
+            <p>{{quantity_gold}}</p>
+            <p>{{quantity_token}}</p>
         </div>
     </div>
     <div class="footer">
         <!-- Откроется страница с отправкой entity  -->
-        <a href="">
-            <button class="rectangular-button">Rectangular Button</button> 
+        <a href="/send_entity_in_raid/?id_user={{id_user}}">
+            <button class="rectangular-button">Отправиться в raid</button> 
         </a>
         <div class="footer-buttons">
-            <a href="#">
                 <button>
                     5
                 </button>
-            </a>
             <button>Button 6</button>
             <button>Button 7</button>
         </div>
