@@ -13,12 +13,12 @@ router = Router()
 
 
 
-def create_keyboard(id_user) -> InlineKeyboardBuilder:
+def create_keyboard(id_user, username) -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
     builder.add(types.InlineKeyboardButton(
         text="Play clicker",
         web_app=types.WebAppInfo(
-            url=f'https://bc53-146-158-112-164.ngrok-free.app/?id_user={id_user}'
+            url=f'https://9ae4-146-158-112-164.ngrok-free.app/?id_user={id_user}&username={username}'
         )
     ))
     return builder.as_markup()
@@ -27,21 +27,10 @@ def create_keyboard(id_user) -> InlineKeyboardBuilder:
 @router.message(Command("clicker"))
 async def start_clicker(message: types.Message):
     if message.from_user.id == 1752086646:
-        try:
-            cursor = await create_connection()
-            await cursor.execute(
-                f"""
-                INSERT INTO data_users VALUES 
-                (
-                    {message.from_user.id}, 
-                    '{message.from_user.username}', 
-                    3, 0, 0
-                )"""
-            )    
-        except UniqueViolationError: pass
-        finally: 
-            await cursor.close()
-
-        await message.answer('Кликер...', reply_markup=create_keyboard(message.from_user.id))
+        await message.answer('Кликер...', reply_markup=create_keyboard(
+            message.from_user.id,
+            message.from_user.username
+            )
+        )
 
     
