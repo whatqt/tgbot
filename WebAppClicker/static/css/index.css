@@ -1,0 +1,62 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #003366; /* Темно-синий фон */
+    color: white; /* Цвет текста для контраста */
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.button-group {
+    display: flex;
+    flex-direction: column;
+}
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto;
+}
+.footer-buttons {
+    display: flex;
+    gap: 10px;
+}
+.footer-buttons button {
+    border: 2px solid white;
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    background-color: #003366; /* Темно-синий фон для кнопок */
+    color: white; /* Цвет текста для контраста */
+}
+.rectangular-button {
+    width: 150px;
+    height: 50px;
+    background-color: #003366; /* Темно-синий фон для кнопок */
+    color: white; /* Цвет текста для контраста */
+}
+button {
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #003366; /* Темно-синий фон для кнопок */
+    color: white; /* Цвет текста для контраста */
+    border: 1px solid white;
+}
+.text-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.text-group p {
+    margin: 5px;
+}

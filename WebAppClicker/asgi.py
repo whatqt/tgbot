@@ -1,87 +1,46 @@
 import sys
 sys.path.append('..')
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect\
-    ,Request, Response, Body, BackgroundTasks
-# from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
+    ,Request, Response, Body
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from db.function import *
-from bot.clicker.cookie_user_webapp import cookie_user
 from static.data.data_users import *
 import asyncio
 
 
+
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"))
 templates = Jinja2Templates(directory="templates")
  
 
 @app.get("/")
 async def read_root(request: Request, id_user):
     print(id_user)
-    clicks = await get_clicks(id_user)
-    context = {"id_user": id_user, "clicks": clicks}
-    html = templates.TemplateResponse(request, "index.html", context)
-    html.set_cookie("id_user", id_user)
-
-    return html
-
-
-@app.post('/update_data_json')
-async def update_data_json(data = Body()):
-    data_users[data["id_user"]] = data["clicks"]
-    
+    clicks = await get_data(id_user)
+    print(clicks)
+    return templates.TemplateResponse(request, "index.html")
 
 async def update_data_db(id_user, clicks):
-    user_id_update_data_db.append(id_user)
-    await asyncio.sleep(10)
-    await update_clicks(id_user, clicks)
-    user_id_update_data_db.remove(id_user)
-    print("Задава выполнилась")
-
-
-
-@app.post("/run_background_tasks")
-async def run(data = Body()):
-    id_user = data['id_user']
-    clicks = data['clicks']
-    if id_user in user_id_update_data_db:
-        name_task = tasks.get(id_user)
-        del tasks[id_user]
-        user_id_update_data_db.remove(id_user)
-        name_task.cancel()
-    task = asyncio.create_task(update_data_db(id_user, clicks))
-    print(task)
-    tasks[id_user] = task
-    print(tasks)
-    try:
-        await asyncio.gather(task)
-    except asyncio.exceptions.CancelledError: print("Задача отменена")
-
-
-
-@app.websocket("/ws")
-async def websocket_endpoint(
-    websocket: WebSocket, 
-    response: Response,
-    id_user: int):
-    await websocket.accept()
-    print('connect')
-    try:
-        while True:
-            data = await websocket.receive_text()
-    except WebSocketDisconnect:
-        print("Disconnect")
-
-    
-@app.post("/update_data")
-async def update_data(data = Body()):
-    id_user = data['id_user']
-    clicks = data['clicks']
-    print(clicks)
-    await update_clicks(id_user, clicks)
-    print('update data completed successfully')
+    pass
 
 @app.get("/favicon.ico")
 async def favicon(request: Request):
     pass
+
+
+# функция для отправки entity в raid. После рейда они прнесут gold в размере 50gold на 1 entity а все 3 entiry будут приносить 0.1 token. 
+# В бд заносятся данные кол-во entity и время нажатия кнопки. Забрать награду можно будет через два часа. 
+# В Html сделать так, чтоб был отсчёт (00:02:03, 02 и т.д)
+
+# сделать что-то типа clash of clans: со своей ратушой; два вида entity: ученые и иследовательские; 
+# иследовательские отрпавляются в raid чтоб находить ратуши других игроков и по окончанию raid'а пользователь получает награду
+# иследовательские entity так же смогут находить различние плюшки по пути: от камня на котором будет промокод, 
+# до сложного шифра, который придётся разгадывать чтоб получить награду
+# чем выше уровень entity чем больше и интересней награды они находят
+# полученные плюшки будут храниться в отдельной вкладке
+# мб задания будут связаны с курсорм пользователя, но это не точно. 
+
+# ученые entity будут развивать инфраструктуру ратуши позволяя пользователю в дальнейшем улучшать entity в разных аспектах: скорость, добыча, наход плюшек и т.д
+# будут приносить схемы для улучшения и новые здания

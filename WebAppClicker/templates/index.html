@@ -3,168 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click Counter</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .container {
-            text-align: center;
-        }
-        .icon {
-            width: 100px;
-            height: 100px;
-            left: -80px;
-            display: inline-block;
-            cursor: pointer;
-            position: relative;
-        }
-        .progress-bar {
-            width: 200px;
-            height: 20px;
-            background-color: #ddd;
-            margin-top: 20px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background-color: #4CAF50;
-            width: 0;
-            transition: width 0.5s;
-        }
-
-        .click-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 32px; /* Увеличиваем размер текста */
-            color: #ff0000; /* Изменяем цвет на более яркий */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень */
-            opacity: 0;
-            animation: fadeIn 1s forwards; /* Изменяем анимацию на fadeIn */
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .total-clicks {
-            margin-top: 20px;
-            font-size: 18px;
-        }
-    </style>
+    <title>Button Layout</title>
+    <link rel="stylesheet" href="static/css/index.css">
 </head>
 <body>
-    <div class="container">
-        <div class="icon" id="clickIcon">
-            <img src="static/images/rii.png" alt="Icon" style="width: 250%; height: 250%;">
+    <div class="header">
+        <div class="button-group">
+            <button>Button 1</button>
+            <button>Button 2</button>
         </div>
-        <div class="progress-bar">
-            <div class="progress-bar-fill" id="progressBarFill"></div>
+        <div class="text-group">
+            <p>Text 3</p>
+            <p>Text 4</p>
         </div>
-        <div class="total-clicks" id="totalClicks" data-value="{{clicks}}">Coins: {{clicks}}</div>
     </div>
-
-
-    <script src="https://unpkg.com/cookiejs/dist/cookie.min.js"></script>
-
-    <script>
-        // var src = 'static/data/data.json';
-        // fetch(src)
-        //     .then(response => response.json())
-        //     .then(json => {
-        //         console.log(json);
-                
-        //     });
-        var clickCountDoc = document.getElementById('totalClicks');
-        var ClickCountStr = clickCountDoc.getAttribute('data-value');
-        var intIntermediateСlickCounter = 0
-        console.log(ClickCountStr)
-        console.log(intIntermediateСlickCounter)
-        var clickCount = Number(ClickCountStr);
-        const maxClicks = 100;
-        const clickIcon = document.getElementById('clickIcon');
-        const clickText = document.getElementById('clickText');
-        const progressBarFill = document.getElementById('progressBarFill');
-        const totalClicksElement = document.getElementById('totalClicks');
-
-        clickIcon.addEventListener('click', () => {
-            clickCount++;
-            intIntermediateСlickCounter++;
-            console.log(intIntermediateСlickCounter)
-            if(intIntermediateСlickCounter >= 5){
-                intIntermediateСlickCounter = 0;
-                console.log("Переменная intIntermediateСlickCounter была сброшена до нуля");
-                const totalClicks = clickCount;
-                const data = {
-                    clicks: totalClicks,
-                    id_user: Number(cookie.get('id_user')) 
-                };
-                fetch('/run_background_tasks', {
-                    method: 'POST',
-                    headers: { 
-                        "Accept": "application/json", 
-                        "Content-Type": "application/json" 
-                    },
-
-                    body: JSON.stringify(data)
-                });
-            }
- 
-            totalClicksElement.textContent = `Coins: ${clickCount}`;
-            const clickText = document.createElement('span');
-            clickText.className = 'click-text';
-            clickText.textContent = '+1';
-            clickIcon.appendChild(clickText);
-
-            // Удаляем элемент после анимации
-            setTimeout(() => {
-                clickIcon.removeChild(clickText);
-            }, 1000);
-            const progressPercentage = (clickCount % maxClicks) / maxClicks * 100;
-            progressBarFill.style.width = `${progressPercentage}%`;
-
-            if (clickCount % maxClicks === 0) {
-                progressBarFill.style00.width = '0';
-            }
-        });
-        // var ws = new WebSocket("wss://c441-178-186-121-171.ngrok-free.app/ws?id_user={{id_user}}");  //заносить данные в json и уже в бд 
-        window.addEventListener('beforeunload', function(event) { // приоретет. или по другому: заносить данные в json и запускать таймер в фоновой задачи. Если данные обновляются, то задача тоже обновляется или завершается досроч
-            reunload();
-            event.preventDefault(); // Стандартное требование для большинства браузеров
-            event.returnValue = ''; // Показать стандартное уведомление
-        });
-
-        const reunload = function() {
-            const totalClicks = clickCount;
-            const data = {
-                clicks: totalClicks,
-                id_user: Number(cookie.get('id_user')) 
-            };
-
-            fetch('/update_data', {
-                method: 'POST',
-                headers: { 
-                    "Accept": "application/json", 
-                    "Content-Type": "application/json" 
-                },
-                body: JSON.stringify(data)
-            });
-            
-            return 'Завершение работы приложения'; 
-        };
-    </script>
-
+    <div class="footer">
+        <!-- Откроется страница с отправкой entity  -->
+        <a href="">
+            <button class="rectangular-button">Rectangular Button</button> 
+        </a>
+        <div class="footer-buttons">
+            <a href="#">
+                <button>
+                    5
+                </button>
+            </a>
+            <button>Button 6</button>
+            <button>Button 7</button>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,4 +1,5 @@
-import asyncpg 
+import asyncpg
+import asyncpg.cursor 
 
 
 async def create_connection():
@@ -8,5 +9,5 @@ async def create_connection():
         user="postgres",
         password="A123B567E",
         database="clicker"
-        ) #create_pool
+        )
     return connection
