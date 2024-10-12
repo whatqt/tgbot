@@ -1,6 +1,6 @@
 import sys
 sys.path.append('..')
-from fastapi import FastAPI, \
+from fastapi import FastAPI, BackgroundTasks, \
     Request, Response, Body, Cookie
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
@@ -11,6 +11,7 @@ import asyncio
 import json
 import aiofiles
 from data_json.entity_explore_parametrs_from_lvl import data_entity_explore_lvl
+from data_json.is_activated_raid import users_of_the_activated_raid
 
 
 
@@ -50,9 +51,11 @@ async def site_send_entity(request: Request, id_user: int):
             "username": data_user[1],
             "quantity_gold": data_user[4],
             "quantity_token": data_user[5],
-            "time_raid": data_entity_explore_lvl[data_lvl[1]]["time_raid"],
-            "golds": data_entity_explore_lvl[data_lvl[1]]["gold_from_raid"],
-            "tokens": data_entity_explore_lvl[data_lvl[1]]["token_from_raid"],
+            "time_raid_in_hour": data_entity_explore_lvl[data_lvl[1]]["time_raid_in_hour"],
+            "time_raid_in_minute": data_entity_explore_lvl[data_lvl[1]]["time_raid_in_minute"],
+            "golds": data_entity_explore_lvl[data_lvl[1]]["reward_in_gold"],
+            "tokens": data_entity_explore_lvl[data_lvl[1]]["reward_in_token"], 
+            "users_of_the_activated_raid": users_of_the_activated_raid
         }
 
         return templates.TemplateResponse(
@@ -63,9 +66,32 @@ async def site_send_entity(request: Request, id_user: int):
     else: 
         return HTMLResponse("Error", status_code=506)
 
+
+async def create_task_active_raid(
+        id_user, reward_in_gold, 
+        reward_in_token, time_end_raid
+    ):
+
+    await insert_data_of_active_raid(
+        id_user, reward_in_gold, 
+        reward_in_token, time_end_raid
+    )
+    await asyncio.sleep(60)
+    await update_golds_tokens(id_user, reward_in_gold, reward_in_token)
+    await delete_data_of_active_raid(id_user)
+    print(users_of_the_activated_raid)
+    users_of_the_activated_raid.remove(id_user)
+    print("Задача выполнилась")
+
+
+
 @app.post("/end_time_raid")
-async def end_time_raid(data = Body()):
+async def end_time_raid(background_tasks: BackgroundTasks, data = Body()):
     print(data)
+    users_of_the_activated_raid.append(data["id_user"])
+    print(users_of_the_activated_raid)
+    background_tasks.add_task(create_task_active_raid, data["id_user"], data["golds"], data["tokens"], data["time"])
+    print('Задача установлена')
 
 
 @app.get("/favicon.ico")

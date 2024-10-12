@@ -9,7 +9,7 @@
 <body>
     <div class="header">
         <a href="/?id_user={{id_user}}&username={{username}}">
-            <button><--</button>
+            <button><-- {{id_user}}</button>
         </a>
         <div class="text-group">
             <p>Golds: {{quantity_gold}}</p>
@@ -17,10 +17,14 @@
         </div>
     </div>
     <div class="center-button">
-        <button onclick="post_data('{{time_raid}}', '{{golds}}', '{{tokens}}')"><h1>GO</h1></button>
+        {% if id_user in users_of_the_activated_raid %}
+            <button disabled="True"><h1>У вас уже есть активный raid</h1></button>
+        {% else %}
+            <button id="goButton" onclick="post_data({{time_raid_in_minute}}, {{golds}}, {{tokens}}, {{id_user}})"><h1>GO</h1></button>
+        {% endif %}
     </div>
     <div class="text-group">
-        <h2>Окончание рейда: {{time_raid}}</h2>
+        <h2>Окончание рейда через {{time_raid_in_hour}} ч.</h2>
         <h2>Ожидаемые ресурсы: {{golds}} golds и {{tokens}} tokens</h2>
     </div>
     <script src="static/js/send_time_in_backend.js"></script>

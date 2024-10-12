@@ -1,10 +1,12 @@
-
-function post_data(time, golds, tokens){
+function post_data(time, golds, tokens, id_user){
+    document.getElementById("goButton").disabled = true;
     const data = {
         "time": time, 
         "golds": golds, 
-        "tokens": tokens
+        "tokens": tokens,
+        "id_user": id_user
     };
+    console.log(id_user);
     fetch('/end_time_raid', {
         method: 'POST',
         headers: { 

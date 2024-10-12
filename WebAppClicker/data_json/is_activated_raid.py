@@ -1,0 +1,1 @@
+users_of_the_activated_raid = []

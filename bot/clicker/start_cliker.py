@@ -18,7 +18,7 @@ def create_keyboard(id_user, username) -> InlineKeyboardBuilder:
     builder.add(types.InlineKeyboardButton(
         text="Play clicker",
         web_app=types.WebAppInfo(
-            url=f'https://9ae4-146-158-112-164.ngrok-free.app/?id_user={id_user}&username={username}'
+            url=f'https://e31a-146-158-112-164.ngrok-free.app/?id_user={id_user}&username={username}'
         )
     ))
     return builder.as_markup()
