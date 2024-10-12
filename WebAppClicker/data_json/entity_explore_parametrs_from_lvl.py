@@ -6,7 +6,7 @@ data_entity_explore_lvl = {
         "reward_in_token": 0,
         "time_raid_in_hour": "2 часа",
         "time_raid_in_minute": 120,
-        "max_events": 3
+        "max_events": 3,
 
     },
 
@@ -14,8 +14,9 @@ data_entity_explore_lvl = {
         "reward_in_gold" : 200,
         "reward_in_token": 0,
         "time_raid_in_hour": "3 часа",
-        "time_raid_in_minuter": 180,
+        "time_raid_in_minute": 180,
         "max_events": 4
+
 
     },
 
@@ -38,7 +39,7 @@ data_entity_explore_lvl = {
     },
 
     5 : {
-        "reward_in_gold" : 350,
+        "reward_in_gold" : 450,
         "reward_in_token": 0.1,
         "time_raid_in_hour": "6 часов",
         "time_raid_in_minute": 360,
@@ -46,4 +47,11 @@ data_entity_explore_lvl = {
 
     }
     
+}
+
+price_lvl_up = {
+    2: 400,
+    3: 900,
+    4: 1600,
+    5: 2100
 }

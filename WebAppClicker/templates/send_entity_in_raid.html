@@ -18,7 +18,7 @@
     </div>
     <div class="center-button">
         {% if id_user in users_of_the_activated_raid %}
-            <button disabled="True"><h1>У вас уже есть активный raid</h1></button>
+            <button><h1>У вас уже есть активный raid</h1></button>
         {% else %}
             <button id="goButton" onclick="post_data({{time_raid_in_minute}}, {{golds}}, {{tokens}}, {{id_user}})"><h1>GO</h1></button>
         {% endif %}

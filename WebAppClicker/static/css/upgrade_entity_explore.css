@@ -91,3 +91,9 @@ button {
 .notification-buttons button {
     margin: 0 10px;
 }
+#confirmButton {
+    background-color: green;
+}
+#cancelButton {
+    background-color: rgb(160, 18, 18);
+}

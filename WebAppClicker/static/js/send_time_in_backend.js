@@ -15,4 +15,7 @@ function post_data(time, golds, tokens, id_user){
         },
         body: JSON.stringify(data)
     });
+    var element = document.getElementById('goButton');
+    element.textContent = 'У вас уже есть активный raid';
+    alert("Вы отправились в raid");
 }

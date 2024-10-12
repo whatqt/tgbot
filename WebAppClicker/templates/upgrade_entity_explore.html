@@ -26,29 +26,25 @@
     <!-- Уведомление -->
     <div id="notification" class="notification">
         <div class="notification-content">
-            <p>Вы уверены? Цена составит {{price_lvl_up}}</p>
+            <p>
+                Вы уверены?Цена составит {{price_lvl_up}} golds
+                На {{next_lvl_explore_entity}} уровне вы будете получать:
+            </p>
+            <ul>
+                <li>{{next_reward_in_golds}} golds за один raid</li>
+                <li>{{next_reward_in_tokens}} tokens за один raid</li>
+            </ul>
             <!-- Привязать id и в самом js будет оправка данных на сервер-->
             <!-- Узнать как использовать метод запросов  options и использовать его-->
             <div class="notification-buttons">
-                <button id="confirmButton">Подтвердить</button> 
+                <button onclick="post_data(
+                    {{next_lvl_explore_entity}}, {{id_user}},
+                    {{price_lvl_up}}, {{quantity_gold}}
+                )" id="confirmButton">Подтвердить</button> 
                 <button id="cancelButton">Отменить</button>
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('lvlUpButton').addEventListener('click', function() {
-            document.getElementById('notification').style.display = 'block';
-        });
-
-        document.getElementById('confirmButton').addEventListener('click', function() {
-            // Логика для подтверждения
-            document.getElementById('notification').style.display = 'none';
-        });
-
-        document.getElementById('cancelButton').addEventListener('click', function() {
-            // Логика для отмены
-            document.getElementById('notification').style.display = 'none';
-        });
-    </script>
+    <script src="static/js/upgrade_entity_explore.js"></script>
 </body>
 </html>

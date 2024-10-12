@@ -87,3 +87,27 @@ async def delete_data_of_active_raid(id_user):
         await cursor.execute(sql_data)
         print("Данные удалились")
     finally: await cursor.close()
+
+async def update_lvl_explore_entity(id_user):
+    try:
+        cursor = await create_connection()
+        sql_data = f"""
+            UPDATE lvl_users
+            SET lvl_explore_entity = lvl_explore_entity + 1
+            WHERE id_user = {id_user}
+        """
+        await cursor.execute(sql_data)
+        print("Данные обновились")
+    finally: await cursor.close()
+
+async def write_downs_golds(id_user, write_downs_quantity_golds):
+    try:
+        cursor = await create_connection()
+        sql_data = f"""
+            UPDATE data_users
+            SET quantity_gold = quantity_gold - {write_downs_quantity_golds}
+            WHERE id_user = {id_user}
+        """
+        await cursor.execute(sql_data)
+        print("Данные обновились")
+    finally: await cursor.close()
