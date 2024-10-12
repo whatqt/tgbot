@@ -63,13 +63,30 @@ async def create_task_active_raid(
     # сделайть рандомную выдачу плюшек при помощи модуля random
 
 
-@app2.post("/end_time_raid")
+@app2.post("/entity_explore/end_time_raid")
 async def end_time_raid(background_tasks: BackgroundTasks, data = Body()):
     print(data)
     users_of_the_activated_raid.append(data["id_user"])
     print(users_of_the_activated_raid)
     background_tasks.add_task(create_task_active_raid, data["id_user"], data["golds"], data["tokens"], data["time"])
     print('Задача установлена')
+
+@app2.get("/upgrade_explore_entity")
+async def upgrade_explore_entity(request: Request, id_user):
+    data_user = await get_info_data_users(id_user)
+    context = {
+        "id_user": data_user[0], 
+        "username": data_user[1],
+        "quantity_gold": data_user[4],
+        "quantity_token": data_user[5],
+    }
+    print(data_user)
+    return templates.TemplateResponse(
+        request, 
+        "upgrade_entity_explore.html",
+        context
+    )
+
 
 @app2.get("/favicon.ico")
 async def favicon():

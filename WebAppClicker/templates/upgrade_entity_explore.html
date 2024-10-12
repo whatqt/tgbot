@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upgrade explore entity</title>
+    <link rel="stylesheet" href="static/css/upgrade_entity_explore.css">
+</head>
+<body>
+    <div class="header">
+        <a href="/?id_user={{id_user}}&username={{username}}">
+            <button><</button>
+        </a>
+        <div class="text-group">
+            <p>Quantity gold: {{quantity_gold}}</p>
+            <p>Quantity token: {{quantity_token}}</p>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-buttons">
+            <button id="lvlUpButton">lvl up</button>
+            <button>add entity</button>
+        </div>
+    </div>
+
+    <!-- Уведомление -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <p>Вы уверены? Цена составит {{price_lvl_up}}</p>
+            <!-- Привязать id и в самом js будет оправка данных на сервер-->
+            <!-- Узнать как использовать метод запросов  options и использовать его-->
+            <div class="notification-buttons">
+                <button id="confirmButton">Подтвердить</button> 
+                <button id="cancelButton">Отменить</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('lvlUpButton').addEventListener('click', function() {
+            document.getElementById('notification').style.display = 'block';
+        });
+
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            // Логика для подтверждения
+            document.getElementById('notification').style.display = 'none';
+        });
+
+        document.getElementById('cancelButton').addEventListener('click', function() {
+            // Логика для отмены
+            document.getElementById('notification').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

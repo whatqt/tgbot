@@ -7,7 +7,7 @@ function post_data(time, golds, tokens, id_user){
         "id_user": id_user
     };
     console.log(id_user);
-    fetch('/end_time_raid', {
+    fetch('/entity_explore/end_time_raid', {
         method: 'POST',
         headers: { 
             "Accept": "application/json", 
