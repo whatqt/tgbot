@@ -4,10 +4,13 @@ from aiogram import types
 import asyncio
 from aiogram import Bot
 from parser.parser import *
-from func_cache.cache import generator_id, generator_schedule
-from func_cache.lessen import *
+from .tools.cache import generator_id, generator_schedule
+from .tools.lessen import *
 import os
 from dotenv import load_dotenv
+from pymongo import AsyncMongoClient
+
+
 
 load_dotenv()
 
@@ -33,6 +36,7 @@ async def upgrade_cache(id_group):
     day_two = 1
     while day_two <= 6:
         await html_result_group_two(tables['second_week_1'], tables['second_week_2'], day_two, lst_two)
+        # добавить суда mongodb
         day_two += 1
         await record_cache(id_group, (next(mygenerator)), lst_two.copy())
         lst_two.clear()
@@ -45,16 +49,15 @@ async def upgrade_cache(id_group):
 async def upgrade_ch_by_time(message: types.Message):
     if message.from_user.id == 1752086646:
         while True:
-            result = await group_check()
-            new_result = result.split()            
+            status_code = await group_check()
             error = []            
             schedule_generation =  generator_schedule()
             id_generation =  generator_id()
             group = 1
-            if new_result[3] != '200':
+            if status_code != 200:
                 await bot.send_message(
                 -4112086004, 
-                f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}\nПовторная попытка будет через 5 минут'
+                f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nHTTP код - {status_code}\nПовторная попытка будет через 5 минут'
                 )
 
                 print('Обновление кэша не началось')
@@ -62,10 +65,10 @@ async def upgrade_ch_by_time(message: types.Message):
                 continue        
             while group <=32:
                 try:
-                    if new_result[3] != '200':
+                    if status_code != 200:
                         await bot.send_message(
                             -4112086004, 
-                            f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nПодробности о http статусе:\n{result}')
+                            f'#кэш\nОбновление кэша не началось, так как сайт недоступен\nHTTP код - {status_code}')
                         print('Обновление кэша не началось')
                         break
                     print(f'Группа по словарю: {group}')

@@ -1,9 +1,9 @@
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from keyboard_builder.callback_button import CallbackButton, Callbackdata
+from .callback_button import CallbackButton, Callbackdata
 from aiogram import types
-from groups.groups import first_course, second_course, third_course, fourth_course
+from .groups import first_course, second_course, third_course, fourth_course
 from commands.schedule import create_schedule
 
 

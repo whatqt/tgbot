@@ -2,10 +2,10 @@ from aiogram import Router, F
 from aiogram import types
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from postgresql.db import *
-from func_cache.check_cache import *
-from keyboard_builder.reply_keyboard import *
-from handlears.current_day import CurrentDay
-from handlears.score_week import *
+from commands.cache_update.tools.check_cache import check
+from .reply_keyboard import schedule_class, butons
+from .current_day import CurrentDay
+from .score_week import *
 from aiogram.filters import Command
 from dotenv import load_dotenv
 import os
@@ -171,6 +171,10 @@ async def otvet(message: types.Message):
             message.from_user.id, message,  
             await check_week(await current_day.today_day_week()), 'text'
         )
+        # info_class = await display_the_schedule(
+        #     message.from_user.id, message,  
+        #     await check_week(score), 'text'
+        # )
         if info_class is None:
             await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
             
@@ -207,7 +211,11 @@ async def tomorrow_class(message: types.Message):
         info_class = await display_the_schedule(
             message.from_user.id, message, 
             await check_week(await current_day.tomorrows_day_week()), 'text'
-        )
+        ) 
+        # info_class = await display_the_schedule(
+        #     message.from_user.id, message, 
+        #     await check_week(score+1), 'text'
+        # )
         if info_class is None:
             await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
             

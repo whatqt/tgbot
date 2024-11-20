@@ -1,10 +1,10 @@
-from handlears.current_day import *
+from .current_day import *
 from datetime import datetime, timedelta
 import asyncio
 
 
-score = 3
-score_week = 2 # 1 - первая неделя 2 - вторая неделя 
+score = 7
+score_week = 1 # 1 - первая неделя 2 - вторая неделя 
 night = False
 
 async def while_time():
@@ -19,6 +19,7 @@ async def while_time():
         time_to_midnight = (midnight - now).total_seconds()
         print(time_to_midnight)
         await asyncio.sleep(time_to_midnight)
+        print(score)
         match score_week:
             case 1:
                 print(1)
@@ -67,10 +68,9 @@ async def check_week(day_of_the_week=None, input_score_week=None):
             print('score_week', score_week)
             print('score', score)
             print('\n')
-            # return await current_day_one(await day_of_the_week)
             return await current_day_one(day_of_the_week)
 
-        case 2:
+        case 2: 
             print('Вторая неделя')
             print('score_week', score_week)
             print('score', score)

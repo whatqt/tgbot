@@ -21,15 +21,16 @@ async def group(url, id_group, tables):
             tables['second_week_2'] = tables['table_second_schedule'].find_all('tr', class_="even")
     
 async def check_table(tables_one, tables_two):
-    len_tablse_one = 0
-    len_tablse_two = 0
-    
-    for i in tables_one:
-        len_tablse_one+=1
-    for j in tables_two:
-        len_tablse_two+=1
+    # len_tablse_one = 0
+    # len_tablse_two = 0
+
+    # for i in tables_one:
+    #     len_tablse_one+=1
+    # for j in tables_two:
+    #     len_tablse_two+=1
         
-    return len_tablse_one+len_tablse_two
+    # return len_tablse_one+len_tablse_two
+    return len(tables_one)+len(tables_two)
 
 async def html_transform(table, element_list, day, new_list):
     score = 0
@@ -128,18 +129,5 @@ async def html_result_group_two(table:dict, table_two:dict, day:int, new_list:li
 async def group_check():
     async with aiohttp.ClientSession() as session:
         async with session.get(url=URL) as resp:
-            print(resp.status)
-            match resp.status:
-                case 200:
-                    return f'Статус запроса - {resp.status} «Хороший»' 
-                case 400:
-                    return f'Статус запроса - {resp.status} «Плохой запрос»'
-                case 401:
-                    return f'Статус запроса - {resp.status} «Unauthorized»'
-                case 403:
-                    return f'Статус запроса - {resp.status} «Forbidden»'
-                case 404:
-                    return f'Статус запроса - {resp.status} «Не найдено»'
-                case _:
-                    return f'Статус запроса - {resp.status} None'
+            return resp.status
                 

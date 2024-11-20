@@ -1,11 +1,14 @@
 import asyncio
 from aiogram import Bot, Dispatcher
-from commands import cache_update, feeadback_and_report, group, start, schedule, help, admin, send_info_update
-from send_mess_by_time import check_time_for_mess
-from handlears import week
+from commands.select_group import group
+from commands import feeadback_and_report, start, \
+    schedule, help, admin, send_info_update
+from commands.send_mess_by_time import check_time_for_mess
+from commands.cache_update import cache_update
+from lesson import week
 import os
 from aiogram.fsm.storage.memory import MemoryStorage
-from clicker import start_cliker
+from commands.clicker import start_cliker
 from dotenv import load_dotenv
 
 

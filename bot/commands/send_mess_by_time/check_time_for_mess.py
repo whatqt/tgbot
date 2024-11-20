@@ -4,15 +4,15 @@ from aiogram import types
 import asyncio
 from aiogram import Bot
 from postgresql.db import *
-from send_mess_by_time.time_set import *
+from .time_set import *
 from datetime import datetime
-from handlears.week import display_the_schedule
-from handlears.current_day import *
-from keyboard_builder.callback_button import *
+from lesson.week import display_the_schedule
+from lesson.current_day import CurrentDay
+from lesson.score_week import check_week
+from .keyboard_builder.callback_button import *
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from asyncpg.exceptions import *
-from func_cache.check_cache import check
-from handlears.score_week import *
+from lesson.score_week import CurrentDay
 import os
 from dotenv import load_dotenv
 

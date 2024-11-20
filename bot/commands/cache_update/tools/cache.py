@@ -1,14 +1,4 @@
 def generator_schedule():
-    # ranges = {
-    #     1: schedule_1008,2: schedule_1014, 3: schedule_1010,               
-    #     4: schedule_1005, 5: schedule_1006, 6: schedule_1011,              
-    #     7: schedule_1007, 8: schedule_1013, 9: schedule_1004,               
-    #     10: schedule_1009, 11: schedule_992, 12: schedule_987,               
-    #     13: schedule_988, 14: schedule_994, 15: schedule_991,
-    #     17: schedule_990, 18: schedule_993,
-    #     19: schedule_977, 21: schedule_979,
-    #     22: schedule_976,  25: schedule_978, 26: schedule_981,
-    # }
     ranges = {
         1: schedule_1008, 2: schedule_1014, 3: schedule_1010,
         4: schedule_1005, 5: schedule_1006, 6: schedule_1011,
@@ -29,17 +19,6 @@ def generator_schedule():
         yield ranges[i]
     
 def generator_id():
-    # ranges = {
-    #     # 1: '1008', 2: '1014', 3: '1010',
-    #     # 4: '1005', 5: '1006', 6: '1011',
-    #     # 7: '1007', 8: '1013', 9: '1004',
-    #     # 10: '1009', 11: '992', 12: '987',
-    #     # 13: '988', 14: '994', 15: '991',
-    #     # 17: '990', 18: '993',
-    #     # 19: '977', 21: '979',
-    #     # 22: '976',
-    #     # 25: '978', 26: '981'
-    # }
     ranges = {
         1: '1008', 2: '1014', 3: '1010',
         4: '1005', 5: '1006', 6: '1011',
@@ -59,15 +38,6 @@ def generator_id():
         yield ranges[i]
 
 
-currentday_dict = {
-    0: 'monday',
-    1: 'tuesday',
-    2: 'wednesday',
-    3: 'thursday',
-    4: 'friday',
-    5: 'saturday',
-    6: None
-}
 
 #Так как redis нет на Windows, а WSL у меня не работает, а место под вторую операционку нет, то приходится выкручиваться таким образом
 schedule_1016 = {

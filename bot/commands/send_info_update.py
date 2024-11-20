@@ -1,5 +1,5 @@
 from aiogram import Router, F
-from aiogram.filters import Command, CommandObject
+from aiogram.filters import Command
 from aiogram import types
 from aiogram import Bot
 import os
@@ -7,7 +7,6 @@ from postgresql.db import get_id_users
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-import asyncio
 from dotenv import load_dotenv
 
 

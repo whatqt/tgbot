@@ -1,8 +1,17 @@
 from calendar import weekday
 from datetime import datetime
-from func_cache.cache import currentday_dict
 
 
+
+currentday_dict = {
+    0: 'monday',
+    1: 'tuesday',
+    2: 'wednesday',
+    3: 'thursday',
+    4: 'friday',
+    5: 'saturday',
+    6: None
+}
 
 class CurrentDay:
     def __init__(self):

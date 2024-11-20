@@ -1,4 +1,4 @@
-from func_cache import cache
+from . import cache
 
 async def check(id_group, day, mode):
     match mode:
