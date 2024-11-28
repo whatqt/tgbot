@@ -1,4 +1,4 @@
-def generator():
+def generator_weekday():
     ranges = {
         1: 'monday_one', 2: 'tuesday_one', 3: 'wednesday_one',
         4: 'thursday_one', 5: 'friday_one', 6: 'saturday_one',

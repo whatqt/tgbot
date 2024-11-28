@@ -2,7 +2,6 @@ from aiogram import Router, F
 from aiogram.filters import Command,  CommandObject
 from aiogram import types
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
-from parser.parser import *
 from os import system
 
 

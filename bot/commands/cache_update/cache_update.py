@@ -3,12 +3,12 @@ from aiogram.filters import Command
 from aiogram import types
 import asyncio
 from aiogram import Bot
-from parser.parser import *
+from parser.parser_schedule import *
+from parser.parser_exams import *
 from .tools.cache import generator_id, generator_schedule
 from .tools.lessen import *
 import os
 from dotenv import load_dotenv
-from pymongo import AsyncMongoClient
 
 
 
@@ -25,12 +25,12 @@ async def upgrade_cache(id_group):
     print('Кэш обновляется')
     lst = []
     lst_two = []
-    mygenerator = generator()
+    weekday = generator_weekday()
     day = 1
     while day <= 6:
         await html_result_group_one(tables['first_week_1'], tables['first_week_2'], day, lst)
         day += 1
-        await record_cache(id_group, (next(mygenerator)), lst.copy())
+        await record_cache(id_group, (next(weekday)), lst.copy())
         lst.clear()
 
     day_two = 1
@@ -38,8 +38,9 @@ async def upgrade_cache(id_group):
         await html_result_group_two(tables['second_week_1'], tables['second_week_2'], day_two, lst_two)
         # добавить суда mongodb
         day_two += 1
-        await record_cache(id_group, (next(mygenerator)), lst_two.copy())
+        await record_cache(id_group, (next(weekday)), lst_two.copy())
         lst_two.clear()
+    data_exams = await get_exams(id_group)
 
     await asyncio.sleep(0)
     print('Кэш обновился')
@@ -72,8 +73,12 @@ async def upgrade_ch_by_time(message: types.Message):
                         print('Обновление кэша не началось')
                         break
                     print(f'Группа по словарю: {group}')
-                    await change_id(next(id_generation))
-                    await upgrade_cache(next(schedule_generation))
+                    id_group = next(id_generation)
+                    schedule = next(schedule_generation)
+                    await change_id(id_group)
+                    await upgrade_cache(schedule)
+                    data_exams = await get_exams(id_group)
+                    await get_data_exams(data_exams, schedule)
                     group+=1
                     await asyncio.sleep(0.1)
                 except IndexError as i: #error groups 5, 22, 23, 24, 29, 31, 32, 33
