@@ -21,15 +21,6 @@ async def group(url, id_group, tables):
             tables['second_week_2'] = tables['table_second_schedule'].find_all('tr', class_="even")
     
 async def check_table(tables_one, tables_two):
-    # len_tablse_one = 0
-    # len_tablse_two = 0
-
-    # for i in tables_one:
-    #     len_tablse_one+=1
-    # for j in tables_two:
-    #     len_tablse_two+=1
-        
-    # return len_tablse_one+len_tablse_two
     return len(tables_one)+len(tables_two)
 
 async def html_transform(table, element_list, day, new_list):
