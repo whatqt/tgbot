@@ -34,11 +34,11 @@ async def get_data_exams(data_exams, all_exams):
         type_exam = auditorium_number.find_next()      
         numbers_exams+=1
         all_exams
-        all_exams[f"exam_{numbers_exams}"] = {
-            "date_exam": date_exam.text,
-            "name_exam": name_exam.text,
+        all_exams["exams"][f"exam_{numbers_exams}"] = {
+            "date": date_exam.text,
+            "name": name_exam.text,
             "auditorium_number": auditorium_number.text,
-            "type_exam": type_exam.text,
+            "type": type_exam.text,
         }
     print(all_exams)
     return all_exams

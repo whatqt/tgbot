@@ -107,6 +107,7 @@ async def back_menu(message: types.Message):
     builder = ReplyKeyboardBuilder()
     builder.add(types.KeyboardButton(text='Сегодняшние пары'))
     builder.add(types.KeyboardButton(text='Завтрашние пары'))
+    builder.add(types.KeyboardButton(text="Экзамены"))
     builder.add(types.KeyboardButton(text='Расписание занятий'))
     builder.adjust(2)
     await message.answer('Вы вернулись в главное меню.',reply_markup=builder.as_markup(resize_keyboard=True))
@@ -229,5 +230,29 @@ async def tomorrow_class(message: types.Message):
         await message.answer(f'{info_week}\n\nВ воскресенье пар нет!')
     
 
+#разделить функции по папкам
 
 
+
+
+@router.message(F.text == "Экзамены")
+async def return_exams(message: types.Message):
+    id_group = await check_id_group(message.from_user.id)
+    data_exams = await check(
+        id_group, "exams", 1
+    )
+    answer = ''
+    for i in range(len(data_exams)):
+        exam = f"exam_{i+1}"
+        date = data_exams[exam]["date"]
+        name = data_exams[exam]["name"]
+        auditorium_number = data_exams[exam]["auditorium_number"]
+        type = data_exams[exam]["type"]
+        answer+=f"Дата: {date}\nПредмет: {name}\nНомер аудитории: {auditorium_number}\nКонсультация или Экзамен: {type}\n"
+    await message.answer(answer)
+    
+
+
+# сделать так, что-бы было управление через калбэк кнопки
+# на первой странице будет первый экзамен, на второй странице 2 экзамен и т.д. 
+# или сделать вывод всех экзаменов. Обдумать и решить, какой будет лучший

@@ -40,201 +40,52 @@ def generator_id():
 
 
 #Так как redis нет на Windows, а WSL у меня не работает, а место под вторую операционку нет, то приходится выкручиваться таким образом
-schedule_1016 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-schedule_1022 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-schedule_1020 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-schedule_1021 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-schedule_1017 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-schedule_1018 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-schedule_1026 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-schedule_1025 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-schedule_1019 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-schedule_1024 = {
-    'monday_one': '',
-    'tuesday_one': '',
-    'wednesday_one': '',
-    'thursday_one': '',
-    'friday_one': '',
-    'saturday_one': '',
-    'monday_two': '',
-    'tuesday_two': '',
-    'wednesday_two': '',
-    'thursday_two': '',
-    'friday_two': '',
-    'saturday_two': ''
-}
-
-
-
 schedule_1008 = {
-    'monday_one': '', 
-    'tuesday_one': '', 
-    'wednesday_one': '', 
-    'thursday_one': '', 
-    'friday_one': '', 
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
     'saturday_one': '',
-    'monday_two': '', 
-    'tuesday_two': '', 
-    'wednesday_two': '', 
-    'thursday_two': '', 
-    'friday_two': '', 
-    'saturday_two': ''
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_1014 = {
-    'monday_one': '', 
-    'tuesday_one': '', 
-    'wednesday_one': '', 
-    'thursday_one': '', 
-    'friday_one': '', 
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
     'saturday_one': '',
-    'monday_two': '', 
-    'tuesday_two': '', 
-    'wednesday_two': '', 
-    'thursday_two': '', 
-    'friday_two': '', 
-    'saturday_two': ''
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_1010 = {
-    'monday_one': '', 
-    'tuesday_one': '', 
-    'wednesday_one': '', 
-    'thursday_one': '', 
-    'friday_one': '', 
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
     'saturday_one': '',
-    'monday_two': '', 
-    'tuesday_two': '', 
-    'wednesday_two': '', 
-    'thursday_two': '', 
-    'friday_two': '', 
-    'saturday_two': ''    
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_1005 = {
@@ -249,7 +100,8 @@ schedule_1005 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_1006 = {
@@ -264,7 +116,8 @@ schedule_1006 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_1011 = {
@@ -279,7 +132,8 @@ schedule_1011 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_1007 = {
@@ -294,7 +148,8 @@ schedule_1007 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_1013 = {
@@ -309,7 +164,8 @@ schedule_1013 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_1004 = {
@@ -324,7 +180,8 @@ schedule_1004 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_1009 = {
@@ -339,7 +196,8 @@ schedule_1009 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_992 = {
@@ -354,7 +212,8 @@ schedule_992 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_987 = {
@@ -369,7 +228,8 @@ schedule_987 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_988 = {
@@ -384,7 +244,8 @@ schedule_988 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_994 = {
@@ -399,7 +260,8 @@ schedule_994 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_991 = {
@@ -414,10 +276,9 @@ schedule_991 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
-
-
 
 schedule_990 = {
     'monday_one': '',
@@ -431,7 +292,8 @@ schedule_990 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_993 = {
@@ -446,7 +308,8 @@ schedule_993 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_977 = {
@@ -461,9 +324,9 @@ schedule_977 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
-
 
 schedule_979 = {
     'monday_one': '',
@@ -477,7 +340,8 @@ schedule_979 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_976 = {
@@ -492,7 +356,8 @@ schedule_976 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_978 = {
@@ -507,7 +372,8 @@ schedule_978 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
 
 schedule_981 = {
@@ -522,5 +388,167 @@ schedule_981 = {
     'wednesday_two': '',
     'thursday_two': '',
     'friday_two': '',
-    'saturday_two': ''
+    'saturday_two': '',
+    'exams': {}
 }
+
+schedule_1016 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
+schedule_1022 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
+schedule_1020 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
+schedule_1021 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
+schedule_1017 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
+schedule_1018 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
+schedule_1026 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
+schedule_1025 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
+schedule_1019 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
+schedule_1024 = {
+    'monday_one': '',
+    'tuesday_one': '',
+    'wednesday_one': '',
+    'thursday_one': '',
+    'friday_one': '',
+    'saturday_one': '',
+    'monday_two': '',
+    'tuesday_two': '',
+    'wednesday_two': '',
+    'thursday_two': '',
+    'friday_two': '',
+    'saturday_two': '',
+    'exams': {}
+}
+
