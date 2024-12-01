@@ -238,18 +238,30 @@ async def tomorrow_class(message: types.Message):
 @router.message(F.text == "Экзамены")
 async def return_exams(message: types.Message):
     id_group = await check_id_group(message.from_user.id)
+    print(id_group)
+    if id_group is None:
+        await message.answer("❌ Выберите пожалуйста группу при помощи команды /group")
+        return 
     data_exams = await check(
         id_group, "exams", 1
     )
-    answer = ''
+    answer = ""
     for i in range(len(data_exams)):
         exam = f"exam_{i+1}"
         date = data_exams[exam]["date"]
         name = data_exams[exam]["name"]
         auditorium_number = data_exams[exam]["auditorium_number"]
         type = data_exams[exam]["type"]
-        answer+=f"Дата: {date}\nПредмет: {name}\nНомер аудитории: {auditorium_number}\nКонсультация или Экзамен: {type}\n"
-    await message.answer(answer)
+        # answer+=f"Дата: {date}\nПредмет: {name}\nНомер аудитории: {auditorium_number}\nКонсультация или Экзамен: {type}\n\n"
+        date_answer = f"🗓 Дата и время:  <u><i>{date}</i></u>"
+        name_answer = f"Предмет: <u><i>{name}</i></u>"
+        auditorium_number_answer = f"Номер аудитории: <u><i>{auditorium_number}</i></u>"
+        type_answer = f"Консультация или Экзамен: <u><i>{type}</i></u>"
+        answer+=f"{date_answer}\n{name_answer}\n{auditorium_number_answer}\n{type_answer}\n\n"
+    if answer == "":
+        await message.answer("Расписание экзаменов не выставлено")
+        return 
+    await message.answer(answer, parse_mode="HTML")
     
 
 
