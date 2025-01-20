@@ -1,5 +1,11 @@
-from bot.main import BOT
+# from main import BOT
+from dotenv import load_dotenv
+import os
+from aiogram import Bot
 
+
+load_dotenv()
+BOT = Bot(token=os.getenv('TOKEN_BOT'))
 
 class LogBase:
     def __init__(self):

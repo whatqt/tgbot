@@ -4,7 +4,7 @@ from .tables import Users, engine
 from sqlalchemy.ext.asyncio import AsyncSession
 import asyncio
 from time import sleep
-
+from logic_logs.log_manage_user import LogManageUser
 
 class ManageUser:
     def __init__(
@@ -26,8 +26,13 @@ class ManageUser:
                 try:
                     session.add(user)
                     await session.commit()
+                    log_manager_user = LogManageUser(
+                        self.id_user, 
+                        self.user_name,
+                        self.id_group
+                    )                    
+                    await log_manager_user.send_about_create_user()
                 except:
-                    print(user)
                     return user
                  # именна вот эта команда не будет давать блокировать запросы
             # не забыть добавить отправление сообщений в логи
@@ -41,6 +46,12 @@ class ManageUser:
                     user.id_group = f"schedule_{new_id_group}"
                     user.user_name = self.user_name
                     await session.commit()
+                    log_manager_user = LogManageUser(
+                        self.id_user, 
+                        self.user_name,
+                        self.id_group
+                    )                    
+                    await log_manager_user.send_about_update_user()
                 else:
                     print(user)
                     pass

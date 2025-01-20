@@ -6,9 +6,8 @@ class LogManageUser(LogBase):
     def __init__(
             self, id_user: int,
             user_name: str, id_group,
-            bot, log_chats
     ):
-        super().__init__(bot, log_chats)
+        super().__init__()
         self.id_user = id_user
         self.user_name = user_name
         self.id_group = id_group
@@ -22,8 +21,8 @@ class LogManageUser(LogBase):
     async def send_about_update_user(self):
         await self.bot.send_message(
         self.log_chats["create_or_update_user"], f"""
-        Пользователь уже есть в базе данных 📋\nid пользователя {self.id_user} | user_name пользователя {self.user_name}
-        id группы пользователя был успешно обновлён на {self.id_group}✅
-        """
+Пользователь уже есть в базе данных 📋\nid пользователя {self.id_user} | user_name пользователя {self.user_name}
+id группы пользователя был успешно обновлён на {self.id_group}✅
+"""
         )
         
