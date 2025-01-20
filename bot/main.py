@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
+BOT = Bot(token=os.getenv('TOKEN_BOT'))
 async def main():
     bot = Bot(token=os.getenv('TOKEN_BOT'))
     dp = Dispatcher(storage=MemoryStorage())
