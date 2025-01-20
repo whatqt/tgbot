@@ -1,6 +1,6 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy import Select
-from tables import Users, engine
+from .tables import Users, engine
 from sqlalchemy.ext.asyncio import AsyncSession
 import asyncio
 from time import sleep
@@ -23,8 +23,13 @@ class ManageUser:
                     user_name=self.user_name,
                     id_group=f"schedule_{self.id_group}"
                 )
-                session.add(user)
-                await session.commit() # именна вот эта команда не будет давать блокировать запросы
+                try:
+                    session.add(user)
+                    await session.commit()
+                except:
+                    print(user)
+                    return user
+                 # именна вот эта команда не будет давать блокировать запросы
             # не забыть добавить отправление сообщений в логи
 
     async def update_group_at_user(self, new_id_group: str):
@@ -43,11 +48,13 @@ class ManageUser:
                     # отправка пользователю, что не удалось выбрать группу
 
 
+
 # async def main():
 #     test = ManageUser(111111, None, '1008')
-#     await test.create_user()
-#     sleep(5)
-#     await test.update_group_at_user("1005")
-
+#     t = await test.create_user()
+#     if t:
+#         print("Такой пользователь уже есть")
+#         sleep(5)
+#         await test.update_group_at_user("1005")
 
 # asyncio.run(main())

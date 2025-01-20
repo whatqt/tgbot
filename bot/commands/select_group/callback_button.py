@@ -1,6 +1,6 @@
 from aiogram import types
-from postgresql.db import insert_into_table
-
+# from postgresql.db import insert_into_table
+from postgresql_copy.manage_user import ManageUser
 
 
 class CallbackButton:
@@ -22,12 +22,24 @@ class Callbackdata:
         self.keyboard = keyboard
 
     async def __call__(self, text_compared):  # text_compared - сравниваемый текст
-        action  = self.callback_input.data.split('_')[1]
-        if action == text_compared:
-            await self.callback_input.message.edit_text(self.text, reply_markup=self.keyboard)
-            await insert_into_table( 
-            self.callback_input.from_user.id,
-            self.callback_input.from_user.username,
-            action
-        ) 
+        id_group  = self.callback_input.data.split('_')[1]
+        if id_group == text_compared:
+            await self.callback_input.message.edit_text(
+                self.text,
+                reply_markup=self.keyboard
+            )
+            manage_user = ManageUser(
+                self.callback_input.from_user.id,
+                self.callback_input.from_user.username,
+                id_group
+            )
+            result_call_create_user = await manage_user.create_user()
+            if result_call_create_user:
+                await manage_user.update_group_at_user(id_group)
+
+        #     await insert_into_table( 
+        #     self.callback_input.from_user.id,
+        #     self.callback_input.from_user.username,
+        #     id_group
+        # ) 
             
