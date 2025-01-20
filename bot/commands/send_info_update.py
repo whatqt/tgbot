@@ -38,6 +38,7 @@ async def send_info_update(message: types.Message, state: FSMContext):
 @router.message(Form.mesg_update)
 async def message_send(message: types.Message, state: FSMContext):
     if message.from_user.id == 1752086646:
+        print(message.text)
         await state.update_data(mesg_update=message.text)
         user_data = await state.get_data()
         builder = InlineKeyboardBuilder()
@@ -61,13 +62,17 @@ async def update_yes(callback: types.CallbackQuery, state: FSMContext):
     if callback.from_user.id == 1752086646:
         user_data = await state.get_data()
         id_users_list = await get_id_users()
-        for id_user in id_users_list:
-            print(id_user['id_user'])
-            try:
-                await bot.send_message(id_user['id_user'], user_data["mesg_update"])
-            except: 
-                print(f"КТО БЛОКНУЛ БОТА {id_user['id_user']}")
-                continue
+        try:
+            for id_user in id_users_list:
+                await bot.send_message(
+                    id_user['id_user'], 
+                    user_data["mesg_update"], 
+                    parse_mode="HTML"
+                )
+                # print(f"КТО БЛОКНУЛ БОТА {id_user['id_user']}")
+        except: 
+            await callback.message.edit_text("Ошибка")
+            await callback.message.answer()
         await state.clear()
         await callback.message.edit_text('Информация была успешно отправлена!')
 

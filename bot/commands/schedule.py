@@ -12,7 +12,6 @@ async def schedule(message: types.Message):
     builder = ReplyKeyboardBuilder()
     builder.add(types.KeyboardButton(text='Сегодняшние пары'))
     builder.add(types.KeyboardButton(text='Завтрашние пары'))
-    builder.add(types.KeyboardButton(text="Экзамены"))
     builder.add(types.KeyboardButton(text='Расписание занятий'))
     builder.adjust(2)
     await message.reply(
@@ -23,7 +22,6 @@ async def create_schedule(callback: types.CallbackQuery):
     builder = ReplyKeyboardBuilder()
     builder.add(types.KeyboardButton(text='Сегодняшние пары'))
     builder.add(types.KeyboardButton(text='Завтрашние пары'))
-    builder.add(types.KeyboardButton(text="Экзамены"))
     builder.add(types.KeyboardButton(text='Расписание занятий'))
     builder.adjust(2)
     return await callback.message.reply('Вы создали главное меню. Выберите функцию при помощи нажатия на кнопку.', reply_markup=builder.as_markup(resize_keyboard=True))

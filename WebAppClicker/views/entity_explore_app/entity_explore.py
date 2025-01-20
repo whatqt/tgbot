@@ -64,6 +64,7 @@ async def create_task_active_raid(
 
 @app2.post("/end_time_raid")
 async def end_time_raid(background_tasks: BackgroundTasks, data = Body()):
+    # Добавить кнопку "Забрать награду"
     print(data)
     users_of_the_activated_raid.append(data["id_user"])
     print(users_of_the_activated_raid)
@@ -100,8 +101,6 @@ async def upgrade_explore_entity(request: Request, id_user):
 
 @app2.post("/upgrade_entity_explore")
 async def end_time_raid(data = Body()):
-    lvl_user = data
-    print(lvl_user)
     if data['quantity_gold'] < data['price_lvl_up']:
         return {"message": "error. quantity_gold < price_lvl_up"}
     
@@ -109,6 +108,7 @@ async def end_time_raid(data = Body()):
     await write_downs_golds(data['id_user'], data['price_lvl_up'])
     print("Данные обновились. Кол-во golds было изменено")
 #добавить redirect для избежания ошибок
+
 @app2.get("/favicon.ico")
 async def favicon():
     pass

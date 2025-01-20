@@ -1,3 +1,7 @@
+from pymongo import AsyncMongoClient
+
+connection = AsyncMongoClient("localhost", 27017)
+
 def generator_weekday():
     ranges = {
         1: 'monday_one', 2: 'tuesday_one', 3: 'wednesday_one',
@@ -10,6 +14,14 @@ def generator_weekday():
     for i in mylist:
         yield ranges[i]
     
+# async def record_cache(shedule_id, day_week, lst):
+#     shedule_id[day_week] = lst
+
 async def record_cache(shedule_id, day_week, lst):
-    shedule_id[day_week] = lst
+    global connection
+    client_db = connection
+    tgbot = client_db["tgbot"]
+    current_schedule = shedule_id
+    tgbot[current_schedule]
+
 

@@ -2,14 +2,14 @@ from aiogram import Router, F
 from aiogram import types
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from postgresql.db import *
-from commands.cache_update.tools.check_cache import check
-from commands.cache_update.tools.cache import schedule_1008
+from commands.cache_update_copy.tools.check_cache import check
 from .reply_keyboard import schedule_class, butons
 from .current_day import CurrentDay
 from .score_week import *
 from aiogram.filters import Command
 from dotenv import load_dotenv
 import os
+
 
 
 load_dotenv()
@@ -31,11 +31,6 @@ def emoji_number_couple(nubmer: int):
         
         case _:
             return nubmer
-ttt = '341 ауд. Информатика лек Кнышов И.Ю. ассистент'
-
-def edited_numbers_cabinet(text: str):
-    numbers_cabinet = text.split('.', 1)
-
 
 def emoji_time_couple(time: str):
     match time:
@@ -119,7 +114,6 @@ async def back_keyboard(message: types.Message):
 @router.message(F.text == 'Понедельник первой недели')
 async def otvet(message: types.Message):
     await display_the_schedule(message.from_user.id, message, 'monday_one', 'answer')
-    print(schedule_1008["exams"])
 
 @router.message(F.text == 'Вторник первой недели')
 async def otvet(message: types.Message):

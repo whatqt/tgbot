@@ -5,8 +5,9 @@ import asyncio
 from aiogram import Bot
 from parser.parser_schedule import *
 # from parser.parser_exams import *
-from .tools.cache import generator_id, generator_schedule
-from .tools.lessen import *
+# from .tools.cache import generator_id, generator_schedule
+from .tools.cache import generator_id
+from .tools.lessen import * # generator_schedule - от сюда
 import os
 from dotenv import load_dotenv
 
@@ -21,7 +22,7 @@ bot = Bot(token=os.getenv('TOKEN_BOT'))
 async def change_id(group_id):
    await group(URL, group_id, tables)
 
-async def upgrade_cache(id_group):
+async def upgrade_cache(schedule):
     print('Кэш обновляется')
     lst = []
     lst_two = []
@@ -30,7 +31,7 @@ async def upgrade_cache(id_group):
     while day <= 6:
         await html_result_group_one(tables['first_week_1'], tables['first_week_2'], day, lst)
         day += 1
-        await record_cache(id_group, (next(weekday)), lst.copy())
+        await record_cache(schedule, (next(weekday)), lst.copy())
         lst.clear()
 
     day_two = 1
@@ -38,7 +39,7 @@ async def upgrade_cache(id_group):
         await html_result_group_two(tables['second_week_1'], tables['second_week_2'], day_two, lst_two)
         # добавить суда mongodb
         day_two += 1
-        await record_cache(id_group, (next(weekday)), lst_two.copy())
+        await record_cache(schedule, (next(weekday)), lst_two.copy())
         lst_two.clear()
     #data_exams = await get_exams(id_group)
 
@@ -52,7 +53,7 @@ async def upgrade_ch_by_time(message: types.Message):
         while True:
             status_code = await group_check()
             error = []            
-            schedule_generation =  generator_schedule()
+            schedule_generation = generator_schedule()
             id_generation =  generator_id()
             group = 1
             if status_code != 200:

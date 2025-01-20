@@ -4,7 +4,7 @@ from commands.select_group import group
 from commands import feeadback_and_report, start, \
     schedule, help, admin, send_info_update
 from commands.send_mess_by_time import check_time_for_mess
-from commands.cache_update import cache_update
+from commands.cache_update_copy import cache_update
 from lesson import week
 import os
 from aiogram.fsm.storage.memory import MemoryStorage
