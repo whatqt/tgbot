@@ -1,7 +1,8 @@
-from aiogram import Router, F
+from aiogram import Router, F, Bot
 from aiogram import types
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
-from postgresql.db import *
+# from postgresql.db import *
+from cache_group.cache_group_user import cache_group_user
 from commands.cache_update_copy.tools.check_cache import check
 from .reply_keyboard import schedule_class, butons
 from .current_day import CurrentDay
@@ -69,7 +70,8 @@ async def use_for(message: types.Message, list, id_user, method):
 
 async def display_the_schedule(id_user, message: types.Message, day, method):
     try:
-        id_group = await check_id_group(id_user)
+        print(cache_group_user)
+        id_group = cache_group_user[id_user]
         end_list = await check(id_group, day, 1)
         match method:
             case 'text':
@@ -231,7 +233,8 @@ async def tomorrow_class(message: types.Message):
 
 @router.message(F.text == "Экзамены")
 async def return_exams(message: types.Message):
-    id_group = await check_id_group(message.from_user.id)
+    # id_group = await check_id_group(message.from_user.id)
+    id_group = cache_group_user[message.from_user.id]
     print(id_group)
     if id_group is None:
         await message.answer("❌ Выберите пожалуйста группу при помощи команды /group")

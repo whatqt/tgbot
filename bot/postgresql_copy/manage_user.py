@@ -5,6 +5,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 import asyncio
 from time import sleep
 from logic_logs.log_manage_user import LogManageUser
+from cache_group.cache_group_user import cache_group_user
+
+
 
 class ManageUser:
     def __init__(
@@ -26,12 +29,18 @@ class ManageUser:
                 try:
                     session.add(user)
                     await session.commit()
+
+                    # обдумать, как внедрить систему cache_group_user
+                    # так, чтобы легко было обновлять
+                    # костыль:
+                    cache_group_user[self.id_user] = f"schedule_{self.id_group}"
                     log_manager_user = LogManageUser(
                         self.id_user, 
                         self.user_name,
                         self.id_group
                     )                    
                     await log_manager_user.send_about_create_user()
+                    
                 except:
                     return user
                  # именна вот эта команда не будет давать блокировать запросы
@@ -46,6 +55,7 @@ class ManageUser:
                     user.id_group = f"schedule_{new_id_group}"
                     user.user_name = self.user_name
                     await session.commit()
+                    cache_group_user[self.id_user] = f"schedule_{new_id_group}"
                     log_manager_user = LogManageUser(
                         self.id_user, 
                         self.user_name,
@@ -57,6 +67,19 @@ class ManageUser:
                     pass
                     # отправка логов в бота об ошибке
                     # отправка пользователю, что не удалось выбрать группу
+
+
+    async def get_all_users(self):
+        async with AsyncSession(autoflush=False, bind=engine) as session:
+            async with session.begin(): #надо ли это использовать при получение данных
+                users = await session.execute(Select(Users))
+                users = users.all()
+                print(users)
+                for user in users:
+                    new_user = user[0]
+                    print(new_user.id_user)
+                    print(new_user.id_group)
+                    cache_group_user[new_user.id_user] = new_user.id_group
 
 
 

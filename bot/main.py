@@ -10,6 +10,9 @@ import os
 from aiogram.fsm.storage.memory import MemoryStorage
 from commands.clicker import start_cliker
 from dotenv import load_dotenv
+from cache_group.cache_group_user import cache_group_user
+from postgresql_copy.manage_user import ManageUser
+
 
 
 
@@ -18,6 +21,10 @@ load_dotenv()
 async def main():
     bot = Bot(token=os.getenv('TOKEN_BOT'))
     dp = Dispatcher(storage=MemoryStorage())
+    # обязательно написать отдельный класс, который за это отвечает
+    # а именно: за загрузку данных в cache_group_user 
+    # (тоже будет переписан в класс, для лучшего понятия)
+    await ManageUser(None, None, None).get_all_users()
     dp.include_routers( 
         cache_update.router, feeadback_and_report.router, 
         group.router, start.router, 
