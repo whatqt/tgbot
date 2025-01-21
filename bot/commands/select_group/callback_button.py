@@ -1,5 +1,5 @@
 from aiogram import types
-from cache_group.cache_group_user import CacheGroupUsers, cache_group_users_dict
+from cache_group.cache_group_user import CacheGroupUsers #,cache_group_users_dict
 from postgresql_copy.manage_user import ManageUser
 
 
@@ -28,14 +28,14 @@ class Callbackdata:
                 self.text,
                 reply_markup=self.keyboard
             )
+            cache_group_users = CacheGroupUsers()
             manage_user = ManageUser(
                 self.callback_input.from_user.id,
                 self.callback_input.from_user.username,
                 id_group,
-                cache_group_users_dict
-                
-
+                cache_group_users.cache_group_users_dict
             )
+            
             result_call_create_user = await manage_user.create_user()
             if result_call_create_user:
                 await manage_user.update_group_at_user(id_group)

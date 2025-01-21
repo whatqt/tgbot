@@ -3,14 +3,13 @@ from sqlalchemy import Select
 from postgresql_copy.tables import Users, engine
 
 
-cache_group_users_dict = {}
 
 class CacheGroupUsers:
-	def __init__(self, cache_group_users_dict: dict):
-		self.cache_group_users_dict = cache_group_users_dict
+	cache_group_users_dict = {}
 
-	async def add_user(self, id_user, id_group):
-		self.cache_group_users_dict[id_user] = id_group
+	@classmethod
+	async def add_user(cls, id_user, id_group):
+		cls.cache_group_users_dict[id_user] = id_group
 
 		return {id_user: id_group}
 
