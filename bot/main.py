@@ -10,7 +10,8 @@ import os
 from aiogram.fsm.storage.memory import MemoryStorage
 from commands.clicker import start_cliker
 from dotenv import load_dotenv
-from cache_group.cache_group_user import cache_group_user
+from bot.cache_group.cache_group_user import CacheGroupUsers, cache_group_users_dict
+from bot.cache_group import launch
 from postgresql_copy.manage_user import ManageUser
 
 
@@ -24,14 +25,15 @@ async def main():
     # обязательно написать отдельный класс, который за это отвечает
     # а именно: за загрузку данных в cache_group_user 
     # (тоже будет переписан в класс, для лучшего понятия)
-    await ManageUser(None, None, None).get_all_users()
+    # print(cache_group_users_dict)
+    # await ManageUser(None, None, None).get_all_users()
     dp.include_routers( 
         cache_update.router, feeadback_and_report.router, 
         group.router, start.router, 
         week.router, schedule.router,
         help.router, admin.router,
         send_info_update.router,  check_time_for_mess.router,
-        start_cliker.router
+        start_cliker.router, launch.router
 
         )
     await bot.delete_webhook(drop_pending_updates=True) 
