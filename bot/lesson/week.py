@@ -70,12 +70,8 @@ async def use_for(message: types.Message, list, id_user, method):
 
 async def display_the_schedule(id_user, message: types.Message, day, method):
     try:
-        # cache_group_users = CacheGroupUsers(cache_group_users_dict)
-        # await cache_group_users.record_all_user()
-        # print(cache_group_users.cache_group_users_dict)
-        print(cache_group_users_dict)
         id_group = cache_group_users_dict[message.from_user.id]
-        end_list = await check(id_group, day, 1)
+        end_list = await check(id_group, day)
         match method:
             case 'text':
                 info = await use_for(message, end_list.copy(), id_user, method)

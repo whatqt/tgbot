@@ -3,7 +3,7 @@ from .lessen import connection
 
 
 
-async def check(id_group, day, mode):
+async def check(id_group, day):
     tgbot = connection["tgbot"]
     current_schedule = tgbot[id_group]
     _class = await current_schedule.find_one(
