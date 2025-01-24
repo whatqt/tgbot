@@ -11,56 +11,56 @@ from dotenv import load_dotenv
 load_dotenv()
 bot = Bot(token=os.getenv('TOKEN_BOT'))
 
-async def insert_into_table(id_user, user_name, id_group):
-    cursor = await create_connection()
-    try:
-        insert_info = f'''
-        INSERT INTO users VALUES ('{id_user}', '{user_name}', 'schedule_{id_group}')
-        '''
-        await cursor.execute(insert_info)
-        print(f'Имя пользователя: {user_name}\nid пользователя: {id_user}\nгруппа пользователя: {id_group}')
-        print('Пользователь добавлен в базу данных 📝')
-        await bot.send_message(
-        -1001948152320, 
-        f'#база_данных\nИмя пользователя: {user_name}\nid пользователя: {id_user}\nгруппа пользователя: {id_group}'
-        )
-    except asyncpg.exceptions.UniqueViolationError:
-        print('Пользователь уже есть в базе данных 📋 ') 
-        print(f'id пользователя {id_user}\nuser_name пользователя @{user_name}\nгруппа пользователя {id_group}')
-        update_user_group = f'''
-        UPDATE users
-        SET id_group = 'schedule_{id_group}'
-        WHERE id_user = {id_user}
-        ''' 
-        await cursor.execute(update_user_group)
-        print('id группы пользователя был успешно обновлён ✅\n')
-        await bot.send_message(
-        -1001948152320, f"""
-#база_данных\nПользователь уже есть в базе данных 📋\nid пользователя {id_user} | user_name пользователя {user_name}
-id группы пользователя был успешно обновлён на {id_group}✅
-"""
-        )     
-    finally: await cursor.close()
+# async def insert_into_table(id_user, user_name, id_group):
+#     cursor = await create_connection()
+#     try:
+#         insert_info = f'''
+#         INSERT INTO users VALUES ('{id_user}', '{user_name}', 'schedule_{id_group}')
+#         '''
+#         await cursor.execute(insert_info)
+#         print(f'Имя пользователя: {user_name}\nid пользователя: {id_user}\nгруппа пользователя: {id_group}')
+#         print('Пользователь добавлен в базу данных 📝')
+#         await bot.send_message(
+#         -1001948152320, 
+#         f'#база_данных\nИмя пользователя: {user_name}\nid пользователя: {id_user}\nгруппа пользователя: {id_group}'
+#         )
+#     except asyncpg.exceptions.UniqueViolationError:
+#         print('Пользователь уже есть в базе данных 📋 ') 
+#         print(f'id пользователя {id_user}\nuser_name пользователя @{user_name}\nгруппа пользователя {id_group}')
+#         update_user_group = f'''
+#         UPDATE users
+#         SET id_group = 'schedule_{id_group}'
+#         WHERE id_user = {id_user}
+#         ''' 
+#         await cursor.execute(update_user_group)
+#         print('id группы пользователя был успешно обновлён ✅\n')
+#         await bot.send_message(
+#         -1001948152320, f"""
+# #база_данных\nПользователь уже есть в базе данных 📋\nid пользователя {id_user} | user_name пользователя {user_name}
+# id группы пользователя был успешно обновлён на {id_group}✅
+# """
+#         )     
+#     finally: await cursor.close()
 
 
-async def check_id_group(id_user):
-    cursor = await create_connection()
-    try:
-        select_id_user = f'''
-        SELECT id_user,
-        CASE
-            WHEN id_user = {id_user}
-                THEN id_group
-            ELSE 'No'
-        END AS yes
-        FROM users
-        '''
-        result = await cursor.fetch(select_id_user)
-        for info in result:
-            new_info = str(info)
-            if new_info.split(' ')[1] == f'id_user={id_user}':
-                return(new_info.split(' ')[2].split("'", 2)[1])
-    finally: await cursor.close()                
+# async def check_id_group(id_user):
+#     cursor = await create_connection()
+#     try:
+#         select_id_user = f'''
+#         SELECT id_user,
+#         CASE
+#             WHEN id_user = {id_user}
+#                 THEN id_group
+#             ELSE 'No'
+#         END AS yes
+#         FROM users
+#         '''
+#         result = await cursor.fetch(select_id_user)
+#         for info in result:
+#             new_info = str(info)
+#             if new_info.split(' ')[1] == f'id_user={id_user}':
+#                 return(new_info.split(' ')[2].split("'", 2)[1])
+#     finally: await cursor.close()                
 
 async def insert_into_time(id_user, hour, minute):
     try:

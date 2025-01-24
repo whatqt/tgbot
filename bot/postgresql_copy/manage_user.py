@@ -40,10 +40,9 @@ class ManageUser:
                     )                    
                     await log_manager_user.send_about_create_user()
                     
-                except:
+                except IntegrityError:
                     return user
-                 # именна вот эта команда не будет давать блокировать запросы
-            # не забыть добавить отправление сообщений в логи
+
 
     async def update_group_at_user(self, new_id_group: str):
         async with AsyncSession(autoflush=False, bind=engine) as session:
@@ -64,15 +63,3 @@ class ManageUser:
                 else:
                     print(user)
                     pass
-                    # отправка логов в бота об ошибке
-                    # отправка пользователю, что не удалось выбрать группу
-
-# async def main():
-#     test = ManageUser(111111, None, '1008')
-#     t = await test.create_user()
-#     if t:
-#         print("Такой пользователь уже есть")
-#         sleep(5)
-#         await test.update_group_at_user("1005")
-
-# asyncio.run(main())

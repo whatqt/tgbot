@@ -3,14 +3,18 @@ from aiogram.filters import Command, CommandObject
 from aiogram import types
 import asyncio
 from aiogram import Bot
-from postgresql.db import *
-from .time_set import *
+# from postgresql.db import *
+from postgresql_copy.send_mess_by_time.send_mess_time import ManageSendMessTime
+from postgresql_copy.send_mess_by_time.time_set import ManageTime
+from commands.select_group.callback_button import CallbackButton
+from .time_set import Time
 from datetime import datetime
 from lesson.week import display_the_schedule
 from lesson.current_day import CurrentDay
 from lesson.score_week import check_week
 from .keyboard_builder.callback_button import *
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from sqlalchemy.exc import IntegrityError
 from asyncpg.exceptions import *
 from lesson.score_week import CurrentDay
 import os
@@ -47,23 +51,28 @@ async def send_class_by_time(message: types.Message, command: CommandObject):
     else:    
         try:
             user_list_use_command.append(message.from_user.id)
-            set_time = Time(command.args, message.from_user.id)
-            await set_time.insert_date_time()
+            # set_time = Time(command.args, message.from_user.id)
+            # await set_time.insert_date_time() # из бд
+            manage_time = ManageTime(command.args)
+            time_from_db = await manage_time.date()
+            manage_send_mess_time = ManageSendMessTime(
+                message.from_user.id
+            )
+            await manage_send_mess_time.insert_time(
+                time_from_db
+            )
             unsuccessful_attempts = 0           
             await message.reply(
             f'Команда выполнена успешно. Уведомление о парах придёт в {command.args}', 
             reply_markup=await keyboard()
             )
             while True:
-                time = datetime.now()
-                real_time = f'{time.hour}:{time.minute}'
-                time_from_db_str = await select_time_str(message.from_user.id)
-                # real_time = datetime.now().replace(microsecond=0)
-                # time_from_db_int = await select_time_time_int(message.from_user.id)
-                # print(await select_time_time_int(message.from_user.id))
+                new_time = datetime.now()
+                real_time = f'{new_time.hour}:{new_time.minute}'
+                # time_from_db_str = await select_time_str(message.from_user.id)
                 print(f'real_time {real_time}')
-                print(f'time_from_db {time_from_db_str}\n')
-                if time_from_db_str is None:
+                print(f'time_from_db {time_from_db}\n')
+                if message.from_user.id in user_list:
                     print('Пользователь сменил данные')
                     unsuccessful_attempts+=1
                     print(f'unsuccessful_attempts - {unsuccessful_attempts}')
@@ -73,11 +82,12 @@ async def send_class_by_time(message: types.Message, command: CommandObject):
                         await message.reply('Время для изменение времени уведомление прошло. Запустите команду еще раз.')
                         break
                     
-                elif time_from_db_str:
+                elif user_list:
                     unsuccessful_attempts = 0
-                    if real_time == time_from_db_str:
+                    if real_time == str(time_from_db).split(' ')[1]:
                         current_day = CurrentDay()
-                        await delete_date_time(message.from_user.id)
+                        await manage_send_mess_time.delete_time()
+                        print("УДАЛЯЕМ ВРЕМЯ")
                         await display_the_schedule(message.from_user.id, message, await check_week(await current_day.today_day_week()), 'answer')
                         user_list_use_command.remove(message.from_user.id)
                         print(f'Сеанс {message.from_user.id} закончен')
@@ -87,15 +97,15 @@ async def send_class_by_time(message: types.Message, command: CommandObject):
                 
         except KeyError:
             await message.reply('В воскресенье пар нет!')
-            await delete_date_time(message.from_user.id)
+            await manage_send_mess_time.delete_time()
              
 
-        except UniqueViolationError:
-            # time_str_db = datetime.strftime(await real_time, '%Y-%m-%d %H:%M').split()[1]
-            await message.reply(
-                f'У вас уже установлено уведомление на {await select_time_str(message.from_user.id)}', 
-                reply_markup= await keyboard()
-                )
+        # except IntegrityError:
+        #     time_db = await manage_send_mess_time.return_time_by_id()
+        #     await message.reply(
+        #         f'У вас уже установлено уведомление на {time_db}', 
+        #         reply_markup= await keyboard()
+        #         )
             
         except (DatetimeFieldOverflowError, InvalidDatetimeFormatError, ValueError):
             await message.reply(f'{command.args} является недопустимым значением.\nПример команды: /send_class_by_time 9:30')
@@ -104,7 +114,11 @@ async def send_class_by_time(message: types.Message, command: CommandObject):
 @router.callback_query(F.data == 'edit')
 async def edit(callback: types.CallbackQuery):
     if callback.from_user.id in user_list_use_command:
-        await delete_date_time(callback.from_user.id)
+        manage_send_mess_time = ManageSendMessTime(
+            callback.from_user.id
+        )
+
+        await manage_send_mess_time.delete_time()
         user_list.append(callback.from_user.id)
         print(f'{user_list}\n')
         await callback.message.edit_text('Напишите новое время для отправки уведомление') 
@@ -113,8 +127,17 @@ async def edit(callback: types.CallbackQuery):
         async def func(message: types.Message):
             try:
                 if message.from_user.id in user_list:
-                    set_time = Time(message.text, message.from_user.id)
-                    await set_time.insert_date_time()
+                    # set_time = Time(message.text, message.from_user.id)
+                    # await set_time.insert_date_time()
+                    set_time = ManageTime(
+                        message.text
+                    )
+                    manage_send_mess_time = ManageSendMessTime(
+                        callback.from_user.id,
+                    )
+                    await manage_send_mess_time.insert_time(
+                        await set_time.date()
+                    )
                     await message.reply(f'Новое время для уведомление {message.text} было установлено!')
                     user_list.remove(message.from_user.id)
                     print(user_list)
@@ -129,10 +152,11 @@ async def edit(callback: types.CallbackQuery):
 async def update_task_code(message: types.Message, id_user):
     while True:
         try:
+            manage_send_mess_time = ManageSendMessTime(id_user)
             user_list_use_command.append(int(id_user))
             time = datetime.now()
             real_time = f'{time.hour}:{time.minute}'
-            time_from_bd = await select_time_str(id_user)
+            time_from_bd = await manage_send_mess_time.return_time_by_id()
             print(f'real_time {real_time}')
             print(f'time_from_db {time_from_bd}\n')
             if time_from_bd is None:
@@ -149,7 +173,7 @@ async def update_task_code(message: types.Message, id_user):
                 unsuccessful_attempts = 0
                 if real_time == time_from_bd:
                     current_day = CurrentDay()
-                    await delete_date_time(id_user)
+                    await manage_send_mess_time.delete_time()
                     await display_the_schedule(id_user, None, await check_week(await current_day.today_day_week()), 'bot_send')
                     user_list_use_command.remove(id_user)
                     print(f'Сеанс {id_user} закончен')
@@ -159,13 +183,14 @@ async def update_task_code(message: types.Message, id_user):
             
         except KeyError:
             await bot.send_message(id_user, 'В воскресенье пар нет!')
-            await delete_date_time(message.from_user.id)
+            await manage_send_mess_time.delete_time()
             break
             
 @router.message(Command('update_task'))
 async def update_task(message: types.Message):
     if message.from_user.id == 1752086646:
-        result_db = await select_send_mess_time()
+        manage_send_mess_time = ManageSendMessTime(...)
+        result_db = await manage_send_mess_time.return_all_user()
         tasks = []
         for info_db in result_db:
             id_user = str(info_db).split('id_user=')[1].split(maxsplit=1)[0].replace('>', '')
