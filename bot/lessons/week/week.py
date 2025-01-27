@@ -2,11 +2,11 @@ from aiogram import Router, F, Bot
 from aiogram import types
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 # from postgresql.db import *
-from cache_group.cache_group_user import CacheGroupUsers#, cache_group_users_dict
-from commands.cache_update_copy.tools.check_cache import check
-from .reply_keyboard import schedule_class, butons
-from .current_day import CurrentDay
-from .score_week import *
+from cache_group_users.cache_group_user import CacheGroupUsers#, cache_group_users_dict
+from commands.cache_update.tools.check_cache import check
+from ..reply_keyboard import schedule_class, butons
+from ..current_day import CurrentDay
+from ..score_week import *
 from aiogram.filters import Command
 from dotenv import load_dotenv
 import os
@@ -46,7 +46,6 @@ def emoji_time_couple(time: str):
         case '15:30-17:00':
             return '🕜'
         
-
 async def use_for(message: types.Message, list, id_user, method): 
     numbers_couple = 0
     line = ''
@@ -169,10 +168,7 @@ async def otvet(message: types.Message):
             message.from_user.id, message,  
             await check_week(await current_day.today_day_week()), 'text'
         )
-        # info_class = await display_the_schedule(
-        #     message.from_user.id, message,  
-        #     await check_week(score), 'text'
-        # )
+
         if info_class is None:
             await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
             
@@ -210,10 +206,7 @@ async def tomorrow_class(message: types.Message):
             message.from_user.id, message, 
             await check_week(await current_day.tomorrows_day_week()), 'text'
         ) 
-        # info_class = await display_the_schedule(
-        #     message.from_user.id, message, 
-        #     await check_week(score+1), 'text'
-        # )
+
         if info_class is None:
             await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
             
@@ -225,15 +218,8 @@ async def tomorrow_class(message: types.Message):
         info_week = await week()
         await message.answer(f'{info_week}\n\nВ воскресенье пар нет!')
     
-
-#разделить функции по папкам
-
-
-
-
 @router.message(F.text == "Экзамены")
 async def return_exams(message: types.Message):
-    # id_group = await check_id_group(message.from_user.id)
     cache_group_users = CacheGroupUsers()
     id_group = cache_group_users.cache_group_users_dict[message.from_user.id]   
     if id_group is None:
@@ -249,7 +235,6 @@ async def return_exams(message: types.Message):
         name = data_exams[exam]["name"]
         auditorium_number = data_exams[exam]["auditorium_number"]
         type = data_exams[exam]["type"]
-        # answer+=f"Дата: {date}\nПредмет: {name}\nНомер аудитории: {auditorium_number}\nКонсультация или Экзамен: {type}\n\n"
         date_answer = f"🗓 Дата и время:  <u><i>{date}</i></u>"
         name_answer = f"Предмет: <u><i>{name}</i></u>"
         auditorium_number_answer = f"Номер аудитории: <u><i>{auditorium_number}</i></u>"
@@ -260,8 +245,3 @@ async def return_exams(message: types.Message):
         return 
     await message.answer(answer, parse_mode="HTML")
     
-
-
-# сделать так, что-бы было управление через калбэк кнопки
-# на первой странице будет первый экзамен, на второй странице 2 экзамен и т.д. 
-# или сделать вывод всех экзаменов. Обдумать и решить, какой будет лучший

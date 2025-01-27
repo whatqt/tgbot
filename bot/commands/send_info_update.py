@@ -3,7 +3,7 @@ from aiogram.filters import Command
 from aiogram import types
 from aiogram import Bot
 import os
-from postgresql.db import get_id_users
+from postgresql.Management.manage_user import ManageUser
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
@@ -61,18 +61,21 @@ async def message_send(message: types.Message, state: FSMContext):
 async def update_yes(callback: types.CallbackQuery, state: FSMContext):
     if callback.from_user.id == 1752086646:
         user_data = await state.get_data()
-        id_users_list = await get_id_users()
+        manage_user = ManageUser(
+            ..., ..., ..., ...,
+        )
+        id_users_list = await manage_user.get_all_id_users()
         try:
             for id_user in id_users_list:
                 await bot.send_message(
-                    id_user['id_user'], 
+                    id_user[0], 
                     user_data["mesg_update"], 
                     parse_mode="HTML"
                 )
                 # print(f"КТО БЛОКНУЛ БОТА {id_user['id_user']}")
         except: 
             await callback.message.edit_text("Ошибка")
-            await callback.message.answer()
+            await callback.answer()
         await state.clear()
         await callback.message.edit_text('Информация была успешно отправлена!')
 

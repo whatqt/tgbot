@@ -1,7 +1,7 @@
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from .callback_button import CallbackButton, Callbackdata
+from .callback import CallbackButton, CallbackData
 from aiogram import types
 from .groups import first_course, second_course, third_course, fourth_course
 from commands.schedule import create_schedule
@@ -96,7 +96,7 @@ async def callback_group(callback : types.CallbackQuery):
 async def callback_group(callback: types.CallbackQuery):
     result_data = callback.data.split('_')[1]
     if result_data in first_course:
-        await Callbackdata(callback, f'✅ {first_course[result_data]}', await course())(result_data)
+        await CallbackData(callback, f'✅ {first_course[result_data]}', await course())()
         await create_schedule(callback)
     elif result_data == "back":
         await callback.message.edit_text('Выберите группу', reply_markup= await course())
@@ -106,7 +106,7 @@ async def callback_group(callback: types.CallbackQuery):
 async def callback_group(callback: types.CallbackQuery,):
     result_data = callback.data.split('_')[1]
     if result_data in second_course:
-        await Callbackdata(callback, f'✅ {second_course[result_data]}', await course())(result_data)
+        await CallbackData(callback, f'✅ {second_course[result_data]}', await course())()
         await create_schedule(callback)
 
     else:
@@ -117,7 +117,7 @@ async def callback_group(callback: types.CallbackQuery,):
 async def callback_group(callback: types.CallbackQuery,):
     result_data = callback.data.split('_')[1]
     if result_data in third_course:
-        await Callbackdata(callback, f'✅ {third_course[result_data]}', await course())(result_data)
+        await CallbackData(callback, f'✅ {third_course[result_data]}', await course())()
         await create_schedule(callback)
     else:
         await callback.message.edit_text('Выберите группу', reply_markup= await course())
@@ -127,7 +127,7 @@ async def callback_group(callback: types.CallbackQuery,):
 async def callback_group(callback: types.CallbackQuery,):
     result_data = callback.data.split('_')[1]
     if result_data in fourth_course:
-        await Callbackdata(callback, f'✅ {fourth_course[result_data]}', await course())(result_data)
+        await CallbackData(callback, f'✅ {fourth_course[result_data]}', await course())()
         await create_schedule(callback)
     else:
         await callback.message.edit_text('Выберите группу', reply_markup= await course())

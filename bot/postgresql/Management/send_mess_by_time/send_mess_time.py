@@ -1,6 +1,6 @@
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import Select
-from ..tables import engine, SendMessTime
+from postgresql.tables import engine, SendMessTime
 from sqlalchemy.ext.asyncio import AsyncSession
 import asyncio
 from time import sleep
@@ -59,14 +59,6 @@ class ManageSendMessTime:
                 time = obj.scalar_one()
                 result_time = str(time.time_set).split(' ', 1)[1]
                 return result_time
-
-
-    async def refresh(self):
-        async with AsyncSession(autoflush=False, bind=engine) as session:
-            async with session.begin():
-
-                # какой рефреш, если есть update 
-                ...
 
 
 

@@ -1,9 +1,11 @@
 from pymongo import MongoClient
 
 
+
 connection = MongoClient("localhost", 27017)
 tgbot = connection["tgbot"]
 schedules = [
+    "schedule_1008",
     "schedule_1014",
     "schedule_1010",
     "schedule_1005",
@@ -38,18 +40,18 @@ schedules = [
 ]
 
 dict_schedule = {
-    "monday_one": "",
-    "tuesday_one": "",
-    "wednesday_one": "",
-    "thursday_one": "",
-    "friday_one": "",
-    "saturday_one": "",
-    "monday_two": "",
-    "tuesday_two": "",
-    "wednesday_two": "",
-    "thursday_two": "",
-    "friday_two": "",
-    "saturday_two": "",
+    "monday_one": [],
+    "tuesday_one": [],
+    "wednesday_one": [],
+    "thursday_one": [],
+    "friday_one": [],
+    "saturday_one": [],
+    "monday_two": [],
+    "tuesday_two": [],
+    "wednesday_two": [],
+    "thursday_two": [],
+    "friday_two": [],
+    "saturday_two": [],
     "exams": {}
 }
 
@@ -58,6 +60,7 @@ for schedule in schedules:
     #     schedule
     # )
     current_schedule = tgbot[schedule]
+    dict_schedule["_id"] = schedule
     current_schedule.insert_one(dict_schedule)
 
     print(f"{schedule} is create!")

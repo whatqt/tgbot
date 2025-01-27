@@ -1,10 +1,11 @@
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import Select
-from .tables import Users, engine
+from postgresql.tables import Users, engine
 from sqlalchemy.ext.asyncio import AsyncSession
 import asyncio
 from time import sleep
 from logic_logs.log_manage_user import LogManageUser
+
 
 
 class ManageUser:
@@ -47,7 +48,11 @@ class ManageUser:
     async def update_group_at_user(self, new_id_group: str):
         async with AsyncSession(autoflush=False, bind=engine) as session:
             async with session.begin():
-                user = await session.execute(Select(Users).filter(Users.id_user==self.id_user).limit(1))
+                user = await session.execute(
+                    Select(Users).filter(
+                        Users.id_user==self.id_user
+                    ).limit(1)
+                )
                 user = user.scalar_one_or_none()
                 if user:
                     user.id_group = f"schedule_{new_id_group}"
@@ -63,3 +68,10 @@ class ManageUser:
                 else:
                     print(user)
                     pass
+
+    async def get_all_id_users(self):
+        async with AsyncSession(autoflush=False, bind=engine) as session:
+            async with session.begin():
+                users = await session.execute(Select(Users.id_user))
+                return users.all()
+    

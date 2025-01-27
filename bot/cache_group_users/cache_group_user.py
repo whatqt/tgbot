@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import Select
-from postgresql_copy.tables import Users, engine
+from postgresql.tables import Users, engine
 
 
 

@@ -10,18 +10,40 @@ def generator_weekday():
         10: 'thursday_two', 11: 'friday_two', 12: 'saturday_two'
     }
 
+
     mylist = range(1, 13)
     for i in mylist:
         yield ranges[i]
     
-# async def record_cache(shedule_id, day_week, lst):
-#     shedule_id[day_week] = lst
+def generator_schedule():
+    ranges = {
+        1: "schedule_1008", 2: "schedule_1014", 3: "schedule_1010",
+        4: "schedule_1005", 5: "schedule_1006", 6: "schedule_1011",
+        7: "schedule_1007", 8: "schedule_1013", 9: "schedule_1004",
+        10: "schedule_1009", 11: "schedule_992", 12: "schedule_987",
+        13: "schedule_988", 14: "schedule_994", 15: "schedule_991",
+        16: "schedule_990", 17: "schedule_993", 18: "schedule_977",
+        19: "schedule_979", 20: "schedule_976", 21: "schedule_978",
+        22: "schedule_981", 23: "schedule_1016", 24: "schedule_1022",
+        25: "schedule_1020", 26: "schedule_1021", 27: "schedule_1017",
+        28: "schedule_1018", 29: "schedule_1026", 30: "schedule_1025",
+        31: "schedule_1019", 32: "schedule_1024"
+    }
 
-async def record_cache(shedule_id, day_week, lst):
+    my_shedule = range(1, 33)
+
+    for i in my_shedule:
+        yield ranges[i]
+
+async def record_cache(schedule, day_week: str, lst: list):
     global connection
     client_db = connection
     tgbot = client_db["tgbot"]
-    current_schedule = shedule_id
-    tgbot[current_schedule]
+    current_schedule = tgbot[schedule]
 
+    await current_schedule.update_one(
+        {"_id": schedule},
+        {"$set": {day_week: lst}}
+    )
+    print(f"{schedule} была обновлена в {__name__}")
 
