@@ -13,7 +13,7 @@ class ManageTime:
             int(hour), 
             int(minute)
         )
-        print(date_time)
+        print(date_time.time())
         return date_time
 
 
