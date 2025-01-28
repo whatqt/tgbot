@@ -69,7 +69,10 @@ async def send_mess_by_time(
                 ),
                 'answer'
             )   
-
+            
+            time_to_slep = await count_next_notification.count()
+            print(time_to_slep)
+            await asyncio.sleep(time_to_slep)
 
         else:
             await manage_send_mess_time.delete_time()

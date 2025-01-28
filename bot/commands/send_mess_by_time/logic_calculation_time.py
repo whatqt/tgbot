@@ -2,19 +2,21 @@ from datetime import datetime, timedelta
 
 
 class CountNextNotification:
-    def __init__(self, date_time):
-        self.date_time = date_time
+    def __init__(self, time: str):
+        self.time = time
     
     async def count(self):
+        hour, minute = self.time.split(':', 1)
         new_time = datetime.now()
         target_time = new_time.replace(
-            hour=self.date_time.hour, 
-            minute=self.date_time.minute,
-            second=0, microsecond=0
+            hour=int(hour), 
+            minute=int(minute),
+            second=0, 
+            microsecond=0
         )
 
         if new_time > target_time:
-            target_time += datetime.timedelta(days=1)
+            target_time += timedelta(days=1)
 
         time_difference = target_time - new_time
         seconds_until_target = int(time_difference.total_seconds())
