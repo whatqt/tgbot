@@ -11,6 +11,9 @@ from aiogram.fsm.storage.memory import MemoryStorage
 # from commands.clicker import start_cliker
 from dotenv import load_dotenv
 from cache_group_users import launch
+from commands.send_mess_by_time import send_mess_by_time
+
+
 
 
 
@@ -24,8 +27,7 @@ async def main():
         group.router, start.router, 
         week.router, schedule.router,
         help.router, admin.router,
-        send_info_update.router,  #check_time_for_mess.router,
-        #start_cliker.router, 
+        send_info_update.router, send_mess_by_time.router,
         launch.router
 
         )

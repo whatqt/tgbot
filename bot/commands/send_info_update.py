@@ -3,7 +3,7 @@ from aiogram.filters import Command
 from aiogram import types
 from aiogram import Bot
 import os
-from postgresql.Management.manage_user import ManageUser
+from postgresql.management.manage_user import ManageUser
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
@@ -14,11 +14,11 @@ from dotenv import load_dotenv
 load_dotenv()
 router = Router()
 
-
 bot = Bot(token=os.getenv('TOKEN_BOT'))
+
+
 class Form(StatesGroup): 
     mesg_update = State()
-
 
 @router.message(Command('send_info_update'))
 async def send_info_update(message: types.Message, state: FSMContext):
