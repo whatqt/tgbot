@@ -11,12 +11,11 @@ from logic_logs.log_manage_user import LogManageUser
 class ManageUser:
     def __init__(
             self, id_user: int, user_name: str, 
-            id_group: str, cache_group_users: dict
+            id_group: str
         ):
         self.id_user = id_user
         self.user_name = user_name
         self.id_group = id_group
-        self.cache_group_users = cache_group_users
 
     async def create_user(self):
         async with AsyncSession(autoflush=False, bind=engine) as session:
@@ -29,11 +28,6 @@ class ManageUser:
                 try:
                     session.add(user)
                     await session.commit()
-
-                    # обдумать, как внедрить систему cache_group_user
-                    # так, чтобы легко было обновлять
-                    # костыль:
-                    self.cache_group_users[self.id_user] = f"schedule_{self.id_group}"
                     log_manager_user = LogManageUser(
                         self.id_user, 
                         self.user_name,
@@ -58,7 +52,6 @@ class ManageUser:
                     user.id_group = f"schedule_{new_id_group}"
                     user.user_name = self.user_name
                     await session.commit()
-                    self.cache_group_users[self.id_user] = f"schedule_{new_id_group}"
                     log_manager_user = LogManageUser(
                         self.id_user, 
                         self.user_name,
