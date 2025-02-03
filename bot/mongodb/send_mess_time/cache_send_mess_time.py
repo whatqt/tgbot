@@ -1,4 +1,6 @@
 from mongodb.connection import connection
+import bson
+
 
 
 class CacheSendMessTime:
@@ -32,3 +34,10 @@ class CacheSendMessTime:
         print(info_at_notification)
         return info_at_notification
 
+    async def all_active_notification(self):
+        old_notification = self.tgbot["old_notification"]
+        cursor = old_notification.find_raw_batches()
+        async for batch in cursor:
+            full_data = bson.decode_all(batch)
+            return full_data                
+            

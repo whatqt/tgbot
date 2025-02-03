@@ -62,7 +62,7 @@ async def edit(callback: types.CallbackQuery):
     await callback.answer()
 
 @router.message(Command("activation_notification"))
-async def viev_update_task(
+async def view_update_task(
     message: types.Message,
     command: CommandObject
     ):
@@ -71,7 +71,7 @@ async def viev_update_task(
     if command.args is None:
         await message.answer("Введите id пользователя")
         return
-    
+
     task = asyncio.create_task(
         update_task(
             message,
@@ -81,6 +81,7 @@ async def viev_update_task(
 
     if message.from_user.id not in users_use_notification:
         users_use_notification[message.from_user.id] = task
+
     try:
         print("Задача запущена")
         await message.reply(f"Задача у {id_user} была запущена")
@@ -95,7 +96,16 @@ async def viev_update_task(
         print("Данные удалены")
         print("95 строка")
 
-
+@router.message(Command("all_notification"))
+async def view_all_active_notification(
+    message: types.Message
+    ):
+    cache_send_mess_time = CacheSendMessTime(...)
+    data = await cache_send_mess_time.all_active_notification()
+    data_str = ""
+    for info in data:
+        data_str+=f"{info["_id"]}:{info["time"]}\n\n"
+    await message.answer(data_str)
 
 
 
