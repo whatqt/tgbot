@@ -13,6 +13,7 @@ from lessons.score_week import check_week
 from lessons.current_day import CurrentDay
 from sqlalchemy.exc import IntegrityError
 from mongodb.send_mess_time.cache_send_mess_time import CacheSendMessTime
+from cache_group_users.cache_group_user import CacheGroupUsers
 
 
 
@@ -25,20 +26,20 @@ async def keyboard_callback_edit():
 async def send_mess_by_time(
     message: types.Message,
     command: CommandObject,
-    id_user: int = None
     ):
+    cache_group_users = CacheGroupUsers()
     user_id = message.from_user.id
-
-    if id_user:
-        user_id = id_user
-
-    print(user_id)
     if command.args is None:
         await message.reply(
             text_info["none_args"]
         )
         return
-    
+    if user_id not in cache_group_users.cache_group_users_dict:
+        await message.reply(
+            text_info["id_group_none"]
+        )
+        return
+
     manage_time = ManageTime(command.args)
     time_from_db = await manage_time.date()
     manage_send_mess_time = ManageSendMessTime(

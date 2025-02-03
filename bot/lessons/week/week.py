@@ -1,8 +1,7 @@
 from aiogram import Router, F, Bot
 from aiogram import types
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
-# from postgresql.db import *
-from cache_group_users.cache_group_user import CacheGroupUsers#, cache_group_users_dict
+from cache_group_users.cache_group_user import CacheGroupUsers
 from commands.cache_update.tools.check_cache import check
 from ..reply_keyboard import schedule_class, butons
 from ..current_day import CurrentDay
