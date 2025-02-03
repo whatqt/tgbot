@@ -46,7 +46,8 @@ class ManageSendMessTime:
                     Select(SendMessTime)
                 )
                 obj = obj.all()
-                return obj
+                session.expunge_all()
+                return obj[0]
     
     async def return_time_by_id(self):
         async with AsyncSession(autoflush=False, bind=engine) as session:
@@ -54,7 +55,7 @@ class ManageSendMessTime:
                 obj = await session.execute(
                     Select(SendMessTime).filter(
                         SendMessTime.id_user==self.id_user
-                        )
+                    )
                 )
                 time = obj.scalar_one()
                 result_time = str(time.time_set).split(' ', 1)[1]

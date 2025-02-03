@@ -64,13 +64,12 @@ async def use_for(message: types.Message, list, id_user, method):
             await bot.send_message(id_user, line, parse_mode='HTML')
         case 'text':
             return line
-    # list.clear()
 
 
 async def display_the_schedule(id_user, message: types.Message, day, method):
     try:
         cache_group_users = CacheGroupUsers()
-        id_group = cache_group_users.cache_group_users_dict[message.from_user.id]
+        id_group = cache_group_users.cache_group_users_dict[id_user]
         end_list = await check(id_group, day)
         match method:
             case 'text':
@@ -79,7 +78,7 @@ async def display_the_schedule(id_user, message: types.Message, day, method):
             case _:
                 await use_for(message, end_list.copy(), id_user, method)
 
-    except AttributeError:
+    except (AttributeError, KeyError):
         match method:
             case 'answer':
                 await message.reply('❌ Выберите пожалуйста группу при помощи команды /group')
