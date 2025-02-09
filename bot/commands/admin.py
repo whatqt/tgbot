@@ -18,7 +18,8 @@ async def admin(message: types.Message):
 /cache_group_users - обновление кэша пользователей у которых есть группы
 /while_time - запускает команду на проверку недели
 /send_info_update - отправна пользователям сообщение об обновление/запуска бота
-/update_task - после падения сервера возобновляет уведомления
+/all_notification - показывает все активные уведомления
+/activation_notification <id_user> - возобновляет уведомление из кэша
 ''')
     else:pass
 

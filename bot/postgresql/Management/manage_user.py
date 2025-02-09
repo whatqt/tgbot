@@ -65,6 +65,6 @@ class ManageUser:
     async def get_all_id_users(self):
         async with AsyncSession(autoflush=False, bind=engine) as session:
             async with session.begin():
-                users = await session.execute(Select(Users.id_user))
+                users = await session.execute(Select(Users.id_user, Users.user_name))
                 return users.all()
     

@@ -86,10 +86,10 @@ async def send_mess_by_time(
             ),
             'answer'
         )   
-        await asyncio.sleep(10) 
+        await asyncio.sleep(6) 
         time_to_slep = await count_next_notification.count()
         print(time_to_slep)
-        await asyncio.sleep(time_to_slep)
+        await asyncio.sleep(time_to_slep-6)
 
 async def update_task(
     message: types.Message,

@@ -8,7 +8,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from dotenv import load_dotenv
-
+from aiogram.exceptions import TelegramForbiddenError
 
 
 load_dotenv()
@@ -62,20 +62,20 @@ async def update_yes(callback: types.CallbackQuery, state: FSMContext):
     if callback.from_user.id == 1752086646:
         user_data = await state.get_data()
         manage_user = ManageUser(
-            ..., ..., ..., ...,
+            ..., ..., ...
         )
         id_users_list = await manage_user.get_all_id_users()
-        try:
-            for id_user in id_users_list:
+        for id_user in id_users_list:
+            try:
                 await bot.send_message(
                     id_user[0], 
                     user_data["mesg_update"], 
                     parse_mode="HTML"
                 )
-                # print(f"КТО БЛОКНУЛ БОТА {id_user['id_user']}")
-        except: 
-            await callback.message.edit_text("Ошибка")
-            await callback.answer()
+            except TelegramForbiddenError: 
+                await bot.send_message(
+                    1752086646, f"id пидораса {id_user[0]}\nusername пидораса {id_user[1]}"
+                )
         await state.clear()
         await callback.message.edit_text('Информация была успешно отправлена!')
 

@@ -67,7 +67,9 @@ async def view_update_task(
     command: CommandObject
     ):
     id_user = command.args
-
+    if message.from_user.id != 1752086646:
+        return 
+    
     if command.args is None:
         await message.answer("Введите id пользователя")
         return
@@ -100,11 +102,14 @@ async def view_update_task(
 async def view_all_active_notification(
     message: types.Message
     ):
+    if message.from_user.id != 1752086646:
+        return 
+    
     cache_send_mess_time = CacheSendMessTime(...)
     data = await cache_send_mess_time.all_active_notification()
     data_str = ""
     for info in data:
-        data_str+=f"{info["_id"]}:{info["time"]}\n\n"
+        data_str+=f"{info["_id"]} : {info["time"]}\n\n"
     await message.answer(data_str)
 
 
