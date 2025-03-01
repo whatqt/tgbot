@@ -14,7 +14,9 @@ from lessons.current_day import CurrentDay
 from sqlalchemy.exc import IntegrityError
 from mongodb.send_mess_time.cache_send_mess_time import CacheSendMessTime
 from cache_group_users.cache_group_user import CacheGroupUsers
-
+from lessons.current_day import CurrentDay
+from lessons.score_week import week
+from asyncio import CancelledError
 
 
 
@@ -33,7 +35,7 @@ async def send_mess_by_time(
         await message.reply(
             text_info["none_args"]
         )
-        return
+        raise CancelledError
     if user_id not in cache_group_users.cache_group_users_dict:
         await message.reply(
             text_info["id_group_none"]
@@ -78,14 +80,19 @@ async def send_mess_by_time(
         await asyncio.sleep(time_to_slep)
         current_day = CurrentDay()
         day = await current_day.today_day_week()
-        await display_the_schedule(
-            user_id,
-            message, 
-            await check_week(
-                day
-            ),
-            'answer'
-        )   
+        current_day = CurrentDay()
+        if await current_day.today_day_week() == 6:
+            info_week = await week()
+            await message.reply(f'{info_week}\n\nВ воскресенье пар нет!')
+        else:
+            await display_the_schedule(
+                user_id,
+                message, 
+                await check_week(
+                    day
+                ),
+                'answer'
+            )   
         await asyncio.sleep(6) 
         time_to_slep = await count_next_notification.count()
         print(time_to_slep)
@@ -127,3 +134,60 @@ async def update_task(
         time_to_slep = await count_next_notification.count()
         print(time_to_slep)
         await asyncio.sleep(time_to_slep)
+
+async def admin_send_class_by_time(
+    message: types.Message,
+    command: CommandObject
+    ):
+
+    id_user = int(command.args)
+    if id_user:
+        cache_send_mess_time = CacheSendMessTime(id_user)
+
+        manage_time = ManageTime("23:20")
+        time_from_db = await manage_time.date()
+        manage_send_mess_time = ManageSendMessTime(
+            id_user
+        )
+        print(f"ВРЕМЯ С БД {time_from_db}")
+        try:
+            await manage_send_mess_time.insert_time(time_from_db)
+            cache_send_mess_time = CacheSendMessTime(id_user)
+            await cache_send_mess_time.insert_user("23:20")
+        except IntegrityError:
+            time_db = await manage_send_mess_time.return_time_by_id()
+            await message.reply(
+                text_info["there_time"].format(time_db),
+                reply_markup=await keyboard_callback_edit()
+            )
+            return
+        count_next_notification = CountNextNotification(manage_time.time)
+    await message.reply(
+        f"Уведомление установлено на {command.args}",
+        reply_markup=await keyboard_callback_edit()
+    )
+
+    while True:
+        time_to_slep = await count_next_notification.count()
+        print(time_to_slep)
+        await asyncio.sleep(time_to_slep)
+        current_day = CurrentDay()
+        day = await current_day.today_day_week()
+        current_day = CurrentDay()
+        if await current_day.today_day_week() == 6:
+            info_week = await week()
+            await message.reply(f'{info_week}\n\nВ воскресенье пар нет!')
+        else:
+            await display_the_schedule(
+                id_user,
+                message, 
+                await check_week(
+                    day
+                ),
+                'answer'
+            )   
+        await asyncio.sleep(6) 
+        time_to_slep = await count_next_notification.count()
+        print(time_to_slep)
+        await asyncio.sleep(time_to_slep-6)
+

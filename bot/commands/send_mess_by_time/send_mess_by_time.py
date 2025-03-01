@@ -8,10 +8,11 @@ from postgresql.management.manage_send_mess.manage_mess_by_time import \
 from dotenv import load_dotenv
 import asyncio
 from asyncio import CancelledError
-from .logic.main_func import send_mess_by_time, update_task
-from mongodb.connection import connection
+from .logic.main_func import send_mess_by_time, update_task, admin_send_class_by_time
+from commands.send_mess_by_time.text import text_info
 from pymongo.errors import DuplicateKeyError
 from mongodb.send_mess_time.cache_send_mess_time import CacheSendMessTime
+from cache_group_users.cache_group_user import CacheGroupUsers
 
 
 
@@ -27,6 +28,18 @@ async def view_send_class_by_time(
     message: types.Message,
     command: CommandObject
     ):
+    if command.args is None:
+        await message.reply(
+            text_info["none_args"]
+        )
+        return
+    cache_group_users = CacheGroupUsers()
+    if message.from_user.id not in cache_group_users.cache_group_users_dict:
+        await message.reply(
+            text_info["id_group_none"]
+        )
+        return
+    
     task = asyncio.create_task(
         send_mess_by_time(
             message,
@@ -35,7 +48,7 @@ async def view_send_class_by_time(
     )
     if message.from_user.id not in users_use_notification:
         users_use_notification[message.from_user.id] = task
-
+        print(task)
     try:
         print("Задача запущена")
         await task
@@ -95,8 +108,7 @@ async def view_update_task(
         )
         await manage_send_mess_time.delete_time()
         del users_use_notification[message.from_user.id]
-        print("Данные удалены")
-        print("95 строка")
+        print("Данные удалены в обработчике 'update_task'")
 
 @router.message(Command("all_notification"))
 async def view_all_active_notification(
@@ -107,10 +119,46 @@ async def view_all_active_notification(
     
     cache_send_mess_time = CacheSendMessTime(...)
     data = await cache_send_mess_time.all_active_notification()
+    if data is None:
+        await message.answer("Данных нет")
+        return
     data_str = ""
     for info in data:
         data_str+=f"{info["_id"]} : {info["time"]}\n\n"
     await message.answer(data_str)
+
+@router.message(Command("admin_send_class_by_time"))
+async def view_admin_send_class_by_time(
+    message: types.Message,
+    command: CommandObject
+    ):
+    if message.from_user.id != 1752086646:
+        return 
+    print("Робит")
+    task = asyncio.create_task(
+        admin_send_class_by_time(
+            message,
+            command,
+        )
+    )
+    print(users_use_notification)
+    if command.args not in users_use_notification:
+        users_use_notification[command.args] = task
+
+    try:
+        print("Задача запущена")
+        await message.reply(f"Задача у {command.args} была запущена")
+        await task
+    except (CancelledError, DuplicateKeyError) :
+        print("Задача отменена")
+        manage_send_mess_time = ManageSendMessTime(
+            command.args
+        )
+        await manage_send_mess_time.delete_time()
+        del users_use_notification[command.args]
+        print("Данные удалены")
+        print("147 строка")
+
 
 
 
