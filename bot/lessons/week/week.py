@@ -160,23 +160,21 @@ async def otvet(message: types.Message):
 
 @router.message(F.text == 'Сегодняшние пары')
 async def otvet(message: types.Message):
-    try:
-        current_day = CurrentDay()
-        info_class = await display_the_schedule(
-            message.from_user.id, message,  
-            await check_week(await current_day.today_day_week()), 'text'
-        )
-
-        if info_class is None:
-            await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
-            
-        else:
-            info_week = await week()
-            await message.answer(f'{info_week}\n\n{info_class}', parse_mode="HTML")
-
-    except KeyError:
+    current_day = CurrentDay()
+    info_class = await display_the_schedule(
+        message.from_user.id, message,  
+        await check_week(await current_day.today_day_week()), 'text'
+    )
+    if await current_day.today_day_week() == 6:
         info_week = await week()
         await message.answer(f'{info_week}\n\nВ воскресенье пар нет!')
+        return
+    if info_class is None:
+        await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
+        
+    else:
+        info_week = await week()
+        await message.answer(f'{info_week}\n\n{info_class}', parse_mode="HTML")
         
 @router.message(Command('while_time'))
 async def time_while(message: types.Message):
@@ -185,36 +183,35 @@ async def time_while(message: types.Message):
 
 @router.message(F.text == 'Завтрашние пары')
 async def tomorrow_class(message: types.Message):
-    try:
-        current_day = CurrentDay()
-        if await current_day.today_day_week() == 6:
-            info_class = await display_the_schedule(
-                    message.from_user.id, message, 
-                    await check_week(input_score_week=True), 'text'
-                )
-            if info_class is None:
-                await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
-                return
-            else:
-                info_week = await week(input_score_week=True)
-                await message.answer(f'{info_week}\n\n{info_class}', parse_mode='HTML')
-                return
-            
+    current_day = CurrentDay()
+    if await current_day.today_day_week() == 6:
         info_class = await display_the_schedule(
-            message.from_user.id, message, 
-            await check_week(await current_day.tomorrows_day_week()), 'text'
-        ) 
-
+                message.from_user.id, message, 
+                await check_week(input_score_week=True), 'text'
+            )
         if info_class is None:
             await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
-            
+            return
         else:
-            info_week = await week()
+            info_week = await week(input_score_week=True)
             await message.answer(f'{info_week}\n\n{info_class}', parse_mode='HTML')
-
-    except KeyError:
+            return
+        
+    info_class = await display_the_schedule(
+        message.from_user.id, message, 
+        await check_week(await current_day.tomorrows_day_week()), 'text'
+    ) 
+    if await current_day.today_day_week() == 5:
         info_week = await week()
         await message.answer(f'{info_week}\n\nВ воскресенье пар нет!')
+        return
+    if info_class is None:
+        await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
+        
+    else:
+        info_week = await week()
+        await message.answer(f'{info_week}\n\n{info_class}', parse_mode='HTML')
+
     
 @router.message(F.text == "Экзамены")
 async def return_exams(message: types.Message):
