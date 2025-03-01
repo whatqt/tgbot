@@ -29,19 +29,7 @@ async def send_mess_by_time(
     message: types.Message,
     command: CommandObject,
     ):
-    cache_group_users = CacheGroupUsers()
     user_id = message.from_user.id
-    if command.args is None:
-        await message.reply(
-            text_info["none_args"]
-        )
-        raise CancelledError
-    if user_id not in cache_group_users.cache_group_users_dict:
-        await message.reply(
-            text_info["id_group_none"]
-        )
-        return
-
     manage_time = ManageTime(command.args)
     time_from_db = await manage_time.date()
     manage_send_mess_time = ManageSendMessTime(
