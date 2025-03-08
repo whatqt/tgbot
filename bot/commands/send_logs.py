@@ -33,11 +33,13 @@ class CustomErrorHandler(logging.Handler):
     def emit(self, record):
         if record.levelname == "ERROR":
             file_logs = FSInputFile("logs.log")
-            asyncio.create_task(
-                send_file(
-                    file_logs
+            try:
+                asyncio.create_task(
+                    send_file(
+                        file_logs
+                    )
                 )
-            )
-
+            except RuntimeError:
+                pass
 
 
