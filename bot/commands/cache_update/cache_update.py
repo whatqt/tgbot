@@ -22,11 +22,13 @@ router = Router()
 bot = Bot(token=os.getenv('TOKEN_BOT'))
 
 async def change_id(group_id):
-   manage_parser = ManageParser()
+    manage_parser = ManageParser()
 
-   await manage_parser.get_html_schedule(
-       group_id, tables
+    result = await manage_parser.get_html_schedule(
+        group_id, tables
     )
+    return result
+   
 
 async def upgrade_cache(schedule):
     print('Кэш обновляется')
@@ -73,10 +75,16 @@ async def upgrade_ch_by_time(message: types.Message):
                     print(f'Группа по словарю: {group}')
                     id_group = next(id_generation)
                     schedule = next(schedule_generation)
-                    await change_id(id_group)
+                    result = await change_id(id_group)
+                    if result is False:
+                        await bot.send_message(
+                            -4112086004, 
+                            f"@what_whatqwe\nCайт не доступен. Повторный парсинг будет через 10 минут"
+                        )
+                        print(id_group)
+                        await asyncio.sleep(600)
+                        continue
                     await upgrade_cache(schedule)
-                    #data_exams = await get_exams(id_group)
-                    #await get_data_exams(data_exams, schedule)
                     group+=1
                     await asyncio.sleep(0)
                 except IndexError as i:

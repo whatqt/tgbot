@@ -1,6 +1,9 @@
 INFO:aiogram.dispatcher:Start polling
 INFO:aiogram.dispatcher:Run polling for bot @sharagaISP_bot id=6573990032 - 'RII_test_bot'
-INFO:aiogram.event:Update id=504212448 is handled. Duration 405 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212555 is handled. Duration 483 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212556 is handled. Duration 327 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212557 is handled. Duration 375 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212558 is handled. Duration 265 ms by bot id=6573990032
 INFO:sqlalchemy.engine.Engine:select pg_catalog.version()
 INFO:sqlalchemy.engine.Engine:[raw sql] ()
 INFO:sqlalchemy.engine.Engine:select current_schema()
@@ -8,182 +11,48 @@ INFO:sqlalchemy.engine.Engine:[raw sql] ()
 INFO:sqlalchemy.engine.Engine:show standard_conforming_strings
 INFO:sqlalchemy.engine.Engine:[raw sql] ()
 INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:INSERT INTO users (id_user, user_name, id_group) VALUES ($1::BIGINT, $2::VARCHAR, $3::VARCHAR)
+INFO:sqlalchemy.engine.Engine:[generated in 0.00048s] (1752086646, 'what_whatqwe', 'schedule_1022')
+INFO:sqlalchemy.engine.Engine:ROLLBACK
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
 INFO:sqlalchemy.engine.Engine:SELECT users.id_user, users.user_name, users.id_group 
-FROM users
-INFO:sqlalchemy.engine.Engine:[generated in 0.00083s] ()
+FROM users 
+WHERE users.id_user = $1::BIGINT 
+ LIMIT $2::INTEGER
+INFO:sqlalchemy.engine.Engine:[generated in 0.00251s] (1752086646, 1)
+INFO:sqlalchemy.engine.Engine:UPDATE users SET id_group=$1::VARCHAR WHERE users.id_user = $2::BIGINT
+INFO:sqlalchemy.engine.Engine:[generated in 0.00068s] ('schedule_1022', 1752086646)
 INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212449 is handled. Duration 296 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212450 is handled. Duration 139 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212451 is handled. Duration 235 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212452 is handled. Duration 281 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212559 is handled. Duration 938 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212560 is handled. Duration 436 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212561 is handled. Duration 500 ms by bot id=6573990032
 INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[generated in 0.00034s] (1752086646, datetime.datetime(2025, 1, 22, 23, 52))
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 9.098s ago] (1752086646, datetime.datetime(2025, 1, 22, 19, 59))
+INFO:sqlalchemy.engine.Engine:INSERT INTO users (id_user, user_name, id_group) VALUES ($1::BIGINT, $2::VARCHAR, $3::VARCHAR)
+INFO:sqlalchemy.engine.Engine:[cached since 63.89s ago] (1752086646, 'what_whatqwe', 'schedule_1005')
 INFO:sqlalchemy.engine.Engine:ROLLBACK
 INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[generated in 0.00050s] (1752086646,)
+INFO:sqlalchemy.engine.Engine:SELECT users.id_user, users.user_name, users.id_group 
+FROM users 
+WHERE users.id_user = $1::BIGINT 
+ LIMIT $2::INTEGER
+INFO:sqlalchemy.engine.Engine:[cached since 63.88s ago] (1752086646, 1)
+INFO:sqlalchemy.engine.Engine:UPDATE users SET id_group=$1::VARCHAR WHERE users.id_user = $2::BIGINT
+INFO:sqlalchemy.engine.Engine:[cached since 63.87s ago] ('schedule_1005', 1752086646)
 INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212454 is handled. Duration 155 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 1.536s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:DELETE FROM send_mess_time WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[generated in 0.00035s] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212453 is handled. Duration 10656 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212455 is handled. Duration 328 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 11.97s ago] (1752086646, datetime.datetime(2025, 1, 22, 19, 59))
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212457 is handled. Duration 172 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 20.12s ago] (1752086646, datetime.datetime(2025, 1, 22, 19, 59))
-INFO:sqlalchemy.engine.Engine:ROLLBACK
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 11.02s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212458 is handled. Duration 203 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 14.27s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:DELETE FROM send_mess_time WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 12.74s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212456 is handled. Duration 11405 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212459 is handled. Duration 266 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212460 is handled. Duration 187 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 84.57s ago] (1752086646, datetime.datetime(2025, 1, 22, 19, 59))
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 81.04s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:DELETE FROM send_mess_time WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 79.51s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212461 is handled. Duration 5593 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212462 is handled. Duration 281 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 95.29s ago] (1752086646, datetime.datetime(2025, 1, 22, 18, 17))
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 131.6s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:DELETE FROM send_mess_time WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 130s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212463 is handled. Duration 45389 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212464 is handled. Duration 217 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 144.2s ago] (1752086646, datetime.datetime(2025, 1, 22, 18, 17))
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 146.8s ago] (1752086646, datetime.datetime(2025, 1, 22, 18, 17))
-INFO:sqlalchemy.engine.Engine:ROLLBACK
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 137.7s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212466 is handled. Duration 156 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 139.1s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:DELETE FROM send_mess_time WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 137.6s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212465 is handled. Duration 4077 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212467 is handled. Duration 264 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212468 is handled. Duration 156 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 161.4s ago] (1752086646, datetime.datetime(2025, 1, 22, 18, 0))
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 165.1s ago] (1752086646, datetime.datetime(2025, 1, 22, 18, 0))
-INFO:sqlalchemy.engine.Engine:ROLLBACK
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 156s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212470 is handled. Duration 172 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 157.5s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:DELETE FROM send_mess_time WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 156s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212469 is handled. Duration 5250 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212471 is handled. Duration 266 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 167.5s ago] (1752086646, datetime.datetime(2025, 1, 22, 18, 0))
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 187.4s ago] (1752086646, datetime.datetime(2025, 1, 22, 18, 1))
-INFO:sqlalchemy.engine.Engine:ROLLBACK
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 178.3s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212473 is handled. Duration 422 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 179.8s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:DELETE FROM send_mess_time WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 178.2s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212472 is handled. Duration 21358 ms by bot id=6573990032
-INFO:aiogram.event:Update id=504212474 is handled. Duration 266 ms by bot id=6573990032
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
-INFO:sqlalchemy.engine.Engine:[cached since 189.8s ago] (1752086646, datetime.datetime(2025, 1, 22, 18, 1))
-INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:aiogram.event:Update id=504212562 is handled. Duration 1061 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212563 is handled. Duration 421 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212565 is handled. Duration 156 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212566 is handled. Duration 139 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212567 is handled. Duration 530 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212568 is handled. Duration 187 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212569 is handled. Duration 187 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212570 is handled. Duration 172 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212571 is handled. Duration 202 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212572 is handled. Duration 202 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212573 is handled. Duration 156 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212574 is handled. Duration 156 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212575 is handled. Duration 234 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212576 is handled. Duration 204 ms by bot id=6573990032
 INFO:aiogram.dispatcher:Polling stopped
 INFO:aiogram.dispatcher:Polling stopped for bot @sharagaISP_bot id=6573990032 - 'RII_test_bot'
-INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
-INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
-FROM send_mess_time 
-WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 264.2s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:DELETE FROM send_mess_time WHERE send_mess_time.id_user = $1::BIGINT
-INFO:sqlalchemy.engine.Engine:[cached since 262.6s ago] (1752086646,)
-INFO:sqlalchemy.engine.Engine:COMMIT
-INFO:aiogram.event:Update id=504212475 is handled. Duration 83500 ms by bot id=6573990032
+INFO:aiogram.event:Update id=504212564 is not handled. Duration 60484 ms by bot id=6573990032

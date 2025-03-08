@@ -2,7 +2,8 @@ import sys
 sys.path.append('...')
 import aiohttp
 from bs4 import BeautifulSoup
-
+from aiohttp.client_exceptions import ClientConnectorError
+import requests
 
 
 URL = 'https://www.rubinst.ru/schedule'
@@ -21,30 +22,33 @@ class ManageParser:
         ):
 
         async with aiohttp.ClientSession() as session:
-            async with session.get(
-                url=URL, 
-                cookies={'Group': id_group}
-            ) as resp:
-                soup = BeautifulSoup(await resp.read(), 'lxml')
-                tables['table_first_schedule'] = soup.find('table', class_="schedule-table")
-                tables['table_second_schedule'] = soup.find(
-                    'table', class_="schedule-table"
-                ).find_next('table', class_="schedule-table")
-                #Первая неделя
-                tables['first_week_1'] = tables['table_first_schedule'].find_all(
-                    'tr', class_="odd"
-                )
-                tables['first_week_2'] = tables['table_first_schedule'].find_all(
-                    'tr', class_="even"
-                )
-                #Вторая неделя
-                tables['second_week_1'] = tables['table_second_schedule'].find_all(
-                    'tr', class_="odd"
-                )
-                tables['second_week_2'] = tables['table_second_schedule'].find_all(
-                    'tr', class_="even"
-                )
-
+            try:
+                async with session.get(
+                    url=URL, 
+                    cookies={'Group': id_group}
+                ) as resp:
+                    soup = BeautifulSoup(await resp.read(), 'lxml')
+                    tables['table_first_schedule'] = soup.find('table', class_="schedule-table")
+                    tables['table_second_schedule'] = soup.find(
+                        'table', class_="schedule-table"
+                    ).find_next('table', class_="schedule-table")
+                    #Первая неделя
+                    tables['first_week_1'] = tables['table_first_schedule'].find_all(
+                        'tr', class_="odd"
+                    )
+                    tables['first_week_2'] = tables['table_first_schedule'].find_all(
+                        'tr', class_="even"
+                    )
+                    #Вторая неделя
+                    tables['second_week_1'] = tables['table_second_schedule'].find_all(
+                        'tr', class_="odd"
+                    )
+                    tables['second_week_2'] = tables['table_second_schedule'].find_all(
+                        'tr', class_="even"
+                    )
+            except ClientConnectorError: 
+                return False
+            
     async def __get_len_tables(
             self, 
             tables_one, 
