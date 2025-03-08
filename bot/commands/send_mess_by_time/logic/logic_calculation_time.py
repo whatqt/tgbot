@@ -22,3 +22,4 @@ class CountNextNotification:
         seconds_until_target = int(time_difference.total_seconds())
         
         return seconds_until_target
+    

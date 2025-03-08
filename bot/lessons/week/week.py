@@ -45,11 +45,11 @@ def emoji_time_couple(time: str):
         case '15:30-17:00':
             return '🕜'
         
-async def use_for(message: types.Message, list, id_user, method): 
+async def use_for(message: types.Message, list_schedule, id_user, method): 
     numbers_couple = 0
     line = ''
     time = {1: '8:30-10:00', 2: '10:10-11:40', 3: '12:10-13:40', 4: '13:50-15:20', 5: '15:30-17:00'}
-    for day in list:
+    for day in list_schedule:
         numbers_couple+=1
         if day == '':
             line += (f'{emoji_time_couple(time[numbers_couple])} <b>{time[numbers_couple]}</b> | {emoji_number_couple(numbers_couple)} пара | <i><b>Окно</b></i>\n\n')
@@ -61,6 +61,8 @@ async def use_for(message: types.Message, list, id_user, method):
             await message.reply(line, parse_mode='HTML')
         case 'bot_send':
             await bot.send_message(id_user, line, parse_mode='HTML')
+        case 'notification':
+            return [list_schedule, line]
         case 'text':
             return line
 
@@ -72,11 +74,12 @@ async def display_the_schedule(id_user, message: types.Message, day, method):
         end_list = await check(id_group, day)
         match method:
             case 'text':
-                info = await use_for(message, end_list.copy(), id_user, method)
-                return info
+                return await use_for(message, end_list.copy(), id_user, method)
+            case 'notification':
+                return await use_for(message, end_list.copy(), id_user, method)            
             case _:
                 await use_for(message, end_list.copy(), id_user, method)
-
+        # return await use_for(message, end_list.copy(), id_user, method)
     except (AttributeError, KeyError):
         match method:
             case 'answer':
@@ -170,8 +173,7 @@ async def otvet(message: types.Message):
         await message.answer(f'{info_week}\n\nВ воскресенье пар нет!')
         return
     if info_class is None:
-        await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')
-        
+        await message.answer('❌ Выберите пожалуйста группу при помощи команды /group')    
     else:
         info_week = await week()
         await message.answer(f'{info_week}\n\n{info_class}', parse_mode="HTML")

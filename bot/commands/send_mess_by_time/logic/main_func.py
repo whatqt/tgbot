@@ -16,14 +16,26 @@ from mongodb.send_mess_time.cache_send_mess_time import CacheSendMessTime
 from cache_group_users.cache_group_user import CacheGroupUsers
 from lessons.current_day import CurrentDay
 from lessons.score_week import week
-from asyncio import CancelledError
+from aiogram import Bot
+import os
 
 
+bot = Bot(token=os.getenv("TOKEN_BOT"))
 
 async def keyboard_callback_edit():
     builder = InlineKeyboardBuilder()
     await CallbackButton('Удалить уведомление', 'edit', builder)()
     return builder.as_markup()
+
+async def chek_schedule_for_pairs(unprocessed_schedule: list) -> bool:
+    for _class in unprocessed_schedule:
+        if _class == "":
+            continue
+        else:
+            return True
+    return False
+
+
 
 async def send_mess_by_time(
     message: types.Message,
@@ -68,19 +80,29 @@ async def send_mess_by_time(
         await asyncio.sleep(time_to_slep)
         current_day = CurrentDay()
         day = await current_day.today_day_week()
-        current_day = CurrentDay()
         if await current_day.today_day_week() == 6:
-            info_week = await week()
-            await message.reply(f'{info_week}\n\nВ воскресенье пар нет!')
+            continue
         else:
-            await display_the_schedule(
+            info_schedule = await display_the_schedule(
                 user_id,
                 message, 
                 await check_week(
                     day
                 ),
-                'answer'
+                'notification',
             )   
+            unprocessed_schedule, processed_schedule = info_schedule
+            result = await chek_schedule_for_pairs(unprocessed_schedule)
+            if result is False:
+                await asyncio.sleep(1) 
+                continue
+            else:            
+                info_week = await week()
+                await message.answer(
+                    f"{info_week}\n{processed_schedule}",
+                    parse_mode="HTML"
+                )
+            
         await asyncio.sleep(6) 
         time_to_slep = await count_next_notification.count()
         print(time_to_slep)
@@ -110,18 +132,30 @@ async def update_task(
         await asyncio.sleep(time_to_slep)
         current_day = CurrentDay()
         day = await current_day.today_day_week()
-        await display_the_schedule(
-            id_user,
-            message, 
-            await check_week(
-                day
-            ),
-            'bot_send'
-        )   
-        await asyncio.sleep(10) 
+        info_schedule = await display_the_schedule(
+                id_user,
+                message, 
+                await check_week(
+                    day
+                ),
+                'notification',
+            )   
+        unprocessed_schedule, processed_schedule = info_schedule
+        result = await chek_schedule_for_pairs(unprocessed_schedule)
+        if result is False:
+            await asyncio.sleep(1) 
+            continue
+        else:            
+            info_week = await week()
+            await bot.send_message(
+                id_user,
+                f"{info_week}\n\n{processed_schedule}",
+                parse_mode="HTML"
+            )
+        await asyncio.sleep(6) 
         time_to_slep = await count_next_notification.count()
         print(time_to_slep)
-        await asyncio.sleep(time_to_slep)
+        await asyncio.sleep(time_to_slep-6)
 
 async def admin_send_class_by_time(
     message: types.Message,
@@ -166,14 +200,28 @@ async def admin_send_class_by_time(
             info_week = await week()
             await message.reply(f'{info_week}\n\nВ воскресенье пар нет!')
         else:
-            await display_the_schedule(
+            info_schedule = await display_the_schedule(
                 id_user,
                 message, 
                 await check_week(
                     day
                 ),
-                'answer'
+                'notification',
             )   
+            unprocessed_schedule, processed_schedule = info_schedule
+            result = await chek_schedule_for_pairs(unprocessed_schedule)
+            if result is False:
+                await asyncio.sleep(1) 
+                continue
+            else:            
+                info_week = await week()
+                await bot.send_message(
+                    id_user,
+                    f"{info_week}\n\n{processed_schedule}",
+                    parse_mode="HTML"
+                )
+
+             
         await asyncio.sleep(6) 
         time_to_slep = await count_next_notification.count()
         print(time_to_slep)

@@ -48,6 +48,7 @@ async def view_send_class_by_time(
             text_info["wrong_time"].format(command.args)
         )
         return 
+    
     task = asyncio.create_task(
         send_mess_by_time(
             message,
