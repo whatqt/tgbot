@@ -30,7 +30,7 @@ async def send_mess_by_time(
     command: CommandObject,
     ):
     user_id = message.from_user.id
-    manage_time = ManageTime(command.argus)
+    manage_time = ManageTime(command.args)
     time_from_db = await manage_time.date()
     manage_send_mess_time = ManageSendMessTime(
         user_id
