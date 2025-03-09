@@ -1,4 +1,29 @@
 INFO:aiogram.dispatcher:Start polling
 INFO:aiogram.dispatcher:Run polling for bot @sharagaISP_bot id=6573990032 - 'RII_test_bot'
+INFO:sqlalchemy.engine.Engine:select pg_catalog.version()
+INFO:sqlalchemy.engine.Engine:[raw sql] ()
+INFO:sqlalchemy.engine.Engine:select current_schema()
+INFO:sqlalchemy.engine.Engine:[raw sql] ()
+INFO:sqlalchemy.engine.Engine:show standard_conforming_strings
+INFO:sqlalchemy.engine.Engine:[raw sql] ()
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id_user, users.user_name, users.id_group 
+FROM users
+INFO:sqlalchemy.engine.Engine:[generated in 0.00074s] ()
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:aiogram.event:Update id=504212841 is handled. Duration 547 ms by bot id=6573990032
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:INSERT INTO send_mess_time (id_user, time_set) VALUES ($1::BIGINT, $2::TIMESTAMP WITHOUT TIME ZONE)
+INFO:sqlalchemy.engine.Engine:[generated in 0.00071s] (1752086646, datetime.datetime(2025, 1, 22, 14, 52))
+INFO:sqlalchemy.engine.Engine:COMMIT
 INFO:aiogram.dispatcher:Polling stopped
 INFO:aiogram.dispatcher:Polling stopped for bot @sharagaISP_bot id=6573990032 - 'RII_test_bot'
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT send_mess_time.id_user, send_mess_time.time_set 
+FROM send_mess_time 
+WHERE send_mess_time.id_user = $1::BIGINT
+INFO:sqlalchemy.engine.Engine:[generated in 0.00051s] (1752086646,)
+INFO:sqlalchemy.engine.Engine:DELETE FROM send_mess_time WHERE send_mess_time.id_user = $1::BIGINT
+INFO:sqlalchemy.engine.Engine:[generated in 0.00031s] (1752086646,)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:aiogram.event:Update id=504212842 is handled. Duration 23218 ms by bot id=6573990032

@@ -41,5 +41,6 @@ class CustomErrorHandler(logging.Handler):
                 )
             except RuntimeError:
                 pass
+                print("ошибка в логах")
 
 

@@ -13,7 +13,7 @@ from lessons.score_week import check_week
 from lessons.current_day import CurrentDay
 from sqlalchemy.exc import IntegrityError
 from mongodb.send_mess_time.cache_send_mess_time import CacheSendMessTime
-from cache_group_users.cache_group_user import CacheGroupUsers
+from math import ceil
 from lessons.current_day import CurrentDay
 from lessons.score_week import week
 from aiogram import Bot
@@ -76,11 +76,12 @@ async def send_mess_by_time(
 
     while True:
         time_to_slep = await count_next_notification.count()
-        print(time_to_slep)
-        await asyncio.sleep(time_to_slep)
+        print(ceil((time_to_slep-0.4)))
+        await asyncio.sleep(ceil(time_to_slep)-0.4)
         current_day = CurrentDay()
         day = await current_day.today_day_week()
         if await current_day.today_day_week() == 6:
+            await asyncio.sleep(0.4)
             continue
         else:
             info_schedule = await display_the_schedule(
@@ -94,7 +95,7 @@ async def send_mess_by_time(
             unprocessed_schedule, processed_schedule = info_schedule
             result = await chek_schedule_for_pairs(unprocessed_schedule)
             if result is False:
-                await asyncio.sleep(1) 
+                await asyncio.sleep(0.4)
                 continue
             else:            
                 info_week = await week()
@@ -129,9 +130,12 @@ async def update_task(
     while True:
         time_to_slep = await count_next_notification.count()
         print(time_to_slep)
-        await asyncio.sleep(time_to_slep)
+        await asyncio.sleep(ceil(time_to_slep)-0.4)
         current_day = CurrentDay()
         day = await current_day.today_day_week()
+        if await current_day.today_day_week() == 6:
+            await asyncio.sleep(0.4)
+            continue
         info_schedule = await display_the_schedule(
                 id_user,
                 message, 
@@ -143,7 +147,7 @@ async def update_task(
         unprocessed_schedule, processed_schedule = info_schedule
         result = await chek_schedule_for_pairs(unprocessed_schedule)
         if result is False:
-            await asyncio.sleep(1) 
+            await asyncio.sleep(0.4)
             continue
         else:            
             info_week = await week()
