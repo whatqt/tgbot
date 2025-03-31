@@ -19,3 +19,4 @@ bot_new_old/
 test_logic_time.py
 logs_in_file/
 .env
+*.log
