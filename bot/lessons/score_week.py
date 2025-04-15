@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import asyncio
 
 
-score = 7
+score = 2
 score_week = 1 # 1 - первая неделя 2 - вторая неделя 
 night = False
 

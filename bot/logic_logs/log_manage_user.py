@@ -11,7 +11,7 @@ class LogManageUser(LogBase):
         self.id_user = id_user
         self.user_name = user_name
         self.id_group = id_group
-
+        
     async def send_about_create_user(self):
         await self.bot.send_message(
         self.log_chats["create_or_update_user"],

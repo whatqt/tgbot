@@ -11,7 +11,7 @@ class LogBase:
     def __init__(self):
         self.bot = BOT
         self.log_chats = {
-            "create_or_update_user": -1001948152320,
+            "create_or_update_user": -4685065356,
             "cache_update": -4112086004,
             "statistics": None, # заглушка
         }
