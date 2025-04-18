@@ -6,7 +6,8 @@ import os
 from dotenv import load_dotenv
 from aiogram.types import FSInputFile
 import logging
-import asyncio
+from asyncio import to_thread
+from logic_logs.file.logger import logger
 
 
 
@@ -19,28 +20,17 @@ bot = Bot(token=os.getenv('TOKEN_BOT'))
 @router.message(Command("logs"))
 async def logs(message: types.Message):
     if message.from_user.id == 1752086646:
-        file_logs = FSInputFile("logs.log")
+        logger.info("Команда logs выполняется...")
+        file_logs = FSInputFile("logs/RII_BOT.log")
         await message.answer_document(file_logs)
-        print("Команда logs выполнена")
+        logger.info("Команда logs выполнена")
 
 async def send_file(file):  
     await bot.send_document(
-        -4685168406,
+        -4758269339,
         file
     )
 
-class CustomErrorHandler(logging.Handler):
-    def emit(self, record):
-        if record.levelname == "ERROR":
-            file_logs = FSInputFile("logs.log")
-            try:
-                asyncio.create_task(
-                    send_file(
-                        file_logs
-                    )
-                )
-            except RuntimeError:
-                pass
-                print("ошибка в логах")
+
 
 

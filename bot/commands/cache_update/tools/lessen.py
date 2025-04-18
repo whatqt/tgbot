@@ -1,6 +1,7 @@
-from pymongo import AsyncMongoClient
+from logic_logs.file.logger import logger
+from mongodb.connection import connection
 
-connection = AsyncMongoClient("localhost", 27017)
+
 
 def generator_weekday():
     ranges = {
@@ -35,7 +36,7 @@ def generator_schedule():
     for i in my_shedule:
         yield ranges[i]
 
-async def record_cache(schedule, day_week: str, lst: list):
+async def record_cache(schedule: str, day_week: str, lst: list):
     global connection
     client_db = connection
     tgbot = client_db["tgbot"]
@@ -45,5 +46,3 @@ async def record_cache(schedule, day_week: str, lst: list):
         {"_id": schedule},
         {"$set": {day_week: lst}}
     )
-    print(f"{schedule} была обновлена в {__name__}")
-

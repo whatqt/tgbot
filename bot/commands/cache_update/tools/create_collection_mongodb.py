@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from logic_logs.file.logger import logger
 
 
 
@@ -63,4 +64,4 @@ for schedule in schedules:
     dict_schedule["_id"] = schedule
     current_schedule.insert_one(dict_schedule)
 
-    print(f"{schedule} is create!")
+    logger.debug(f"{schedule} is create!")

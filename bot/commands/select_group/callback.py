@@ -14,7 +14,7 @@ class CallbackButton:
         self.builder.add(types.InlineKeyboardButton(
             text=self.text,
             callback_data=self.callback_data)
-            )
+        )
 
 class CallbackData: 
     def __init__(

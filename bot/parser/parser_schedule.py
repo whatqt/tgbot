@@ -3,7 +3,7 @@ sys.path.append('...')
 import aiohttp
 from bs4 import BeautifulSoup
 from aiohttp.client_exceptions import ClientConnectorError
-import requests
+
 
 
 URL = 'https://www.rubinst.ru/schedule'

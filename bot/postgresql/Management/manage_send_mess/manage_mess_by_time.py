@@ -4,7 +4,6 @@ from postgresql.tables import engine, SendMessTime
 from sqlalchemy.ext.asyncio import AsyncSession
 import asyncio
 from time import sleep
-from logic_logs.log_manage_user import LogManageUser
 
 
 

@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import Select
 from postgresql.tables import Users, engine
+from logic_logs.file.logger import logger
 
 
 
@@ -18,13 +19,11 @@ class CacheGroupUsers:
 			async with session.begin():  # надо ли это использовать при получение данных
 				users = await session.execute(Select(Users))
 				users = users.all()
-				print(users)
 				for user in users:
 					new_user = user[0]
-					print(new_user.id_user)
-					print(new_user.id_group)
 					await self.add_user(
 						new_user.id_user,
 						new_user.id_group
 					)
+				logger.info("Кэш пользователей был обновлён")	
 

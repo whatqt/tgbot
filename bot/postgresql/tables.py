@@ -9,7 +9,7 @@ import os
 load_dotenv()
 engine = create_async_engine(
     f"postgresql+asyncpg://postgres:{os.getenv("PASSWORD_POSTGRES")}@localhost/tg_bot",
-    echo=True
+    echo=False
 )
 
 class Base(DeclarativeBase): pass
