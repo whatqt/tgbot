@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import asyncio
 
 
+
 URL = 'https://www.rubinst.ru/schedule'
 
 class GetExams:
