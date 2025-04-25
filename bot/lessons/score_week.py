@@ -4,7 +4,7 @@ import asyncio
 
 
 score = 2
-score_week = 1 # 1 - первая неделя 2 - вторая неделя 
+score_week = 6 # 1 - первая неделя 2 - вторая неделя 
 night = False
 
 async def while_time():
