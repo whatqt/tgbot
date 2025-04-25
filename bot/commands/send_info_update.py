@@ -38,7 +38,6 @@ async def send_info_update(message: types.Message, state: FSMContext):
 @router.message(Form.mesg_update)
 async def message_send(message: types.Message, state: FSMContext):
     if message.from_user.id == 1752086646:
-        print(message.text)
         await state.update_data(mesg_update=message.text)
         builder = InlineKeyboardBuilder()
         builder.add(

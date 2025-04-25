@@ -17,6 +17,10 @@ router = Router()
 bot = Bot(token=os.getenv("TOKEN_BOT"))
 
 def emoji_number_couple(nubmer: int):
+    try:
+        nubmer = int(nubmer)
+    except:
+        return nubmer
     match nubmer:
         case 1:
             return '1️⃣'
@@ -28,6 +32,16 @@ def emoji_number_couple(nubmer: int):
             return '4️⃣'
         case 5:
             return '5️⃣'
+        case 6:
+            return '6️⃣'
+        case 7:
+            return '7️⃣'
+        case 8:
+            return '8️⃣'
+        case 9:
+            return '9️⃣'
+        case 0:
+            return '0️⃣'
         
         case _:
             return nubmer
@@ -104,8 +118,8 @@ async def back_menu(message: types.Message):
     builder = ReplyKeyboardBuilder()
     builder.add(types.KeyboardButton(text='Сегодняшние пары'))
     builder.add(types.KeyboardButton(text='Завтрашние пары'))
-    builder.add(types.KeyboardButton(text="Экзамены"))
     builder.add(types.KeyboardButton(text='Расписание занятий'))
+    builder.add(types.KeyboardButton(text="Экзамены"))
     builder.adjust(2)
     await message.answer('Вы вернулись в главное меню.',reply_markup=builder.as_markup(resize_keyboard=True))
 
@@ -223,22 +237,27 @@ async def return_exams(message: types.Message):
         await message.answer("❌ Выберите пожалуйста группу при помощи команды /group")
         return 
     data_exams = await check(
-        id_group, "exams", 1
+        id_group, "exams"
     )
+    if not data_exams:
+        await message.answer("Расписание экзаменов не выставлено")
+        return 
     answer = ""
+    
     for i in range(len(data_exams)):
         exam = f"exam_{i+1}"
         date = data_exams[exam]["date"]
         name = data_exams[exam]["name"]
         auditorium_number = data_exams[exam]["auditorium_number"]
-        type = data_exams[exam]["type"]
+        audit_number_emoji = list(map(emoji_number_couple, auditorium_number))
+        auditorium_number_emoji = f"{audit_number_emoji[0]}{audit_number_emoji[1]}{audit_number_emoji[2]}"
+        type_ = data_exams[exam]["type"]
         date_answer = f"🗓 Дата и время:  <u><i>{date}</i></u>"
-        name_answer = f"Предмет: <u><i>{name}</i></u>"
-        auditorium_number_answer = f"Номер аудитории: <u><i>{auditorium_number}</i></u>"
-        type_answer = f"Консультация или Экзамен: <u><i>{type}</i></u>"
+        name_answer = f"Предмет: {name}"
+        auditorium_number_answer = f"Номер аудитории : {auditorium_number_emoji}"
+        # auditorium_number_answer = f"Номер аудитории : 3️⃣4️⃣5️⃣"
+        type_answer = f"Консультация или Экзамен: <u><i>{type_}</i></u>"
         answer+=f"{date_answer}\n{name_answer}\n{auditorium_number_answer}\n{type_answer}\n\n"
-    if answer == "":
-        await message.answer("Расписание экзаменов не выставлено")
-        return 
+
     await message.answer(answer, parse_mode="HTML")
     

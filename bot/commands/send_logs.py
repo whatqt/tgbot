@@ -5,8 +5,6 @@ from aiogram import Bot
 import os
 from dotenv import load_dotenv
 from aiogram.types import FSInputFile
-import logging
-from asyncio import to_thread
 from logic_logs.file.logger import logger
 
 

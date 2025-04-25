@@ -36,7 +36,7 @@ def generator_schedule():
     for i in my_shedule:
         yield ranges[i]
 
-async def record_cache(schedule: str, day_week: str, lst: list):
+async def record_cache_schedule(schedule: str, day_week: str, lst: list):
     global connection
     client_db = connection
     tgbot = client_db["tgbot"]
@@ -45,4 +45,14 @@ async def record_cache(schedule: str, day_week: str, lst: list):
     await current_schedule.update_one(
         {"_id": schedule},
         {"$set": {day_week: lst}}
+    )
+
+async def record_cache_exams(schedule_id: str, exams: dict, connection=connection):
+    client_db = connection
+    tgbot = client_db["tgbot"]
+    current_schedule = tgbot[schedule_id]
+
+    await current_schedule.update_one(
+        {"_id": schedule_id},
+        {"$set": {"exams": exams}}
     )
