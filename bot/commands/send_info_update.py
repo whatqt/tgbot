@@ -8,7 +8,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from dotenv import load_dotenv
-from aiogram.exceptions import TelegramForbiddenError
+from aiogram.exceptions import TelegramForbiddenError, TelegramBadRequest
+from logic_logs.file.logger import logger
+
 
 
 load_dotenv()
@@ -71,9 +73,14 @@ async def update_yes(callback: types.CallbackQuery, state: FSMContext):
                     user_data["mesg_update"], 
                     parse_mode="HTML"
                 )
-            except TelegramForbiddenError: 
+            except (TelegramForbiddenError) as e: 
                 await bot.send_message(
-                    1752086646, f"id пидораса {id_user[0]}\nusername пидораса {id_user[1]}"
+                    1752086646, f"id, у которого возникла предвиденная ошибка: {id_user[0]}\n{e}"
+                )
+            except Exception as e:
+                logger.error("")
+                await bot.send_message(
+                    1752086646, f"id, у которого возникла непредвиденная ошибка: {id_user[0]}\n{e}"
                 )
         await state.clear()
         await callback.message.edit_text('Информация была успешно отправлена!')
