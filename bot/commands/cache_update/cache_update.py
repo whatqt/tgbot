@@ -73,7 +73,7 @@ async def upgrade_ch_by_time(message: types.Message):
             schedule_generation = generator_schedule()
             id_generation =  generator_id()
             group = 1   
-            while group <=32:
+            while group <=43:
                 try:
                     id_group = next(id_generation)
                     schedule = next(schedule_generation)

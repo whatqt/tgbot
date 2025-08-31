@@ -1,11 +1,22 @@
 from pymongo import MongoClient
-from logic_logs.file.logger import logger
+from pymongo.errors import DuplicateKeyError
 
 
 
 connection = MongoClient("localhost", 27017)
 tgbot = connection["tgbot"]
 schedules = [
+    "schedule_1027",
+    "schedule_1039",
+    "schedule_1035",
+    "schedule_1038",
+    "schedule_1028",
+    "schedule_1029",
+    "schedule_1032",
+    "schedule_1030",
+    "schedule_1031",
+    "schedule_1036",
+    "schedule_1037",
     "schedule_1008",
     "schedule_1014",
     "schedule_1010",
@@ -60,8 +71,11 @@ for schedule in schedules:
     # tgbot.create_collection(
     #     schedule
     # )
-    current_schedule = tgbot[schedule]
-    dict_schedule["_id"] = schedule
-    current_schedule.insert_one(dict_schedule)
-
-    logger.debug(f"{schedule} is create!")
+    try:
+        current_schedule = tgbot[schedule]
+        dict_schedule["_id"] = schedule
+        current_schedule.insert_one(dict_schedule)
+        print(f"{schedule} был создан")
+    except DuplicateKeyError: 
+        print(f"{schedule} уже был создан")
+        continue

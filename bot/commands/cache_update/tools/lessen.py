@@ -28,10 +28,14 @@ def generator_schedule():
         22: "schedule_981", 23: "schedule_1016", 24: "schedule_1022",
         25: "schedule_1020", 26: "schedule_1021", 27: "schedule_1017",
         28: "schedule_1018", 29: "schedule_1026", 30: "schedule_1025",
-        31: "schedule_1019", 32: "schedule_1024"
+        31: "schedule_1019", 32: "schedule_1024", 
+        33: "schedule_1027", 34: "schedule_1039", 35: "schedule_1035",
+        36:"schedule_1038", 37: "schedule_1028", 38: "schedule_1029",
+        39: "schedule_1032",40: "schedule_1030",41: "schedule_1031",
+        42: "schedule_1036", 43: "schedule_1037",
     }
 
-    my_shedule = range(1, 33)
+    my_shedule = range(1, 44)
 
     for i in my_shedule:
         yield ranges[i]
